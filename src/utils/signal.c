@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 13:50:02 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/08 20:51:46 by gbazart          ###   ########.fr       */
+/*   Created: 2024/01/04 14:16:55 by gbazart           #+#    #+#             */
+/*   Updated: 2024/01/08 20:51:54 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+void	sigint_handler(int signum)
 {
-	(void)argc;
-	(void)argv;
-	(void)envp;
-
-	minishell();
-	return (0);
+	(void)signum;
+	printf("minishell$ ");
 }
