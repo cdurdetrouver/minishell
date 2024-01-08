@@ -6,21 +6,23 @@
 #    By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 12:21:53 by gbazart           #+#    #+#              #
-#    Updated: 2023/12/08 17:36:39 by gbazart          ###   ########.fr        #
+#    Updated: 2024/01/07 20:18:07 by gbazart          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 FLAG = -Wall -Wextra -Werror
 OPTION = -c -I ./
-SRC = *.c
-OBJ = *.o
+SRC = $(wildcard *.c)
+OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
-$(NAME):
-	cc $(FLAG) $(OPTION) $(SRC)
+$(NAME):$(OBJ)
 	ar rc $(NAME) $(OBJ)
+
+%.o: %.c
+	cc $(FLAG) $(OPTION) -c $< -o $@
 
 clean:
 	/bin/rm -f $(OBJ)

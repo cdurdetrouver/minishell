@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 13:53:39 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/07 18:41:35 by gbazart          ###   ########.fr       */
+/*   Created: 2024/01/07 18:43:31 by gbazart           #+#    #+#             */
+/*   Updated: 2024/01/07 20:30:59 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
-void	free_all(char *line, t_cmd *cmd)
+/**
+ * @brief Execute the command
+ *
+ * @param cmd t_cmd
+ * @return 0 if works, 1 if not
+ */
+int	execute(t_cmd *cmd)
 {
-	free(line);
-	free(cmd->name);
-	while (cmd->args)
-	{
-		free(cmd->args);
-		cmd->args++;
-	}
+	if (cmd->name == NULL)
+		return (0);
+	if (ft_strcmp(cmd->name, "echo") == 0)
+		echo(cmd);
+	else if (ft_strcmp(cmd->name, "cd") == 0)
+		cd(cmd);
+	return (0);
 }

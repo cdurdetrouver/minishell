@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 13:53:39 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/07 18:41:35 by gbazart          ###   ########.fr       */
+/*   Created: 2024/01/07 18:28:15 by gbazart           #+#    #+#             */
+/*   Updated: 2024/01/07 20:31:12 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
-void	free_all(char *line, t_cmd *cmd)
+/**
+ * @brief Print the arguments
+ *
+ * @param args t_cmd
+ * @return 0 if works, 1 if not
+ */
+int	echo(t_cmd *args)
 {
-	free(line);
-	free(cmd->name);
-	while (cmd->args)
+	int	i;
+
+	i = 1;
+	while (i < args->nbr_arg)
 	{
-		free(cmd->args);
-		cmd->args++;
+		printf("%s ", args->args[i]);
+		i++;
 	}
+	printf("\n");
+	return (0);
 }
