@@ -1,6 +1,6 @@
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -I include/ -I libft/
+CFLAGS = -Wall -Werror -Wextra -g -I include/ -I libft/
 LIBFT = -L libft -lft
 SRC_DIR = ./src/
 SRC = $(shell find $(SRC_DIR) -type f -name "*.c")
@@ -21,7 +21,7 @@ $(NAME): $(OBJ)
 
 norminette:
 	norminette $(SRC_DIR)
-	norminette ./includes/
+	norminette ./include/
 
 clean:
 	@$(MAKE) -s clean -C ./libft
@@ -30,5 +30,8 @@ clean:
 fclean: clean
 	@$(MAKE) -s fclean -C ./libft
 	@/bin/rm -f $(NAME)
+
+valgrind : all
+	valgrind --leak-check=full --track-origins=yes ./$(NAME)
 
 re: fclean all

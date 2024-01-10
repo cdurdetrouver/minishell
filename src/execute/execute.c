@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   instructions.c                                     :+:      :+:    :+:   */
+/*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:16:17 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/08 20:52:11 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/10 05:33:23 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	execute(char **args)
+void	execute(t_data *data)
 {
-	if (builtin(args))
-		return ;
+	if (is_builtin(data->start->argv[0]))
+		builtin(data->start->argv);
 }
