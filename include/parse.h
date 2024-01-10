@@ -1,19 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 14:16:55 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/10 16:01:57 by gbazart          ###   ########.fr       */
+/*   Created: 2024/01/10 15:14:34 by gbazart           #+#    #+#             */
+/*   Updated: 2024/01/10 15:14:46 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef PARSE_H
+# define PARSE_H
 
-void	sigint_handler(int signum)
-{
-	(void)signum;
-	exit(0);
-}
+#endif

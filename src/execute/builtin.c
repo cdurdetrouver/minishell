@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:15:21 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/10 01:38:24 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/10 16:50:16 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * @param args char ** of arguments
  * @return int 1 if builtin, 0 if not
  */
-int	builtin(char **args)
+int	builtin(char **args, t_data *data)
 {
 	if (ft_strcmp(args[0], "echo") == 0)
 		return (echo(args));
@@ -33,7 +33,7 @@ int	builtin(char **args)
 	else if (ft_strcmp(args[0], "env") == 0)
 		return (env());
 	else if (ft_strcmp(args[0], "exit") == 0)
-		return (exit_builtin(args));
+		return (exit_builtin(args, data));
 	return (0);
 }
 

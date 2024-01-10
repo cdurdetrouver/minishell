@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:47:53 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/10 04:52:01 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/10 16:51:33 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "libft.h"
+# include "parse.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
@@ -22,6 +23,8 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
+
+extern int g_sigint;
 
 typedef enum e_operator
 {
@@ -52,25 +55,20 @@ typedef struct s_data
 {
 	t_token			*start;
 	t_env			*env;
+    char **envp;
 	char			*line;
 	bool			exit;
 	bool			exec;
 }					t_data;
+
+
+# include "execute.h"
 
 void				minishell(t_data *data);
 bool				is_builtin(char *s);
 
 // EXECUTE
 void				execute(t_data *data);
-int					builtin(char **args);
-int					echo(char **args);
-int					cd(char **args);
-int					pwd(void);
-int					export(char **args);
-int					unset(char **args);
-int					env(void);
-int					exit_builtin(char **args);
-void				sigint_handler(int signum);
 
 // PARSE
 void				parse(t_data *data);
@@ -79,10 +77,14 @@ void				parse(t_data *data);
 void				free_start(t_token *start);
 void				free_env(t_env *head);
 void				free_tab(char **tab);
-char				*ft_strjoin2(char *s1, char *s2);
 
 // UTILS
 t_env				*ft_lstenv(char **envp);
 void				print_env(t_env *head);
+char	            **ft_ssdup(char **ss);
+char	*joinss(char **ss);
+void	print_tab(char **tab);
+char	*ft_getenv(t_env *env, char *key);
+char	*ft_strjoin2(char *s1, char *s2);
 
 #endif

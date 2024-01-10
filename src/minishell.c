@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:12:56 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/10 05:19:38 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/10 16:47:33 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static char	*joinss(char **ss)
-{
-	char	*line;
-	int		i;
-
-	i = 0;
-	line = ft_strdup("");
-	while (ss[i])
-	{
-		line = ft_strjoin2(line, ss[i]);
-		i++;
-	}
-	return (line);
-}
 
 static char	*lastdir(void)
 {
@@ -82,7 +67,6 @@ static char	*getprompt(void)
 void	minishell(t_data *data)
 {
 	char	*prompt;
-	char	*replacement;
 
 	data->start = NULL;
 	using_history();
@@ -91,9 +75,6 @@ void	minishell(t_data *data)
 		prompt = getprompt();
 		data->line = readline(prompt);
 		add_history(data->line);
-		replacement = "This is the replacement text";
-		rl_replace_line(replacement, 0);
-		rl_redisplay();
 		parse(data);
 		if (data->exec == true)
 			execute(data);

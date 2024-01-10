@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:17:26 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/10 05:39:13 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/10 16:49:02 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ int	cd(char **args)
 			return (0);
 		}
 	}
-	path = args[1];
+	else
+		path = args[1];
 	if (chdir(path) != 0)
 	{
 		ft_putstr_fd("minishell: cd: ", 1);
@@ -72,16 +73,25 @@ int	cd(char **args)
 	return (1);
 }
 
+/**
+ * print the current working directory
+ *
+ * @return int 1 if it works, 0 if don't.
+ */
 int	env(void)
 {
 	printf("PATH=%s\n", getenv("PATH"));
 	return (1);
 }
 
-int	exit_builtin(char **args)
+int	exit_builtin(char **args, t_data *data)
 {
 	if (args[1] == NULL)
+	{
+		printf("exit\n");
+		data->exit = true;
 		exit(1);
+	}
 	else if (args[1] && args[2] == NULL)
 	{
 		if (!ft_isnumeric(args[1]))
@@ -91,6 +101,8 @@ int	exit_builtin(char **args)
 			ft_putstr_fd(": numeric argument required\n", 1);
 			exit(255);
 		}
+		printf("exit\n");
+		data->exit = true;
 		exit(ft_atoi(args[1]));
 	}
 	else

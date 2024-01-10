@@ -3,19 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:50:02 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/10 04:49:19 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/10 16:47:14 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int			g_sigint = 0;
+
 static void	init_data(t_data *data, char **envp)
 {
 	data->exec = false;
 	data->env = ft_lstenv(envp);
+	data->envp = ft_ssdup(envp);
 	data->exit = false;
 }
 
@@ -27,6 +30,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	init_data(&data, envp);
 	minishell(&data);
+	free_tab(data.envp);
 	free_env(data.env);
-	return (0);
+	return (g_sigint);
 }
