@@ -13,17 +13,19 @@
 #include "libft.h"
 
 /**
- * @brief Compares byte string s1 against byte string s2.  Both strings are
- * assumed to be n bytes long.
+ * @brief Compares byte string s1 against byte string s2.
+ * Both strings are assumed to be n bytes long.
  *
  * @param s1 (const void *) The first string to be compared.
  * @param s2 (const void *) The second string to be compared.
  * @param n (size_t) The maximum number of bytes to compare.
-
-	* @return (int) The difference between the first differing pair of bytes (treated
- * as unsigned char values, so that `\200' is greater than `\0', for example).
- * Zero-length strings are always identical.  This behavior is not required by
- * C and portable code should only depend on the sign of the returned value.
+ *
+ * @return (int) The difference between the first differing pair
+ * of bytes (treated as unsigned char values).
+ * Zero-length strings are always identical.
+ * This behavior is not required by
+ * C and portable code should only depend on the sign
+ * of the returned value.
  */
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
