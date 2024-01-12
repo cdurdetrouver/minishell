@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 04:59:06 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/11 22:04:05 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/12 13:50:37 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	print_unset_error(char **args)
 	ft_putstr_fd("minishell: unset: `", 1);
 	ft_putstr_fd(args[0], 1);
 	ft_putstr_fd("': not a valid identifier\n", 1);
+	g_sig.code_prompt = 1;
 	return (0);
 }
 
@@ -38,8 +39,12 @@ int	unset(char **args, int fd)
 	{
 		if (ft_strchr(args[i], '='))
 			ft_putstr_fd("minishell: unset: `", fd);
-		ft_putstr_fd(args[i], fd);
-		ft_putstr_fd("': not a valid identifier\n", fd);
+		else
+		{
+			ft_putstr_fd(args[i], fd);
+			ft_putstr_fd("': not a valid identifier\n", fd);
+			g_sig.code_prompt = 1;
+		}
 		i++;
 	}
 	return (1);
