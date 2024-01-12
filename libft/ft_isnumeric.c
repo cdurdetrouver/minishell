@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isnumeric.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 13:31:33 by gbazart           #+#    #+#             */
-/*   Updated: 2023/12/16 16:12:10 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/11 16:54:33 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * @brief check if a string is numeric.
+ *
+ * @param str (char *) string to check
+ * @return (int) 1 if true, 0 if false
+ */
 int	ft_isnumeric(char *str)
 {
 	int	i;

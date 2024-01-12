@@ -3,15 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:24:03 by gbazart           #+#    #+#             */
-/*   Updated: 2023/11/14 17:21:36 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/11 16:49:36 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * @brief find a string in a string.
+ *
+ * @param big (const char *) string
+ * @param little (const char *) string to find
+ * @param len (size_t) number of char to search
+ * @return (char *) pointer to the string equal in the string or NULL.
+ */
 char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
 	size_t	len_little;

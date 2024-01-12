@@ -6,12 +6,18 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 16:50:26 by gbazart           #+#    #+#             */
-/*   Updated: 2023/12/08 17:44:08 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/11 16:58:48 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * @brief Outputs the integer ’n’ to the standard output.
+ *
+ * @param n (int) The integer to output.
+ * @return (int) The number of characters output.
+ */
 int	ft_putnbr(int n)
 {
 	char	*temp;

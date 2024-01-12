@@ -3,15 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:49:01 by gbazart           #+#    #+#             */
-/*   Updated: 2023/11/14 17:02:30 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/11 16:48:10 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * @brief copy a string.
+ *
+ * @param dst (char *) destination
+ * @param src (char *) source
+ * @param size (size_t) size of the copy
+ * @return (size_t) size of the source
+ */
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
 	size_t	len;

@@ -1,6 +1,6 @@
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g -I include/ -I libft/
+CFLAGS = -Wall -Werror -Wextra -I include/ -I libft/
 LIBFT = -L libft -lft
 SRC_DIR = ./src/
 SRC = $(shell find $(SRC_DIR) -type f -name "*.c")
@@ -17,7 +17,7 @@ $(NAME): $(OBJ)
 
 %.o: %.c
 	@printf "\033[0;33mGenerating minishell objects... %-33.33s\r" $@
-	@${CC} ${CFLAGS} -c $< -o $@
+	@${CC} ${CFLAGS} -g -c $< -o $@
 
 norminette:
 	norminette $(SRC_DIR)

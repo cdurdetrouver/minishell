@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 18:09:23 by gbazart           #+#    #+#             */
-/*   Updated: 2023/12/08 18:11:25 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/11 16:46:31 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,13 @@ void	*clean(char **dest, int stop)
 	return (NULL);
 }
 
+/**
+ * @brief split a string with a separator.
+ *
+ * @param str (const char *) string to split
+ * @param charset (char) separator
+ * @return (char **) don't forget to free it.
+ */
 char	**ft_split(const char *str, char charset)
 {
 	char	**dest;

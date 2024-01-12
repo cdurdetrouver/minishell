@@ -3,15 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:22:29 by gbazart           #+#    #+#             */
-/*   Updated: 2023/11/14 18:02:25 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/11 16:44:09 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * @brief join two strings.
+ *
+ * @param s1 (char *) string 1
+ * @param s2 (char *) string 2
+ * @return (char *) don't forget to free it.
+ */
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*new;

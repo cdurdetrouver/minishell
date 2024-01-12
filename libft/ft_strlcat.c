@@ -3,15 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 14:48:23 by gbazart           #+#    #+#             */
-/*   Updated: 2023/11/15 14:23:29 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/11 16:48:06 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * @brief copy a string and didn't replace what's in destination.
+ *
+ * @param dst (char *) destination
+ * @param src (char *) source
+ * @param size (size_t) size of the copy
+ * @return (size_t) size of the source
+ */
 size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
 	size_t	i;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:27:37 by gbazart           #+#    #+#             */
-/*   Updated: 2023/11/20 14:50:50 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/11 16:50:29 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,13 @@ int	ft_issame(const char *s1, const char s2)
 	return (0);
 }
 
+/**
+ * @brief trim a string with a set of char.
+ *
+ * @param s1 (char *) string to trim
+ * @param set (char *) set of char to trim
+ * @return (char *) don't forget to free it.
+ */
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*dest;
@@ -37,8 +44,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 	while (*(s1 + start) && ft_issame(set, *(s1 + start)))
 		start++;
 	end = ft_strlen(s1);
-	while (*(s1 + (end - 1))
-		&& ft_issame(set, *(s1 + (end - 1))) && end > start)
+	while (*(s1 + (end - 1)) && ft_issame(set, *(s1 + (end - 1)))
+		&& end > start)
 		end--;
 	dest = ft_substr(s1, start, end - start);
 	if (!dest)

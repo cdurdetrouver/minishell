@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 15:50:43 by gbazart           #+#    #+#             */
-/*   Updated: 2023/12/08 17:40:57 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/11 16:57:32 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ int	conversions(const char c, va_list list)
 		return (0);
 }
 
+/**
+ * @brief Outputs the string s to the standard output.
+ *
+ * @param string (const char *) The string to output.
+ * @return (int) The number of characters outputted.
+ */
 int	ft_printf(const char *string, ...)
 {
 	va_list	list;

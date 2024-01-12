@@ -6,12 +6,18 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 16:47:16 by gbazart           #+#    #+#             */
-/*   Updated: 2023/12/08 17:46:15 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/11 16:47:42 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * @brief write a string on the standard output.
+ *
+ * @param s (char *) string to write
+ * @return (int) number of char written
+ */
 int	ft_putstr(char *s)
 {
 	if (s == NULL)

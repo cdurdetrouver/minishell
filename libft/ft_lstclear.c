@@ -6,26 +6,19 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:59:26 by marvin            #+#    #+#             */
-/*   Updated: 2023/12/08 17:59:05 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/11 16:56:05 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/16 15:59:26 by marvin            #+#    #+#             */
-/*   Updated: 2023/11/20 14:58:53 by gbazart          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "libft.h"
-
+/**
+ * @brief clear a list.
+ *
+ * @param lst (t_list **) The address of a pointer to the first link of a list.
+ * @param del (void (*)(void *)) The address of the function used to delete the
+ * content of the element.
+ */
 void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
 	t_list	*current;

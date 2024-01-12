@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:08:45 by gbazart           #+#    #+#             */
-/*   Updated: 2023/11/09 15:10:17 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/11 16:48:14 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * @brief count the number of char in a string.
+ *
+ * @param s (char *) string
+ * @return (size_t) number of char
+ */
 size_t	ft_strlen(const char *s)
 {
 	size_t	i;

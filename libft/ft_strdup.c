@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:04:42 by gbazart           #+#    #+#             */
-/*   Updated: 2023/11/09 15:45:31 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/11 16:45:14 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * @brief copy a string with malloc.
+ *
+ * @param s (char *) string to copy
+ * @return (char *) don't forget to free it.
+ */
 char	*ft_strdup(const char *s)
 {
 	char	*dest;

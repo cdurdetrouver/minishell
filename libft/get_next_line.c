@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 16:20:44 by gbazart           #+#    #+#             */
-/*   Updated: 2023/12/17 16:20:20 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/11 16:52:01 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,14 @@ char	*ft_sub_2(char **rest, char **line, char **buf)
 	return (str);
 }
 
+/**
+ * @brief Get the next line from a file
+ * descriptor and free static variable
+ * when we reach the end of the file.
+ *
+ * @param fd (int) file descriptor
+ * @return (char *) don't forget to free it.
+ */
 char	*get_next_line(int fd)
 {
 	char		*buf;

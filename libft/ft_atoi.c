@@ -6,12 +6,18 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:30:15 by gbazart           #+#    #+#             */
-/*   Updated: 2023/12/08 17:54:32 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/11 16:52:46 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * @brief convert a string to int.
+ *
+ * @param nptr (const char *) string to convert
+ * @return (int) string converted
+ */
 int	ft_atoi(const char *nptr)
 {
 	int		n;

@@ -3,15 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 16:10:28 by gbazart           #+#    #+#             */
-/*   Updated: 2023/11/20 12:41:06 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/11 16:48:48 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * @brief apply a function to each char of a string.
+ *
+ * @param s (char *) string to apply the function
+ * @param f (char (*)(unsigned int, char)) function to apply
+ * @return (char *) new string
+ */
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
 	char	*dest;

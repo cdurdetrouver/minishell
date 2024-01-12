@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 14:19:19 by gbazart           #+#    #+#             */
-/*   Updated: 2023/12/12 16:21:37 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/11 16:53:01 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * @brief convert a string to long.
+ *
+ * @param str (const char *) string to convert
+ * @return (long) string converted
+ */
 long	ft_atol(const char *str)
 {
 	long	num;

@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 20:40:47 by gbazart           #+#    #+#             */
-/*   Updated: 2023/12/10 20:50:08 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/11 16:52:31 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ double	convert_fractional_part(const char *str)
 	return (result);
 }
 
+/**
+ * @brief convert a string to a double.
+ *
+ * @param str (const char *) string to convert
+ * @return (double) converted string
+ */
 double	ft_atodbl(const char *str)
 {
 	double	result;

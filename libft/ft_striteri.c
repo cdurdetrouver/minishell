@@ -3,16 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 16:34:00 by gbazart           #+#    #+#             */
-/*   Updated: 2023/11/15 16:41:56 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/11 16:49:15 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_striteri(char *s, void (*f)(unsigned int, char*))
+/**
+ * @brief Applies the function f to each character of the string passed
+ * as argument, and passing its index as first argument. Each character
+ * is passed by address to f.
+ *
+ * @param s (char *) string to iterate
+ * @param f (void (*)(unsigned int, char *)) function to apply
+ */
+void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
 	size_t	i;
 

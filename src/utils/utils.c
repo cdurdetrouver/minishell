@@ -3,15 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 00:23:34 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/10 16:40:28 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/11 22:49:56 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief do the same as joiun but free the first string.
+ *
+ * @param s1 (char *) string to join and free.
+ * @param s2 (char *) string to join.
+ * @return (char *) don't forget to free it.
+ */
 char	*ft_strjoin2(char *s1, char *s2)
 {
 	char	*str;
@@ -32,19 +39,4 @@ char	*ft_strjoin2(char *s1, char *s2)
 	str[i + j] = 0;
 	free(s1);
 	return (str);
-}
-
-char	*joinss(char **ss)
-{
-	char	*line;
-	int		i;
-
-	i = 0;
-	line = ft_strdup("");
-	while (ss[i])
-	{
-		line = ft_strjoin2(line, ss[i]);
-		i++;
-	}
-	return (line);
 }

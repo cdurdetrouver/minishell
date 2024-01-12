@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 16:06:28 by gbazart           #+#    #+#             */
-/*   Updated: 2023/12/08 17:50:32 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/11 16:47:48 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ char	*ft_utoa(unsigned int n)
 	return (fill_str(str, n, len));
 }
 
+/**
+ * @brief print an unsigned int.
+ *
+ * @param n (unsigned int) number to print
+ * @return (int) number of printed chars.
+ */
 int	ft_putu(unsigned int n)
 {
 	char	*str;

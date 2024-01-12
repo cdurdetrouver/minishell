@@ -3,15 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:17:00 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/04 15:20:38 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/11 16:47:56 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * @brief Compare two strings.
+ *
+ * @param s1 (const char *) first string
+ * @param s2 (const char *) second string
+ * @return (int) 0 if the strings are identical,
+	otherwise the difference between
+ * the first two different bytes.
+ */
 int	ft_strcmp(const char *s1, const char *s2)
 {
 	int	i;

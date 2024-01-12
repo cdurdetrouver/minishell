@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:47:48 by gbazart           #+#    #+#             */
-/*   Updated: 2023/12/08 17:41:45 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/11 16:58:16 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,15 @@ int	ft_hexlen(unsigned int num)
 	return (i);
 }
 
+/**
+ * @brief Outputs the unsigned int ’num’ in hexadecimal to the standard output.
+ *
+ * @param num (unsigned int) The number to output.
+ * @param c (const char) The case of the hexadecimal letters to use.
+ * @return (int) The number of characters output.
+ * @note If c is 'x', the letters are lowercase, if c is 'X', the letters are
+ * uppercase.
+ */
 int	ft_puthex(unsigned int num, const char c)
 {
 	if (num == 0)

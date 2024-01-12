@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 13:42:39 by gbazart           #+#    #+#             */
-/*   Updated: 2023/11/20 13:44:34 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/11 16:54:59 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ char	*ft_putina(char *dest, long int number, int len)
 	return (dest);
 }
 
+/**
+ * @brief convert a int to string.
+ *
+ * @param n (int) int to convert
+ * @return (char *) string converted
+ */
 char	*ft_itoa(int n)
 {
 	char		*dst;

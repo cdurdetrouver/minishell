@@ -3,15 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 16:37:02 by gbazart           #+#    #+#             */
-/*   Updated: 2023/11/20 15:15:29 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/11 16:50:36 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * @brief create a substring from a string.
+ *
+ * @param s (char *) string
+ * @param start (unsigned int) start index
+ * @param len (size_t) length of the substring
+ * @return (char *) don't forget to free it.
+ */
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*dest;

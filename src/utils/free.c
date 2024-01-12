@@ -6,13 +6,18 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:53:39 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/10 05:30:38 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/11 16:36:15 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_tab(char **tab)
+/**
+ * @brief free a tab alloc with malloc.
+ *
+ * @param tab (void **) tab to free.
+ */
+void	free_tab(void **tab)
 {
 	int	i;
 
@@ -22,30 +27,22 @@ void	free_tab(char **tab)
 	free(tab);
 }
 
-void	free_env(t_env *head)
+/**
+ * @brief free for the end of the program.
+ *
+ * @param data
+ */
+void	free_end(t_data *data)
 {
-	t_env	*tmp;
-
-	rl_clear_history();
-	while (head)
-	{
-		tmp = head;
-		head = head->next;
-		free(tmp->key);
-		free(tmp->value);
-		free(tmp);
-	}
+	free_tab((void **)data->env_cpy);
 }
 
-void	free_start(t_token *head)
+/**
+ * @brief free for each loop of the program.
+ *
+ * @param data
+ */
+void	free_start(t_data *data)
 {
-	t_token	*tmp;
-
-	while (head)
-	{
-		tmp = head;
-		head = head->next;
-		free_tab(tmp->argv);
-		free(tmp);
-	}
+	free(data->line);
 }

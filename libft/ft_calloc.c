@@ -3,15 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 13:12:06 by gbazart           #+#    #+#             */
-/*   Updated: 2023/11/20 15:08:54 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/11 16:54:01 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * @brief allocate memory and fill it with 0.
+ *
+ * @param nmemb (size_t) number of elements
+ * @param size (size_t) size of each element
+ * @return (void *) pointer to the allocated memory
+ */
 void	*ft_calloc(size_t nmemb, size_t size)
 {
 	unsigned char	*tab;

@@ -3,15 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 18:31:57 by marvin            #+#    #+#             */
-/*   Updated: 2023/11/20 14:38:34 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/11 16:56:32 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * @brief Iterates the list ’lst’ and applies the function ’f’ to the content of
+ * each element. Creates a new list resulting of the successive applications of
+ * the function ’f’. The ’del’ function is used to delete the content of an
+ * element if needed.
+ *
+ * @param lst (t_list *) The address of a pointer to an element.
+ * @param f (void *) The address of the function used to iterate on the list.
+ * @param del (void *) The address of the function used to delete the content of
+ * an element if needed.
+ * @return (t_list *) The new list. NULL if the allocation fails.
+ */
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
 	t_list	*new;

@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 15:48:08 by gbazart           #+#    #+#             */
-/*   Updated: 2023/12/08 17:46:03 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/11 16:58:55 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@ int	ft_puthexptr(unsigned long long num)
 	return (ft_hexlenptr(num));
 }
 
+/**
+ * @brief Outputs the pointer ’ptr’ in hexadecimal to the standard output.
+ *
+ * @param ptr (void *) The pointer to output.
+ * @return (int) The number of characters output.
+ */
 int	ft_putptr(void *ptr)
 {
 	int	len;
