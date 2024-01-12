@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 02:02:48 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/12 02:03:15 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/12 14:45:58 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,22 @@ char	*getprompt(void)
 	char	*tmp;
 	char	prompt[128][6];
 
-	line = ft_strdup("");
+	if (g_sig.code_prompt)
+		line = ft_strdup("💥 ");
+	else
+		line = ft_strdup("\001\xF0\x9F\002\x9F\xA2 ");
 	ft_strlcpy(prompt[0], "\001\033[1;32m\002", 18);
 	line = ft_strjoin2(line, prompt[0]);
 	tmp = getenv("USER");
-	ft_strlcpy(prompt[1], tmp, ft_strlen(tmp));
+	ft_strlcpy(prompt[1], tmp, ft_strlen(tmp) + 1);
 	line = ft_strjoin2(line, prompt[1]);
 	ft_strlcpy(prompt[2], "\001\033[0m\002@\001\033[1;33m", 128);
 	line = ft_strjoin2(line, prompt[2]);
-	ft_strlcpy(prompt[3], "\002minishell\001\033[0m\002: \001\033[1;34m\002…/",
-		50);
+	ft_strlcpy(prompt[3],
+		"\002minishell\001\033[0m\002: \001\033[1;34m\002.../", 52);
 	line = ft_strjoin2(line, prompt[3]);
 	tmp = lastdir();
-	ft_strlcpy(prompt[4], tmp, ft_strlen(tmp));
+	ft_strlcpy(prompt[4], tmp, ft_strlen(tmp) + 1);
 	line = ft_strjoin2(line, prompt[4]);
 	free(tmp);
 	ft_strlcpy(prompt[5], "\001\033[0m\002$ ", 17);
