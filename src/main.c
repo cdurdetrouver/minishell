@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:50:02 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/12 02:10:35 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/12 13:27:23 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int			g_exit = 0;
+t_sig		g_sig;
 
 /**
  * @brief main loop of the program.
@@ -30,24 +30,25 @@ void	minishell(t_data *data)
 		signal(SIGINT, sigint_handler);
 		prompt = getprompt();
 		data->line = readline(prompt);
-		free(prompt);
+		g_sig.code_prompt = 0;
 		if (data->line == NULL)
 		{
 			printf("exit\n");
-			g_exit = 1;
+			free(prompt);
+			g_sig.exit_code = 1;
 			break ;
 		}
 		printf("line : %s\n", data->line);
 		add_history(data->line);
-		// parse(data);
-		// if (data->exec == true)
-		// 	execute(data);
+		parse(data);
+		if (data->exec == true)
+			execute(data);
 		if (ft_strncmp(data->line, "exit", 4) == 0)
 		{
-			g_exit = 32;
+			g_sig.exit_code = 32;
 			data->exit = true;
 		}
-		free_start(data);
+		free_start(data, prompt);
 	}
 }
 
@@ -64,14 +65,23 @@ static void	init_data(t_data *data, char **envp)
 	data->exit = false;
 }
 
+/**
+ * @brief main function of the program
+ *
+ * @param argc (int) number of string in argv
+ * @param argv (char **) parameter put in the program
+ * @param envp (char **) environment variable
+ * @return (int) exit code.
+ */
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
 	(void)argc;
 	(void)argv;
+	g_sig.code_prompt = 0;
 	init_data(&data, envp);
 	minishell(&data);
 	free_end(&data);
-	return (g_exit);
+	return (g_sig.exit_code);
 }
