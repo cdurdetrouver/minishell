@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:53:39 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/15 01:16:01 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/15 17:50:48 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ void	free_cmd(t_cmd *lst)
 		tmp = lst->next;
 		free(lst->cmd);
 		free_tab((void **)lst->argv);
+		// if (lst->cmd_path)
+		// 	free(lst->cmd_path);
+		lst->cmd_path = NULL;
 		free(lst);
 		lst = tmp;
 	}

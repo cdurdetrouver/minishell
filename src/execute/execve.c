@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:02:42 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/15 01:29:16 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/15 14:56:18 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,17 @@ char	*get_cmd_path(char *cmd)
 
 void	exec_cmd(t_data *data, t_cmd *cmd)
 {
-	char	*cmd_path;
-
-	cmd_path = get_cmd_path(cmd->cmd);
-	if (cmd_path == NULL)
+	cmd->cmd_path = get_cmd_path(cmd->cmd);
+	if (cmd->cmd_path == NULL)
 	{
 		ft_putstr_fd("command not found\n", 2);
 		exit(126);
 	}
-	if (execve(cmd_path, cmd->argv, data->env_cpy) == -1)
+	if (execve(cmd->cmd_path, cmd->argv, data->env_cpy) == -1)
 	{
 		ft_putstr_fd("execve failed\n", 2);
-		free(cmd_path);
 		exit(126);
 	}
-	free(cmd_path);
 	exit(0);
 }
 

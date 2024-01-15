@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:10:21 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/15 00:24:21 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/15 17:51:13 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	exec_one(t_cmd *cmd, t_data *data)
+void	exec_one(t_cmd *cmd, t_data *data)
 {
 	if (is_builtin(cmd->cmd) == true)
 		builtin(cmd, data);
@@ -27,7 +27,9 @@ void	execute(t_data *data)
 	cmd = data->cmd;
 	if (has_pipe(cmd) == true)
 	{
-		printf("pipe\n");
+		// printf("pipe\n");
+		// printf("%s %s\n", cmd->cmd, cmd->next->cmd);
+		fflush(stdout);
 		execute_pipe(cmd, data);
 	}
 	else

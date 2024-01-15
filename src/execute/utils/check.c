@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 16:40:53 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/14 17:35:23 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/15 17:08:23 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 bool	has_pipe(t_cmd *cmd)
 {
-	while (cmd)
+	t_cmd	*tmp;
+
+	tmp = cmd;
+	while (tmp)
 	{
-		if (cmd->fd_in == -1 || cmd->fd_out == -1)
+		if (tmp->fd_in == -1 || tmp->fd_out == -1)
 			return (true);
-		cmd = cmd->next;
+		tmp = tmp->next;
 	}
 	return (false);
 }
