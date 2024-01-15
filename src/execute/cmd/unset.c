@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 04:59:06 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/12 13:50:37 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/14 17:18:26 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	print_unset_error(char **args)
 	ft_putstr_fd("minishell: unset: `", 1);
 	ft_putstr_fd(args[0], 1);
 	ft_putstr_fd("': not a valid identifier\n", 1);
-	g_sig.code_prompt = 1;
+	g_sig.prompt_erreur = true;
 	return (0);
 }
 
@@ -28,7 +28,7 @@ int	print_unset_error(char **args)
  * @param fd (int)
  * @return (int) 1 if it works, 0 if don't.
  */
-int	unset(char **args, int fd)
+int	unset(char **args)
 {
 	int	i;
 
@@ -38,12 +38,12 @@ int	unset(char **args, int fd)
 	while (args[i])
 	{
 		if (ft_strchr(args[i], '='))
-			ft_putstr_fd("minishell: unset: `", fd);
+			ft_putstr_fd("minishell: unset: `", 1);
 		else
 		{
-			ft_putstr_fd(args[i], fd);
-			ft_putstr_fd("': not a valid identifier\n", fd);
-			g_sig.code_prompt = 1;
+			ft_putstr_fd(args[i], 1);
+			ft_putstr_fd("': not a valid identifier\n", 1);
+			g_sig.prompt_erreur = true;
 		}
 		i++;
 	}

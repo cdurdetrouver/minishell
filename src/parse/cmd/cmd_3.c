@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 11:21:42 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/11 15:52:30 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/13 00:18:49 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ t_cmd	*create_cmd(t_token *token, int i)
 	cmd = cmdnew(str, t);
 	if (!cmd)
 		return (NULL);
-	cmd->cmd_arg = char_arr(cmd);
+	cmd->argv = char_arr(cmd);
 	cmd->cmd_path = NULL;
 	return (cmd);
 }

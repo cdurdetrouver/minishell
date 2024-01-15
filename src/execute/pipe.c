@@ -1,43 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/11 17:06:36 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/14 17:17:29 by gbazart          ###   ########.fr       */
+/*   Created: 2024/01/14 18:03:39 by gbazart           #+#    #+#             */
+/*   Updated: 2024/01/14 22:52:55 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/**
- * @brief export the args given.
- *
- * @param args (char **)
- * @param fd (int)
- * @return (int) 1 if it works, 0 if don't.
- */
-int	export_builtin(char **args, char **env_cpy)
+int	execute_pipe(t_cmd *cmd, t_data *data)
 {
-	int	i;
+	int		fd[2];
+	pid_t	pid;
 
-	i = 1;
-	if (!args[1])
-		return (env(env_cpy));
-	while (args[i])
+	(void)cmd;
+	(void)data;
+	pipe(fd);
+	pid = fork();
+	if (pid == 0)
 	{
-		if (ft_strchr(args[i], '='))
-		{
-			if (ft_strchr(args[i], '+'))
-				printf("export +\n");
-			else
-				printf("export =\n");
-		}
-		else
-			ft_putstr_fd("export: not a valid identifier\n", 1);
-		i++;
+		dup2(fd[1], 1);
+		close(fd[0]);
+		printf("pipe\n");
+		exit(0);
+	}
+	else
+	{
+		dup2(fd[0], 0);
+		close(fd[1]);
+		printf("pipe\n");
+		waitpid(pid, NULL, 0);
 	}
 	return (1);
 }

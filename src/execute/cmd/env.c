@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 23:19:50 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/11 17:14:40 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/14 17:17:15 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
  * @param fd (int)
  * @return (int) 1 if it works, 0 if don't.
  */
-int	env(char **env, int fd)
+int	env(char **env)
 {
 	while (*env)
 	{
-		ft_putstr_fd(*env, fd);
-		ft_putchar_fd('\n', fd);
+		ft_putstr_fd(*env, 1);
+		ft_putchar_fd('\n', 1);
 		env++;
 	}
 	return (1);

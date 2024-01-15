@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:15:21 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/11 22:11:25 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/15 00:24:31 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,51 +15,38 @@
 /**
  * @brief check if the command is a builtin and execute it.
  *
- * @param args (char **) arguments
+ * @param cmd (t_cmd *)
  * @param data (t_data *)
  *
  * @return int 1 if builtin, 0 if not
  */
-int	builtin(char **args, t_data *data, int fd)
+int	builtin(t_cmd *cmd, t_data *data)
 {
-	if (ft_strcmp(args[0], "echo") == 0)
-		return (echo(args, fd));
-	else if (ft_strcmp(args[0], "cd") == 0)
-		return (cd(args));
-	else if (ft_strcmp(args[0], "pwd") == 0)
-		return (pwd(fd));
-	else if (ft_strcmp(args[0], "export") == 0)
-		return (export_builtin(args, fd, data->env_cpy));
-	else if (ft_strcmp(args[0], "unset") == 0)
-		return (unset(args, fd));
-	else if (ft_strcmp(args[0], "env") == 0)
-		return (env(data->env_cpy, fd));
-	else if (ft_strcmp(args[0], "exit") == 0)
-		return (exit_builtin(args, data));
-	return (0);
-}
+	int	fd[2];
 
-/**
- * @brief check if the command is a builtin.
- *
- * @param str (char *) command
- * @return true if builtin, false if not
- */
-bool	is_builtin(char *str)
-{
-	if (ft_strcmp(str, "echo") == 0)
-		return (true);
-	else if (ft_strcmp(str, "cd") == 0)
-		return (true);
-	else if (ft_strcmp(str, "pwd") == 0)
-		return (true);
-	else if (ft_strcmp(str, "export") == 0)
-		return (true);
-	else if (ft_strcmp(str, "unset") == 0)
-		return (true);
-	else if (ft_strcmp(str, "env") == 0)
-		return (true);
-	else if (ft_strcmp(str, "exit") == 0)
-		return (true);
-	return (false);
+	fd[0] = dup(0);
+	fd[1] = dup(1);
+	if (cmd->fd_in != -1)
+		dup2(cmd->fd_in, 0);
+	if (cmd->fd_out != -1)
+		dup2(cmd->fd_out, 1);
+	if (ft_strcmp(cmd->argv[0], "echo") == 0)
+		return (echo(cmd->argv));
+	else if (ft_strcmp(cmd->argv[0], "cd") == 0)
+		return (cd(cmd->argv));
+	else if (ft_strcmp(cmd->argv[0], "pwd") == 0)
+		return (pwd());
+	else if (ft_strcmp(cmd->argv[0], "export") == 0)
+		return (export_builtin(cmd->argv, data->env_cpy));
+	else if (ft_strcmp(cmd->argv[0], "unset") == 0)
+		return (unset(cmd->argv));
+	else if (ft_strcmp(cmd->argv[0], "env") == 0)
+		return (env(data->env_cpy));
+	else if (ft_strcmp(cmd->argv[0], "exit") == 0)
+		return (exit_builtin(cmd->argv, data));
+	dup2(fd[0], 0);
+	dup2(fd[1], 1);
+	close(fd[0]);
+	close(fd[1]);
+	return (0);
 }

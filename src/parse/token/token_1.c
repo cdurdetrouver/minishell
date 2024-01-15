@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 16:31:16 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/11 15:52:09 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/13 00:23:27 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	tokenclear(t_token *lst)
 {
 	t_token	*tmp;
 
+	if (!lst)
+		return ;
 	lst = tokenfirst(lst);
 	while (lst)
 	{

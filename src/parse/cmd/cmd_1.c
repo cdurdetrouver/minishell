@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:13:23 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/12 02:00:29 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/13 00:18:04 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	cmdclear(t_cmd *lst)
 		tmp = lst->next;
 		free(lst->cmd);
 		tokenclear(lst->token);
-		free_tab((void **)lst->cmd_arg);
+		free_tab((void **)lst->argv);
 		if (lst->cmd_path)
 			free(lst->cmd_path);
 		free(lst);

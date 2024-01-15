@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 23:18:48 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/11 17:14:43 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/14 17:17:06 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  * @param fd (int)
  * @return (int) 1 if it works, 0 if don't.
  */
-int	echo(char **args, int fd)
+int	echo(char **args)
 {
 	int	i;
 	int	n;
@@ -33,12 +33,12 @@ int	echo(char **args, int fd)
 	}
 	while (args[i])
 	{
-		ft_putstr_fd(args[i], fd);
+		ft_putstr_fd(args[i], 1);
 		if (args[i + 1])
-			ft_putstr_fd(" ", fd);
+			ft_putstr_fd(" ", 1);
 		i++;
 	}
 	if (!n)
-		ft_putstr_fd("\n", fd);
+		ft_putstr_fd("\n", 1);
 	return (1);
 }

@@ -3,16 +3,114 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:50:02 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/12 13:27:23 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/15 01:04:18 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_sig		g_sig;
+
+void	signal_heredoc(int signum)
+{
+	if (signum == SIGINT)
+	{
+		exit(1);
+	}
+}
+
+int	ft_heredoc(char *delimiter)
+{
+	int		fd[2];
+	char	*line;
+
+	pipe(fd);
+	close(fd[1]);
+	signal(SIGINT, signal_heredoc);
+	while (1)
+	{
+		line = readline("> ");
+		if (!ft_strcmp(line, delimiter))
+			break ;
+		ft_putendl_fd(line, fd[0]);
+		free(line);
+	}
+	if (line)
+		free(line);
+	signal(SIGINT, sig_handler);
+	return (fd[0]);
+}
+
+/**
+ * @brief parse the line to put it in t_cmd.
+ *
+ * @param data (t_data *) data of the program.
+ * @return (int) should i execute the command, 0 if no, 1 if yes.
+ */
+int	parsing_exe(t_data *data)
+{
+	t_cmd	*cmd;
+
+	// t_cmd	*cmd2;
+	if (ft_strlen(data->line) == 0)
+		return (data->cmd = NULL, 0);
+	cmd = malloc(sizeof(t_cmd) * 1);
+	cmd->argv = ft_split(data->line, ' ');
+	cmd->cmd = ft_strdup(cmd->argv[0]);
+	cmd->argc = 0;
+	while (cmd->argv[cmd->argc])
+		cmd->argc++;
+	if (cmd->argc > 2 && ft_strcmp(cmd->argv[cmd->argc - 2], ">") == 0)
+	{
+		cmd->fd_out = open(cmd->argv[cmd->argc - 1],
+				O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		cmd->argv[cmd->argc - 2] = NULL;
+		cmd->argc -= 2;
+	}
+	else if (cmd->argc > 2 && ft_strcmp(cmd->argv[cmd->argc - 2], ">>") == 0)
+	{
+		cmd->fd_out = open(cmd->argv[cmd->argc - 1],
+				O_WRONLY | O_CREAT | O_APPEND, 0644);
+		cmd->argv[cmd->argc - 2] = NULL;
+		cmd->argc -= 2;
+	}
+	else
+		cmd->fd_out = 1;
+	if (cmd->argc > 2 && ft_strcmp(cmd->argv[cmd->argc - 2], "<") == 0)
+	{
+		cmd->fd_in = open(cmd->argv[cmd->argc - 1], O_RDONLY);
+		cmd->argv[cmd->argc - 2] = NULL;
+		cmd->argc -= 2;
+	}
+	else if (cmd->argc > 2 && ft_strcmp(cmd->argv[cmd->argc - 2], "<<") == 0)
+	{
+		cmd->fd_in = ft_heredoc(cmd->argv[cmd->argc - 1]);
+		printf("fd_in = %d\n", cmd->fd_in);
+		cmd->argv[cmd->argc - 2] = NULL;
+		cmd->argc -= 2;
+	}
+	else
+		cmd->fd_in = 0;
+	// free(data->line);
+	// data->line = ft_strdup("wc -l");
+	// cmd2 = malloc(sizeof(t_cmd) * 1);
+	// cmd2->argv = ft_split(data->line, ' ');
+	// cmd2->cmd = ft_strdup(cmd2->argv[0]);
+	// cmd2->argc = 0;
+	// cmd2->fd_in = -1;
+	// cmd2->fd_out = open("test2", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	// while (cmd2->argv[cmd2->argc])
+	// 	cmd2->argc++;
+	cmd->next = NULL; // cmd2
+	cmd->prev = NULL;
+	// cmd2->prev = cmd;
+	// cmd2->next = NULL;
+	data->cmd = cmd;
+	return (1);
+}
 
 /**
  * @brief main loop of the program.
@@ -21,34 +119,21 @@ t_sig		g_sig;
  */
 void	minishell(t_data *data)
 {
-	char	*prompt;
-
-	data->start = NULL;
 	using_history();
+	signal(SIGINT, sig_handler);
 	while (data->exit == false)
 	{
-		signal(SIGINT, sigint_handler);
-		prompt = getprompt();
-		data->line = readline(prompt);
-		g_sig.code_prompt = 0;
+		data->line = readline(getprompt());
+		g_sig.prompt_erreur = false;
 		if (data->line == NULL)
 		{
-			printf("exit\n");
-			free(prompt);
 			g_sig.exit_code = 1;
 			break ;
 		}
-		printf("line : %s\n", data->line);
 		add_history(data->line);
-		parse(data);
-		if (data->exec == true)
+		if (parsing_exe(data))
 			execute(data);
-		if (ft_strncmp(data->line, "exit", 4) == 0)
-		{
-			g_sig.exit_code = 32;
-			data->exit = true;
-		}
-		free_start(data, prompt);
+		free_start(data);
 	}
 }
 
@@ -60,9 +145,12 @@ void	minishell(t_data *data)
  */
 static void	init_data(t_data *data, char **envp)
 {
-	data->exec = false;
 	data->env_cpy = ft_ssdup(envp);
 	data->exit = false;
+	data->cmd = NULL;
+	data->line = NULL;
+	g_sig.exit_code = 0;
+	g_sig.prompt_erreur = false;
 }
 
 /**
@@ -79,9 +167,8 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	g_sig.code_prompt = 0;
 	init_data(&data, envp);
 	minishell(&data);
 	free_end(&data);
-	return (g_sig.exit_code);
+	return (printf("exit\n"), g_sig.exit_code);
 }

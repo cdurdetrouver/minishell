@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 23:19:20 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/12 15:16:44 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/13 17:35:36 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	cd(char **args)
 		if (path == NULL)
 		{
 			ft_putstr_fd("cd: HOME not set\n", 1);
-			g_sig.code_prompt = 1;
+			g_sig.prompt_erreur = true;
 			return (0);
 		}
 	}
@@ -39,7 +39,7 @@ int	cd(char **args)
 		ft_putstr_fd("cd: not a directory: ", 1);
 		ft_putstr_fd(path, 1);
 		ft_putchar_fd('\n', 1);
-		g_sig.code_prompt = 1;
+		g_sig.prompt_erreur = true;
 	}
 	return (1);
 }
