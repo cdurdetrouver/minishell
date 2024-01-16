@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:03:39 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/15 18:11:52 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/16 17:41:07 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ int	builtin_test(t_cmd *cmd, t_data *data)
 void	exec_test(t_cmd *cmd, t_data *data)
 {
 	if (is_builtin(cmd->cmd) == true)
+	{
 		builtin_test(cmd, data);
+		exit(0);
+	}
 	else
 		exec_cmd(data, cmd);
 }
@@ -43,9 +46,14 @@ void	child(t_cmd *cmd, t_data *data)
 {
 	pid_t	pid;
 	int		fd[2];
+	int		status;
 
 	if (pipe(fd) == -1)
 		exit(1);
+	if (cmd->fd_in != STDIN_FILENO && cmd->fd_in != -1)
+		fd[1] = cmd->fd_in;
+	if (cmd->fd_out != STDOUT_FILENO && cmd->fd_out != -1)
+		fd[0] = cmd->fd_out;
 	pid = fork();
 	if (pid == 1)
 		exit(1);
@@ -54,14 +62,15 @@ void	child(t_cmd *cmd, t_data *data)
 		close(fd[0]);
 		dup2(fd[1], STDOUT_FILENO);
 		exec_test(cmd, data);
-		exit(0);
 	}
 	else
 	{
 		signal(SIGINT, SIG_IGN);
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
-		waitpid(pid, NULL, 0);
+		waitpid(pid, &status, 0);
+		if (WEXITSTATUS(status) != 0)
+			g_sig.prompt_erreur = true;
 		signal(SIGINT, sig_handler);
 	}
 }
@@ -69,6 +78,7 @@ void	child(t_cmd *cmd, t_data *data)
 void	end(t_cmd *cmd, t_data *data)
 {
 	pid_t	pid;
+	int		status;
 
 	pid = fork();
 	if (pid == 1)
@@ -76,10 +86,15 @@ void	end(t_cmd *cmd, t_data *data)
 	if (pid == 0)
 	{
 		exec_test(cmd, data);
+		exit(0);
 	}
 	else
 	{
-		waitpid(pid, NULL, 0);
+		signal(SIGINT, SIG_IGN);
+		waitpid(pid, &status, 0);
+		if (WEXITSTATUS(status) != 0)
+			g_sig.prompt_erreur = true;
+		signal(SIGINT, sig_handler);
 	}
 }
 

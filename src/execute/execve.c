@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:02:42 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/15 14:56:18 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/16 17:44:06 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	exec_cmd(t_data *data, t_cmd *cmd)
 	cmd->cmd_path = get_cmd_path(cmd->cmd);
 	if (cmd->cmd_path == NULL)
 	{
-		ft_putstr_fd("command not found\n", 2);
+		ft_putstr_fd(cmd->cmd, 2);
+		ft_putstr_fd(" : command not found\n", 2);
 		exit(126);
 	}
 	if (execve(cmd->cmd_path, cmd->argv, data->env_cpy) == -1)
@@ -76,9 +77,9 @@ int	exec(t_data *data, t_cmd *cmd)
 	}
 	else if (pid == 0)
 	{
-		if (cmd->fd_in != -1)
+		if (cmd->fd_in != 0)
 			dup2(cmd->fd_in, 0);
-		if (cmd->fd_out != -1)
+		if (cmd->fd_out != 1)
 			dup2(cmd->fd_out, 1);
 		exec_cmd(data, cmd);
 		close(cmd->fd_in);

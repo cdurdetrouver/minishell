@@ -3,28 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 16:40:53 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/15 17:08:23 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/16 15:57:12 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-bool	has_pipe(t_cmd *cmd)
-{
-	t_cmd	*tmp;
-
-	tmp = cmd;
-	while (tmp)
-	{
-		if (tmp->fd_in == -1 || tmp->fd_out == -1)
-			return (true);
-		tmp = tmp->next;
-	}
-	return (false);
-}
 
 /**
  * @brief check if the command is a builtin.

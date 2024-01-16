@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:50:02 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/15 18:16:44 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/16 17:36:58 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,10 +132,10 @@ int	parsing_exe(t_data *data)
 	cmd2->argv = ft_split(data->line, ' ');
 	cmd2->cmd = ft_strdup(cmd2->argv[0]);
 	cmd2->fd_in = -1;
-	cmd2->fd_out = -1;
+	cmd2->fd_out = open("test2", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	free(data->line);
 	cmd3 = malloc(sizeof(t_cmd) * 1);
-	data->line = ft_strdup("head -n 1");
+	data->line = ft_strdup("head -n 2");
 	cmd3->argv = ft_split(data->line, ' ');
 	cmd3->cmd = ft_strdup(cmd3->argv[0]);
 	cmd3->fd_in = -1;
@@ -159,6 +159,8 @@ void	minishell(t_data *data)
 {
 	using_history();
 	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, sig_handler);
+	signal(SIGTSTP, SIG_IGN);
 	while (data->exit == false)
 	{
 		data->line = readline(getprompt());

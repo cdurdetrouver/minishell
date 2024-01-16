@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 11:28:21 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/04 15:18:26 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/16 15:39:52 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_list
 
 // libft
 int					ft_atoi(const char *nptr);
+long long			ft_atoll(const char *str);
 size_t				ft_strlen(const char *s);
 int					ft_isdigit(int c);
 int					ft_isalpha(int c);

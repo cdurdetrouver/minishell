@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:47:53 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/14 18:20:17 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/16 15:57:19 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,10 +177,10 @@ int						parse(t_cmd *cmd);
 
 // EXECUTE
 void					execute(t_data *data);
-bool					has_pipe(t_cmd *cmd);
 void					close_fd(t_cmd *cmd);
 int						exec(t_data *data, t_cmd *cmd);
 int						execute_pipe(t_cmd *cmd, t_data *data);
+void					exec_cmd(t_data *data, t_cmd *cmd);
 
 // BUILTIN
 bool					is_builtin(char *s);
