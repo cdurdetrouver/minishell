@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:50:02 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/17 01:56:32 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/17 02:01:05 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,18 +121,18 @@ int	parsing_exe(t_data *data)
 
 	cmd = malloc(sizeof(t_cmd) * 1);
 	free(data->line);
-	data->line = ft_strdup("env");
+	data->line = ft_strdup("ls");
 	cmd->argv = ft_split(data->line, ' ');
 	cmd->cmd = ft_strdup(cmd->argv[0]);
 	cmd->fd_in = 0;
-	cmd->fd_out = open("test2", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	cmd->fd_out = -1;
 	free(data->line);
 	cmd2 = malloc(sizeof(t_cmd) * 1);
 	data->line = ft_strdup("sort");
 	cmd2->argv = ft_split(data->line, ' ');
 	cmd2->cmd = ft_strdup(cmd2->argv[0]);
-	cmd2->fd_in = open("test", O_RDONLY);
-	cmd2->fd_out = -1;
+	cmd2->fd_in = -1;
+	cmd2->fd_out = open("test2", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	free(data->line);
 	cmd3 = malloc(sizeof(t_cmd) * 1);
 	data->line = ft_strdup("head -n 2");
