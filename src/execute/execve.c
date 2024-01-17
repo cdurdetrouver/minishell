@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:02:42 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/16 17:44:06 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/17 01:34:35 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,16 +77,16 @@ int	exec(t_data *data, t_cmd *cmd)
 	}
 	else if (pid == 0)
 	{
+		close(cmd->fd_out);
 		if (cmd->fd_in != 0)
 			dup2(cmd->fd_in, 0);
-		if (cmd->fd_out != 1)
-			dup2(cmd->fd_out, 1);
 		exec_cmd(data, cmd);
-		close(cmd->fd_in);
-		close(cmd->fd_out);
 	}
 	else
 	{
+		close(cmd->fd_in);
+		if (cmd->fd_out != 1)
+			dup2(cmd->fd_out, 1);
 		signal(SIGINT, SIG_IGN);
 		waitpid(pid, &status, 0);
 		if (WEXITSTATUS(status) != 0)

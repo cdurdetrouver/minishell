@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:03:39 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/16 17:41:07 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/17 01:54:04 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,24 +50,26 @@ void	child(t_cmd *cmd, t_data *data)
 
 	if (pipe(fd) == -1)
 		exit(1);
-	if (cmd->fd_in != STDIN_FILENO && cmd->fd_in != -1)
-		fd[1] = cmd->fd_in;
-	if (cmd->fd_out != STDOUT_FILENO && cmd->fd_out != -1)
-		fd[0] = cmd->fd_out;
 	pid = fork();
 	if (pid == 1)
 		exit(1);
 	if (pid == 0)
 	{
 		close(fd[0]);
-		dup2(fd[1], STDOUT_FILENO);
+		if (cmd->fd_out != STDOUT_FILENO && cmd->fd_out != -1)
+			dup2(cmd->fd_out, STDOUT_FILENO);
+		else
+			dup2(fd[1], STDOUT_FILENO);
 		exec_test(cmd, data);
 	}
 	else
 	{
 		signal(SIGINT, SIG_IGN);
 		close(fd[1]);
-		dup2(fd[0], STDIN_FILENO);
+		if (cmd->fd_in != STDIN_FILENO && cmd->fd_in != -1)
+			dup2(cmd->fd_in, STDIN_FILENO);
+		else
+			dup2(fd[0], STDIN_FILENO);
 		waitpid(pid, &status, 0);
 		if (WEXITSTATUS(status) != 0)
 			g_sig.prompt_erreur = true;
@@ -79,18 +81,22 @@ void	end(t_cmd *cmd, t_data *data)
 {
 	pid_t	pid;
 	int		status;
+	int		fd;
 
 	pid = fork();
+	fd = cmd->fd_in;
 	if (pid == 1)
 		exit(1);
 	if (pid == 0)
 	{
+		dup2(fd, STDIN_FILENO);
 		exec_test(cmd, data);
 		exit(0);
 	}
 	else
 	{
 		signal(SIGINT, SIG_IGN);
+		close(fd);
 		waitpid(pid, &status, 0);
 		if (WEXITSTATUS(status) != 0)
 			g_sig.prompt_erreur = true;
