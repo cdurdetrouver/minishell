@@ -3,19 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   fd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:00:46 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/14 23:08:50 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/17 18:08:27 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	close_fd(t_cmd *cmd)
+void	ft_save_fd(t_cmd *cmd, t_data *data)
 {
-	if (cmd->fd_in != -1)
-		close(cmd->fd_in);
-	if (cmd->fd_out != -1)
-		close(cmd->fd_out);
+	t_cmd	*first;
+	t_cmd	*last;
+
+	first = cmdfirst(cmd);
+	last = cmdlast(cmd);
+	if (first->fd_in != 0)
+		data->save_fd[0] = dup(STDIN_FILENO);
+	else
+		data->save_fd[0] = -1;
+	if (last->fd_out != 1)
+		data->save_fd[1] = dup(STDOUT_FILENO);
+	else
+		data->save_fd[1] = -1;
+}
+
+void	ft_restore_fd(t_data *data)
+{
+	if (data->save_fd[0] != -1)
+	{
+		dup2(data->save_fd[0], STDIN_FILENO);
+		close(data->save_fd[0]);
+	}
+	if (data->save_fd[1] != -1)
+	{
+		dup2(data->save_fd[1], STDOUT_FILENO);
+		close(data->save_fd[1]);
+	}
 }

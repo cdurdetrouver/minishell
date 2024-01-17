@@ -6,7 +6,7 @@
 /*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:17:26 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/15 15:35:49 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/17 13:13:34 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ bool	sup_to_llmax(char *num)
 	i = 0;
 	if (ft_strlen(num) < 19)
 		return (false);
-	while (num[i])
+	while (num[i] && ll_max[i])
 	{
 		if ((num[i] - 48) > (ll_max[i] - 48))
 			return (true);
@@ -49,6 +49,10 @@ bool	sup_to_llmax(char *num)
 			return (false);
 		i++;
 	}
+	if (num[i])
+		return (true);
+	if (ll_max[i])
+		return (false);
 	return (false);
 }
 

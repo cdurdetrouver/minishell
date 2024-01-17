@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:50:02 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/17 02:01:05 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/17 18:12:06 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,34 +118,44 @@ int	parsing_exe(t_data *data)
 	t_cmd	*cmd;
 	t_cmd	*cmd2;
 	t_cmd	*cmd3;
+	t_cmd	*cmd4;
 
 	cmd = malloc(sizeof(t_cmd) * 1);
 	free(data->line);
-	data->line = ft_strdup("ls");
+	data->line = ft_strdup("sort");
 	cmd->argv = ft_split(data->line, ' ');
 	cmd->cmd = ft_strdup(cmd->argv[0]);
-	cmd->fd_in = 0;
-	cmd->fd_out = -1;
+	cmd->fd_in = open("test3", O_RDONLY);
+	cmd->fd_out = open("test4", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	free(data->line);
 	cmd2 = malloc(sizeof(t_cmd) * 1);
-	data->line = ft_strdup("sort");
+	data->line = ft_strdup("ls");
 	cmd2->argv = ft_split(data->line, ' ');
 	cmd2->cmd = ft_strdup(cmd2->argv[0]);
 	cmd2->fd_in = -1;
-	cmd2->fd_out = open("test2", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	cmd2->fd_out = -1;
 	free(data->line);
 	cmd3 = malloc(sizeof(t_cmd) * 1);
-	data->line = ft_strdup("head -n 2");
+	data->line = ft_strdup("sort");
 	cmd3->argv = ft_split(data->line, ' ');
 	cmd3->cmd = ft_strdup(cmd3->argv[0]);
 	cmd3->fd_in = -1;
-	cmd3->fd_out = 1;
+	cmd3->fd_out = -1;
+	free(data->line);
+	cmd4 = malloc(sizeof(t_cmd) * 1);
+	data->line = ft_strdup("head -n 1");
+	cmd4->argv = ft_split(data->line, ' ');
+	cmd4->cmd = ft_strdup(cmd4->argv[0]);
+	cmd4->fd_in = -1;
+	cmd4->fd_out = 1;
 	cmd->next = cmd2;
 	cmd->prev = NULL;
 	cmd2->next = cmd3;
 	cmd2->prev = cmd;
-	cmd3->next = NULL;
+	cmd3->next = cmd4;
 	cmd3->prev = cmd2;
+	cmd4->next = NULL;
+	cmd4->prev = cmd3;
 	data->cmd = cmd;
 	return (1);
 }

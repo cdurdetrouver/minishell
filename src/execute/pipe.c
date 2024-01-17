@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:03:39 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/17 01:54:04 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/17 18:02:54 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,13 +115,19 @@ int	execute_pipe(t_cmd *cmd, t_data *data)
 	last = cmdlast(cmd);
 	filein = first->fd_in;
 	fileout = last->fd_out;
-	dup2(filein, STDIN_FILENO);
+	if (filein != 0)
+		dup2(filein, STDIN_FILENO);
 	while (cmd->next)
 	{
 		child(cmd, data);
 		cmd = cmd->next;
 	}
-	dup2(fileout, STDOUT_FILENO);
+	if (fileout != 1)
+		dup2(fileout, STDOUT_FILENO);
 	end(cmd, data);
+	if (filein != 0)
+		close(filein);
+	if (fileout != 1)
+		close(fileout);
 	return (1);
 }

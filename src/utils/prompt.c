@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 02:02:48 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/17 02:03:53 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/17 12:56:59 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*getprompt(void)
 	ft_strlcat(prompt, "\001\033[1;32m\002", 4096);
 	ft_strlcat(prompt, getenv("USER"), 4096);
 	ft_strlcat(prompt, "\001\033[0m\002@\001\033[1;33m\002", 4096);
-	ft_strlcat(prompt, getenv("NAME"), 4096);
+	ft_strlcat(prompt, "minishell", 4096);
 	ft_strlcat(prompt, "\001\033[0m\002: \001\033[1;34m\002", 4096);
 	cwd = getcwd(NULL, 0);
 	if (ft_strcmp(cwd, getenv("HOME")) == 0)

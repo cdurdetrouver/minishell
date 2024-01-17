@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:02:42 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/17 01:34:35 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/17 18:08:19 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,36 @@ void	exec_cmd(t_data *data, t_cmd *cmd)
 	exit(0);
 }
 
+void	set_redir(t_cmd *cmd, bool child)
+{
+	if (child == true)
+	{
+		if (cmd->fd_out != 1 && cmd->fd_out != -1)
+		{
+			printf("close output\n");
+			close(cmd->fd_out);
+		}
+		if (cmd->fd_in != 0 && cmd->fd_in != -1)
+		{
+			printf("redirect input\n");
+			dup2(cmd->fd_in, STDIN_FILENO);
+		}
+	}
+	else
+	{
+		if (cmd->fd_in != 0 && cmd->fd_in != -1)
+		{
+			printf("close input\n");
+			close(cmd->fd_in);
+		}
+		if (cmd->fd_out != 1 && cmd->fd_out != -1)
+		{
+			printf("redirect output\n");
+			dup2(cmd->fd_out, STDOUT_FILENO);
+		}
+	}
+}
+
 /**
  * @brief execute the command with execve.
  *
@@ -77,16 +107,20 @@ int	exec(t_data *data, t_cmd *cmd)
 	}
 	else if (pid == 0)
 	{
-		close(cmd->fd_out);
 		if (cmd->fd_in != 0)
+		{
 			dup2(cmd->fd_in, 0);
+			close(cmd->fd_in);
+		}
+		if (cmd->fd_out != 1)
+		{
+			dup2(cmd->fd_out, 1);
+			close(cmd->fd_out);
+		}
 		exec_cmd(data, cmd);
 	}
 	else
 	{
-		close(cmd->fd_in);
-		if (cmd->fd_out != 1)
-			dup2(cmd->fd_out, 1);
 		signal(SIGINT, SIG_IGN);
 		waitpid(pid, &status, 0);
 		if (WEXITSTATUS(status) != 0)
