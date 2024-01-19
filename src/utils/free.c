@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:53:39 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/19 01:35:09 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/19 14:14:08 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,13 @@ void	free_start(t_data *data)
 	if (data->cmd)
 		free_cmd(data->cmd);
 	data->cmd = NULL;
+}
+
+void	ft_free(void **ptr)
+{
+	if (*ptr)
+	{
+		free(*ptr);
+		*ptr = NULL;
+	}
 }

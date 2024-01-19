@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/02 17:04:53 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/11 22:01:19 by gbazart          ###   ########.fr       */
+/*   Created: 2024/01/02 17:04:53 by hlamnaou          #+#    #+#             */
+/*   Updated: 2024/01/19 01:27:32 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ char	*new_str(char *str)
 	char	*tmp;
 
 	ret = expand(str);
-	free(str);
 	tmp = remove_spaces(ret);
 	free(ret);
 	ret = add_space(tmp);

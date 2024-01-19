@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:47:53 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/19 00:43:33 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/19 14:13:53 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,8 @@ t_cmd					*create_all_cmd(t_token *t);
 int						output(t_cmd *cmd);
 int						input(t_cmd *cmd);
 int						give_fd(t_cmd *cmd);
+void	print_cmd_argv(t_cmd *cmd); // a supprimer
+void					ft_assign_redirection_types(t_cmd *cmd);
 
 // PARSING
 int						skip_quotes(char const *s, int *i);
@@ -216,6 +218,7 @@ void					free_start(t_data *data);
 void					free_end(t_data *data);
 void					free_tab(void **tab);
 void					free_cmd(t_cmd *lst);
+void					ft_free(void **ptr);
 
 // UTILS
 char					**ft_ssdup(char **ss);

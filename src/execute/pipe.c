@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:03:39 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/19 03:40:10 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/19 14:22:54 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	builtin_test(t_cmd *cmd, t_data *data)
 
 void	exec_test(t_cmd *cmd, t_data *data)
 {
-	if (is_builtin(cmd->cmd) == true)
+	if (is_builtin(cmd->argv[0]) == true)
 	{
 		builtin_test(cmd, data);
 		exit(0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/02 14:13:23 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/18 19:53:25 by gbazart          ###   ########.fr       */
+/*   Created: 2024/01/02 14:13:23 by hlamnaou          #+#    #+#             */
+/*   Updated: 2024/01/19 00:36:14 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,29 +49,13 @@ t_cmd	*cmdnew(char *content, t_token *token)
 	list = malloc(sizeof(t_cmd));
 	if (!list)
 		return (NULL);
-	list->cmd = content;
+	list->cmd = ft_strdup(content);
 	list->next = NULL;
 	list->prev = NULL;
 	list->token = token;
+	list->file_in.type = R_NONE;
+	list->file_in.file = NULL;
+	list->file_out.type = R_NONE;
+	list->file_out.file = NULL;
 	return (list);
-}
-
-void	cmdclear(t_cmd *lst)
-{
-	t_cmd	*tmp;
-
-	if (!lst)
-		return ;
-	lst = cmdfirst(lst);
-	while (lst)
-	{
-		tmp = lst->next;
-		free(lst->cmd);
-		tokenclear(lst->token);
-		free_tab((void **)lst->argv);
-		if (lst->cmd_path)
-			free(lst->cmd_path);
-		free(lst);
-		lst = tmp;
-	}
 }

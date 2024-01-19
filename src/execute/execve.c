@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:02:42 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/19 03:38:32 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/19 14:27:22 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*get_cmd_path(char *cmd)
 
 void	exec_cmd(t_data *data, t_cmd *cmd)
 {
-	cmd->cmd_path = get_cmd_path(cmd->cmd);
+	cmd->cmd_path = get_cmd_path(cmd->argv[0]);
 	if (cmd->cmd_path == NULL)
 	{
 		perror("command not found ");
@@ -67,6 +67,11 @@ int	exec(t_data *data, t_cmd *cmd)
 	pid_t	pid;
 	int		status;
 
+	if (cmd->file_out.type != R_NONE)
+	{
+		dup2(cmd->file_out.fd, STDOUT_FILENO);
+		close(cmd->file_out.fd);
+	}
 	pid = fork();
 	if (pid < 0)
 	{

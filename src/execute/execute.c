@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:10:21 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/19 03:37:50 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/19 14:31:33 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	exec_one(t_cmd *cmd, t_data *data)
 {
-	if (is_builtin(cmd->cmd) == true)
+	if (is_builtin(cmd->argv[0]) == true)
 		builtin(cmd, data);
 	else
 		exec(data, cmd);

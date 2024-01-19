@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/04 08:32:58 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/18 19:54:09 by gbazart          ###   ########.fr       */
+/*   Created: 2024/01/04 08:32:58 by hlamnaou          #+#    #+#             */
+/*   Updated: 2024/01/19 01:03:02 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,12 @@ char	*get_cmd_str(t_token *token)
 
 	if (!token)
 		return (NULL);
+	str = ft_strdup("");
 	while (token->next && !token->content)
 		token = token->next;
-	if (token)
-	{
-		str = ft_strdup(token->content);
-		token = token->next;
-	}
 	while (token)
 	{
-		if (token->content && token->type != END)
+		if (token->content)
 		{
 			tmp = ft_strjoin(str, token->content);
 			free(str);
@@ -66,11 +62,11 @@ t_token	*sub_token(t_token *token, int start, int size)
 	i = -1;
 	while (++i < start + 1 && token->next)
 		token = token->next;
-	ret = tokennew(ft_strdup(token->content), token->type);
+	ret = tokennew(token->content, token->type);
 	while (i++ < size + start && token->next)
 	{
 		token = token->next;
-		ret->next = tokennew(ft_strdup(token->content), token->type);
+		ret->next = tokennew(token->content, token->type);
 		ret->next->prev = ret;
 		ret = ret->next;
 	}
@@ -78,16 +74,41 @@ t_token	*sub_token(t_token *token, int start, int size)
 	return (tokenfirst(ret));
 }
 
-// void	print_cmd(t_cmd *cmd)
-// {
-// 	int	i;
+void	print_cmd(t_cmd *cmd)
+{
+	int	i;
 
-// 	i = 1;
-// 	while (cmd)
-// 	{
-// 		printf("Command %d :\n\t Content %s\n\tToken size : %d\n\n", i++,
-// 			cmd->cmd, tokensize(cmd->token));
-// 		printf("in %d out %d\n", cmd->fd_in, cmd->fd_out);
-// 		cmd = cmd->next;
-// 	}
-// }
+	i = 1;
+	while (cmd)
+	{
+		printf("Command %d :\n\t Content %s\n\tToken size : %d\n\n", i++,
+			cmd->cmd, tokensize(cmd->token));
+		//printf("in %d out %d\n", cmd->file_in, cmd->file_out);
+		cmd = cmd->next;
+	}
+}
+
+void print_cmd_argv(t_cmd *cmd) {
+	int i;
+
+	i = 1;
+	while (cmd) {
+		printf("Command %d:\n", i++);
+		if (cmd->argv) {
+			int j = 0;
+			while (cmd->argv[j]) {
+				//printf("cmd = %s\n", cmd->cmd);
+				printf("\tArgument %d: %s\n", j + 1, cmd->argv[j]);
+				j++;
+			}
+		//printf("\tin %d out %d\n", cmd->file_in, cmd->file_out);
+		printf("File In Type: %d \tFile In File: %s \n", cmd->file_in.type, cmd->file_in.file);
+		printf("File Out Type: %d \tFile Out File: %s \n", cmd->file_out.type, cmd->file_out.file);
+		} else {
+			printf("\tNo arguments\n");
+		}
+		cmd = cmd->next;
+	}
+}
+
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 17:51:12 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/13 16:28:50 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/18 19:39:07 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ t_token	*init_tokens(char *s)
 	i = -1;
 	token = tokennew(NULL, START);
 	while (arr[++i])
-		tokenadd_back(&token, tokennew(ft_strdup(arr[i]), 0));
-	// tokenadd_back(&token, tokennew(NULL, END));
+		tokenadd_back(&token, tokennew(arr[i], 0));
+	tokenadd_back(&token, tokennew(NULL, END));
 	give_types(token);
 	quote(token);
 	free_tab((void **)arr);

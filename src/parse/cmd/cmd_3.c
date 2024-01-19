@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_3.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/05 11:21:42 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/13 00:18:49 by gbazart          ###   ########.fr       */
+/*   Created: 2024/01/05 11:21:42 by hlamnaou          #+#    #+#             */
+/*   Updated: 2024/01/18 19:00:56 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ t_cmd	*create_cmd(t_token *token, int i)
 	if (!str)
 		return (NULL);
 	cmd = cmdnew(str, t);
+	free(str);
 	if (!cmd)
 		return (NULL);
 	cmd->argv = char_arr(cmd);

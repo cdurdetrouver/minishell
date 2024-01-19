@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 14:17:26 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/11 16:18:31 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/19 01:04:20 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	print_error(char *err)
 {
-	// g_exit_code = 2;
-	printf("syntax error near unexpected token `%s'\n", err);
+	printf("Syntax error near unexpected token `%s'\n", err);
 }
 
 int	parse_pipes(t_cmd *cmd)
@@ -49,7 +48,7 @@ int	parse_redirections(t_cmd *cmd)
 				if (!cmd->token->next)
 				{
 					if (!cmd->next)
-						return (print_error("newline"), 0);
+						return (print_error("Newline"), 0);
 					else
 						return (print_error("|"), 0);
 				}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 16:31:16 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/13 00:23:27 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/12 17:05:13 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_token	*tokennew(char *content, t_type type)
 	list = malloc(sizeof(t_token));
 	if (!list)
 		return (NULL);
-	list->content = content;
+	list->content = content ? ft_strdup(content) : NULL;
 	list->type = type;
 	list->next = NULL;
 	list->prev = NULL;
@@ -60,8 +60,6 @@ void	tokenclear(t_token *lst)
 {
 	t_token	*tmp;
 
-	if (!lst)
-		return ;
 	lst = tokenfirst(lst);
 	while (lst)
 	{
