@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:00:46 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/19 03:33:32 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/19 03:36:11 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	ft_save_fd(t_cmd *cmd, t_data *data)
 
 void	ft_restore_fd(t_cmd *cmd, t_data *data)
 {
-	t_cmd	*first;
-	t_cmd	*last;
+	t_cmd *first;
+	t_cmd *last;
 
 	first = cmdfirst(cmd);
 	last = cmdlast(cmd);
