@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:02:42 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/17 01:34:35 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/19 01:35:50 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,14 @@ void	exec_cmd(t_data *data, t_cmd *cmd)
 	cmd->cmd_path = get_cmd_path(cmd->cmd);
 	if (cmd->cmd_path == NULL)
 	{
-		ft_putstr_fd(cmd->cmd, 2);
-		ft_putstr_fd(" : command not found\n", 2);
+		perror("command not found ");
 		exit(126);
 	}
 	if (execve(cmd->cmd_path, cmd->argv, data->env_cpy) == -1)
 	{
-		ft_putstr_fd("execve failed\n", 2);
+		perror("execve failed ");
 		exit(126);
 	}
-	exit(0);
 }
 
 /**
@@ -72,21 +70,15 @@ int	exec(t_data *data, t_cmd *cmd)
 	pid = fork();
 	if (pid < 0)
 	{
-		printf("fork failed\n");
+		perror("fork failed ");
 		g_sig.prompt_erreur = true;
 	}
 	else if (pid == 0)
 	{
-		close(cmd->fd_out);
-		if (cmd->fd_in != 0)
-			dup2(cmd->fd_in, 0);
 		exec_cmd(data, cmd);
 	}
 	else
 	{
-		close(cmd->fd_in);
-		if (cmd->fd_out != 1)
-			dup2(cmd->fd_out, 1);
 		signal(SIGINT, SIG_IGN);
 		waitpid(pid, &status, 0);
 		if (WEXITSTATUS(status) != 0)

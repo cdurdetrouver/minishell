@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:13:23 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/13 00:18:04 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/18 19:53:25 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ t_cmd	*cmdnew(char *content, t_token *token)
 	list->next = NULL;
 	list->prev = NULL;
 	list->token = token;
-	list->fd_in = -1;
-	list->fd_out = -1;
 	return (list);
 }
 

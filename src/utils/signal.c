@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:16:55 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/16 15:49:55 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/19 01:36:48 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,4 @@ void	sig_handler(int signum)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
-	if (signum == SIGQUIT)
-		rl_replace_line("", 0);
 }

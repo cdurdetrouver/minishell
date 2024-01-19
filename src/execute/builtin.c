@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:15:21 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/15 13:49:05 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/18 19:49:07 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,6 @@
  */
 int	builtin(t_cmd *cmd, t_data *data)
 {
-	int	fd[2];
-
-	fd[0] = dup(0);
-	fd[1] = dup(1);
-	if (cmd->fd_in != -1)
-		dup2(cmd->fd_in, 0);
-	if (cmd->fd_out != -1)
-		dup2(cmd->fd_out, 1);
 	if (ft_strcmp(cmd->argv[0], "echo") == 0)
 		echo(cmd->argv);
 	else if (ft_strcmp(cmd->argv[0], "cd") == 0)
@@ -44,9 +36,5 @@ int	builtin(t_cmd *cmd, t_data *data)
 		env(data->env_cpy);
 	else if (ft_strcmp(cmd->argv[0], "exit") == 0)
 		exit_builtin(cmd->argv, data);
-	dup2(fd[0], 0);
-	dup2(fd[1], 1);
-	close(fd[0]);
-	close(fd[1]);
 	return (0);
 }

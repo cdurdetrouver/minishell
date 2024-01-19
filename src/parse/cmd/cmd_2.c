@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 08:32:58 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/11 15:52:27 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/18 19:54:09 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,16 @@ t_token	*sub_token(t_token *token, int start, int size)
 	return (tokenfirst(ret));
 }
 
-void	print_cmd(t_cmd *cmd)
-{
-	int	i;
+// void	print_cmd(t_cmd *cmd)
+// {
+// 	int	i;
 
-	i = 1;
-	while (cmd)
-	{
-		printf("Command %d :\n\t Content %s\n\tToken size : %d\n\n", i++,
-			cmd->cmd, tokensize(cmd->token));
-		printf("in %d out %d\n", cmd->fd_in, cmd->fd_out);
-		cmd = cmd->next;
-	}
-}
+// 	i = 1;
+// 	while (cmd)
+// 	{
+// 		printf("Command %d :\n\t Content %s\n\tToken size : %d\n\n", i++,
+// 			cmd->cmd, tokensize(cmd->token));
+// 		printf("in %d out %d\n", cmd->fd_in, cmd->fd_out);
+// 		cmd = cmd->next;
+// 	}
+// }

@@ -6,43 +6,13 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:50:02 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/17 02:01:05 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/19 03:32:43 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_sig		g_sig;
-
-void	signal_heredoc(int signum)
-{
-	if (signum == SIGINT)
-	{
-		exit(1);
-	}
-}
-
-int	ft_heredoc(char *delimiter)
-{
-	int		fd[2];
-	char	*line;
-
-	pipe(fd);
-	close(fd[1]);
-	signal(SIGINT, signal_heredoc);
-	while (1)
-	{
-		line = readline("> ");
-		if (!ft_strcmp(line, delimiter))
-			break ;
-		ft_putendl_fd(line, fd[0]);
-		free(line);
-	}
-	if (line)
-		free(line);
-	signal(SIGINT, sig_handler);
-	return (fd[0]);
-}
 
 /**
  * @brief parse the line to put it in t_cmd.
@@ -121,25 +91,31 @@ int	parsing_exe(t_data *data)
 
 	cmd = malloc(sizeof(t_cmd) * 1);
 	free(data->line);
-	data->line = ft_strdup("ls");
+	data->line = ft_strdup("sort");
 	cmd->argv = ft_split(data->line, ' ');
 	cmd->cmd = ft_strdup(cmd->argv[0]);
-	cmd->fd_in = 0;
-	cmd->fd_out = -1;
+	cmd->file_in.file = ft_strdup("test");
+	cmd->file_in.type = R_LESS;
+	cmd->file_out.file = NULL;
+	cmd->file_out.type = R_NONE;
 	free(data->line);
 	cmd2 = malloc(sizeof(t_cmd) * 1);
-	data->line = ft_strdup("sort");
+	data->line = ft_strdup("grep -i f");
 	cmd2->argv = ft_split(data->line, ' ');
 	cmd2->cmd = ft_strdup(cmd2->argv[0]);
-	cmd2->fd_in = -1;
-	cmd2->fd_out = open("test2", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	cmd2->file_in.file = NULL;
+	cmd2->file_in.type = R_NONE;
+	cmd2->file_out.file = NULL;
+	cmd2->file_out.type = R_NONE;
 	free(data->line);
 	cmd3 = malloc(sizeof(t_cmd) * 1);
-	data->line = ft_strdup("head -n 2");
+	data->line = ft_strdup("head -n 5");
 	cmd3->argv = ft_split(data->line, ' ');
 	cmd3->cmd = ft_strdup(cmd3->argv[0]);
-	cmd3->fd_in = -1;
-	cmd3->fd_out = 1;
+	cmd3->file_in.file = NULL;
+	cmd3->file_in.type = R_NONE;
+	cmd3->file_out.file = ft_strdup("test2");
+	cmd3->file_out.type = R_GREAT;
 	cmd->next = cmd2;
 	cmd->prev = NULL;
 	cmd2->next = cmd3;

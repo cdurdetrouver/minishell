@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:47:53 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/16 15:57:19 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/19 00:43:33 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,15 @@ typedef enum e_type
 	END
 }						t_type;
 
+typedef enum e_type_redir
+{
+	R_NONE,
+	R_GREAT,
+	RD_GREAT,
+	R_LESS,
+	RD_LESS,
+}						t_type_redir;
+
 typedef struct s_token
 {
 	char				*content;
@@ -68,20 +77,23 @@ typedef struct s_token
 	struct s_token		*prev;
 }						t_token;
 
+typedef struct s_redir
+{
+	char				*file;
+	int					fd;
+	t_type_redir		type;
+}						t_redir;
+
 typedef struct s_cmd
 {
 	int					argc;
 	char				*cmd;
 	char				**argv;
-	char				*file_in;
-	char				*file_out;
-	int					fd_in;
-	int					fd_out;
+	char				*cmd_path;
+	t_redir				file_in;
+	t_redir				file_out;
 	t_token				*token;
 	int					status;
-	pid_t				pid;
-	pid_t				pid_one;
-	char				*cmd_path;
 	struct s_cmd		*next;
 	struct s_cmd		*prev;
 }						t_cmd;
@@ -97,6 +109,7 @@ typedef struct s_data
 {
 	t_token				*t;
 	t_cmd				*cmd;
+	int					save_fd[2];
 	char				**env_cpy;
 	char				*line;
 	bool				exit;
@@ -177,10 +190,12 @@ int						parse(t_cmd *cmd);
 
 // EXECUTE
 void					execute(t_data *data);
-void					close_fd(t_cmd *cmd);
+void					ft_save_fd(t_cmd *cmd, t_data *data);
+void					ft_restore_fd(t_cmd *cmd, t_data *data);
 int						exec(t_data *data, t_cmd *cmd);
 int						execute_pipe(t_cmd *cmd, t_data *data);
 void					exec_cmd(t_data *data, t_cmd *cmd);
+int						ft_open(t_cmd *cmd, t_redir *file);
 
 // BUILTIN
 bool					is_builtin(char *s);

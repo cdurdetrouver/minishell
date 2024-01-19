@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:10:21 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/16 16:53:11 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/19 01:37:26 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,10 @@ void	exec_one(t_cmd *cmd, t_data *data)
 
 void	execute(t_data *data)
 {
-	t_cmd	*cmd;
-	int		save_fd[2];
-
-	save_fd[0] = dup(STDIN_FILENO);
-	save_fd[1] = dup(STDOUT_FILENO);
-	cmd = data->cmd;
-	if (cmd->next)
-		execute_pipe(cmd, data);
+	ft_save_fd(data->cmd, data);
+	if (data->cmd->next)
+		execute_pipe(data->cmd, data);
 	else
-		exec_one(cmd, data);
-	dup2(save_fd[0], STDIN_FILENO);
-	dup2(save_fd[1], STDOUT_FILENO);
-	close(save_fd[0]);
-	close(save_fd[1]);
+		exec_one(data->cmd, data);
+	ft_restore_fd(data->cmd, data);
 }

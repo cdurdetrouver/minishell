@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:03:39 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/17 01:54:04 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/19 03:33:41 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,34 +42,52 @@ void	exec_test(t_cmd *cmd, t_data *data)
 		exec_cmd(data, cmd);
 }
 
+void	set_redir_parent(int fd[2], t_cmd *cmd)
+{
+	close(fd[1]);
+	if (cmd->file_in.type != R_NONE)
+	{
+		close(fd[0]);
+		cmd->file_in.fd = ft_open(cmd, &cmd->file_in);
+		dup2(cmd->file_in.fd, STDIN_FILENO);
+		close(cmd->file_in.fd);
+	}
+	else
+		dup2(fd[0], STDIN_FILENO);
+}
+
+void	set_redir_child(int fd[2], t_cmd *cmd)
+{
+	close(fd[0]);
+	if (cmd->file_out.type != R_NONE)
+	{
+		close(fd[1]);
+		cmd->file_out.fd = ft_open(cmd, &cmd->file_out);
+		dup2(cmd->file_out.fd, STDOUT_FILENO);
+		close(cmd->file_out.fd);
+	}
+	else
+		dup2(fd[1], STDOUT_FILENO);
+}
+
 void	child(t_cmd *cmd, t_data *data)
 {
 	pid_t	pid;
-	int		fd[2];
 	int		status;
+	int		fd[2];
 
 	if (pipe(fd) == -1)
-		exit(1);
+		perror("pipe failed ");
 	pid = fork();
-	if (pid == 1)
-		exit(1);
 	if (pid == 0)
 	{
-		close(fd[0]);
-		if (cmd->fd_out != STDOUT_FILENO && cmd->fd_out != -1)
-			dup2(cmd->fd_out, STDOUT_FILENO);
-		else
-			dup2(fd[1], STDOUT_FILENO);
+		set_redir_child(fd, cmd);
 		exec_test(cmd, data);
 	}
 	else
 	{
+		set_redir_parent(fd, cmd);
 		signal(SIGINT, SIG_IGN);
-		close(fd[1]);
-		if (cmd->fd_in != STDIN_FILENO && cmd->fd_in != -1)
-			dup2(cmd->fd_in, STDIN_FILENO);
-		else
-			dup2(fd[0], STDIN_FILENO);
 		waitpid(pid, &status, 0);
 		if (WEXITSTATUS(status) != 0)
 			g_sig.prompt_erreur = true;
@@ -81,22 +99,18 @@ void	end(t_cmd *cmd, t_data *data)
 {
 	pid_t	pid;
 	int		status;
-	int		fd;
+	int		fd[2];
 
+	if (pipe(fd) == -1)
+		perror("pipe failed ");
 	pid = fork();
-	fd = cmd->fd_in;
-	if (pid == 1)
-		exit(1);
 	if (pid == 0)
 	{
-		dup2(fd, STDIN_FILENO);
 		exec_test(cmd, data);
-		exit(0);
 	}
 	else
 	{
 		signal(SIGINT, SIG_IGN);
-		close(fd);
 		waitpid(pid, &status, 0);
 		if (WEXITSTATUS(status) != 0)
 			g_sig.prompt_erreur = true;
@@ -106,22 +120,19 @@ void	end(t_cmd *cmd, t_data *data)
 
 int	execute_pipe(t_cmd *cmd, t_data *data)
 {
-	int		filein;
-	int		fileout;
-	t_cmd	*first;
 	t_cmd	*last;
 
-	first = cmdfirst(cmd);
 	last = cmdlast(cmd);
-	filein = first->fd_in;
-	fileout = last->fd_out;
-	dup2(filein, STDIN_FILENO);
 	while (cmd->next)
 	{
 		child(cmd, data);
 		cmd = cmd->next;
 	}
-	dup2(fileout, STDOUT_FILENO);
+	if (last->file_out.type != R_NONE)
+	{
+		dup2(last->file_out.fd, STDOUT_FILENO);
+		close(last->file_out.fd);
+	}
 	end(cmd, data);
 	return (1);
 }

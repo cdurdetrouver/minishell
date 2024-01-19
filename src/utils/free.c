@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:53:39 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/16 16:05:15 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/19 01:35:09 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	free_cmd(t_cmd *lst)
 		tmp = lst->next;
 		free(lst->cmd);
 		free_tab((void **)lst->argv);
-		// if (lst->cmd_path)
+		// if (lst->cmd_path != NULL)
 		// 	free(lst->cmd_path);
 		lst->cmd_path = NULL;
 		free(lst);
