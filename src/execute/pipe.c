@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:03:39 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/19 03:39:05 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/19 03:40:10 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,9 +134,5 @@ int	execute_pipe(t_cmd *cmd, t_data *data)
 		close(last->file_out.fd);
 	}
 	end(cmd, data);
-	if (filein != 0)
-		close(filein);
-	if (fileout != 1)
-		close(fileout);
 	return (1);
 }
