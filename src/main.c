@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:50:02 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/21 14:48:20 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/22 00:30:08 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	parsing_exe(t_data *data)
 	char	*s;
 
 	if (!closed_quotes(data->line))
-		return (ft_printf("quote error\n"), 0);
+		return (ft_printf("Quote error\n"), 1);
 	s = new_str(data->line);
 	data->t = init_tokens(s);
 	// print_token(data->t);

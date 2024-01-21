@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:47:53 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/21 22:40:32 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/22 00:27:06 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ typedef enum e_type
 	PIPE,
 	D_PIPE,
 	START,
-	END
+	END,
+	SEMICOLON,
+	ESPER,
+	BSLASH
 }						t_type;
 
 typedef enum e_type_redir
@@ -153,7 +156,6 @@ t_token					*tokenfirst(t_token *lst);
 void					print_token(t_token *token);
 t_type					get_type(char *s);
 t_token					*init_tokens(char *s);
-int						is_sep(t_type type);
 void					give_types(t_token *t);
 int						type_is_sep(t_type type);
 void					quote(t_token *t);
@@ -172,10 +174,7 @@ void					arr_func(t_cmd *cmd, int *i, char **arr);
 char					**char_arr(t_cmd *cmd);
 t_cmd					*create_cmd(t_token *token, int i);
 t_cmd					*create_all_cmd(t_token *t);
-int						output(t_cmd *cmd);
-int						input(t_cmd *cmd);
-int						give_fd(t_cmd *cmd);
-void	print_cmd_argv(t_cmd *cmd); // a supprimer
+void				print_cmd_argv(t_cmd *cmd); // a supprimer
 void					ft_assign_redirection_types(t_cmd *cmd);
 
 // PARSING
