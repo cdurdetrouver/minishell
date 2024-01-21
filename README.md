@@ -6,6 +6,11 @@ Minishell is a project carried out as part of the curriculum at Ecole 42. The go
 ## Features
 - **Interactive Prompt:** Minishell displays an interactive prompt where the user can enter commands.
 - **Built-in Commands:** The shell supports built-in commands such as `echo`, `cd`, `pwd`, `export`, `unset`, `env`, and `exit`.
+- **Execve Commands:** with the function
+  ```c
+  int execve(const char *pathname, char *const _Nullable argv[], char *const _Nullable envp[]);
+  ```
+   you can execute like any of the function that have a program in your computer located in your environment path.
 - **Error Handling:** Minishell handles user errors informatively.
 - **Redirections:** The shell supports standard input/output redirection (`>`, `<`, `>>`).
 - **Pipes:** Minishell allows the use of pipes for command chaining.
