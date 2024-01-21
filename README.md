@@ -59,7 +59,7 @@ To run the shell, use the following command:
    ```
 
 ## Authors
-<table>
+<table align="center">
   <tr>
     <td>
       <p align="center">
