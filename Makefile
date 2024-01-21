@@ -32,6 +32,6 @@ fclean: clean
 	@/bin/rm -f $(NAME)
 
 valgrind : all
-	valgrind --leak-check=full --track-origins=yes --track-fds=all --trace-children=yes ./$(NAME)
+	valgrind --suppressions=valgrind_readline_leaks_ignore.txt --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt ./${NAME}
 
 re: fclean all
