@@ -30,7 +30,7 @@ To run the shell, use the following command:
 ## Usage Examples
 1. **Execution of Built-in Commands:**
    ```bash
-   minishell$ echo "Hello, Minishell!"
+   🟢 cdurdetrouver@minishell: ../minishell$ echo "Hello, Minishell!"
    Hello, Minishell!
    ```
 2. **Using Redirections:**
