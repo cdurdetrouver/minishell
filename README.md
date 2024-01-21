@@ -59,5 +59,5 @@ To run the shell, use the following command:
    ```
 
 ## Authors
-* [gbazart](https://github.com/cdurdetrouver)
+* [![gbazart](https://cdn.intra.42.fr/users/d09dee629a391a7648155ed831d0aeb5/gbazart.jpg)](https://github.com/cdurdetrouver)
 * [hlamnaou](https://github.com/ArCheRy154)
