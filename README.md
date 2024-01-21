@@ -32,14 +32,19 @@ To run the shell, use the following command:
    ```bash
    🟢 cdurdetrouver@minishell: ../minishell$ echo "Hello, Minishell!"
    Hello, Minishell!
+   🟢 cdurdetrouver@minishell: ../minishell$
    ```
 2. **Using Redirections:**
    ```bash
    🟢 cdurdetrouver@minishell: ../minishell$ cat file.txt > new_file.txt
+   🟢 cdurdetrouver@minishell: ../minishell$
    ```
 3. **Using Pipes:**
    ```bash
    🟢 cdurdetrouver@minishell: ../minishell$ cat file.txt | grep "pattern"
+   pattern 1: test
+   pattern 2: test2
+   🟢 cdurdetrouver@minishell: ../minishell$
    ```
 ## Authors
 * cdurdetrouver
