@@ -55,4 +55,4 @@ To run the shell, use the following command:
 
 ## Authors
 * [gbazart](https://github.com/cdurdetrouver)
-* hlamnaou
+* [hlamnaou](https://github.com/ArCheRy154)
