@@ -52,6 +52,7 @@ To run the shell, use the following command:
   command not found : blabla
   💥 cdurdetrouver@minishell: ../minishell$
   ```
+5.
 
 ## Authors
 * cdurdetrouver
