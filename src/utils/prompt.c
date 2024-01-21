@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 02:02:48 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/17 12:56:59 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/21 14:50:07 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /**
  * @brief get the prompt.
  *
- * @return (char *) the prompt don't forget to free it.
+ * @return (char *) the prompt.
  */
 char	*getprompt(void)
 {

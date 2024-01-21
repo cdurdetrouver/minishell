@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:17:26 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/17 13:13:34 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/21 15:09:19 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ bool	inf_to_llmin(char *num)
 		return (false);
 	if (ft_strlen(num) < 20)
 		return (false);
+	if (ft_strlen(num) > 20)
+		return (true);
 	while (num[i])
 	{
 		if ((num[i] - 48) > (ll_max[i] - 48))
@@ -39,8 +41,12 @@ bool	sup_to_llmax(char *num)
 	int		i;
 
 	i = 0;
+	if (num[0] == '-')
+		return (false);
 	if (ft_strlen(num) < 19)
 		return (false);
+	if (ft_strlen(num) > 19)
+		return (true);
 	while (num[i] && ll_max[i])
 	{
 		if ((num[i] - 48) > (ll_max[i] - 48))
@@ -51,8 +57,6 @@ bool	sup_to_llmax(char *num)
 	}
 	if (num[i])
 		return (true);
-	if (ll_max[i])
-		return (false);
 	return (false);
 }
 

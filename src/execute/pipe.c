@@ -3,39 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:03:39 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/19 14:22:54 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/21 22:54:09 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	builtin_test(t_cmd *cmd, t_data *data)
-{
-	if (ft_strcmp(cmd->argv[0], "echo") == 0)
-		echo(cmd->argv);
-	else if (ft_strcmp(cmd->argv[0], "cd") == 0)
-		cd(cmd->argv);
-	else if (ft_strcmp(cmd->argv[0], "pwd") == 0)
-		pwd();
-	else if (ft_strcmp(cmd->argv[0], "export") == 0)
-		export_builtin(cmd->argv, data->env_cpy);
-	else if (ft_strcmp(cmd->argv[0], "unset") == 0)
-		unset(cmd->argv);
-	else if (ft_strcmp(cmd->argv[0], "env") == 0)
-		env(data->env_cpy);
-	else if (ft_strcmp(cmd->argv[0], "exit") == 0)
-		exit_builtin(cmd->argv, data);
-	return (0);
-}
-
 void	exec_test(t_cmd *cmd, t_data *data)
 {
 	if (is_builtin(cmd->argv[0]) == true)
 	{
-		builtin_test(cmd, data);
+		builtin(cmd, data);
 		exit(0);
 	}
 	else
@@ -53,7 +34,10 @@ void	set_redir_parent(int fd[2], t_cmd *cmd)
 		close(cmd->file_in.fd);
 	}
 	else
+	{
 		dup2(fd[0], STDIN_FILENO);
+		close(fd[0]);
+	}
 }
 
 void	set_redir_child(int fd[2], t_cmd *cmd)
@@ -67,72 +51,67 @@ void	set_redir_child(int fd[2], t_cmd *cmd)
 		close(cmd->file_out.fd);
 	}
 	else
+	{
 		dup2(fd[1], STDOUT_FILENO);
+		close(fd[1]);
+	}
 }
 
-void	child(t_cmd *cmd, t_data *data)
+void	child(t_cmd *cmd, t_data *data, int fd[2])
 {
 	pid_t	pid;
-	int		status;
-	int		fd[2];
 
-	if (pipe(fd) == -1)
-		perror("pipe failed ");
 	pid = fork();
 	if (pid == 0)
 	{
+		close(fd[0]);
 		set_redir_child(fd, cmd);
 		exec_test(cmd, data);
+		exit(0);
 	}
 	else
 	{
+		close(fd[1]);
 		set_redir_parent(fd, cmd);
 		signal(SIGINT, SIG_IGN);
-		waitpid(pid, &status, 0);
-		if (WEXITSTATUS(status) != 0)
-			g_sig.prompt_erreur = true;
-		signal(SIGINT, sig_handler);
 	}
 }
 
-void	end(t_cmd *cmd, t_data *data)
+void	wait_for_children(void)
 {
 	pid_t	pid;
 	int		status;
-	int		fd[2];
 
-	if (pipe(fd) == -1)
-		perror("pipe failed ");
-	pid = fork();
-	if (pid == 0)
+	while ((pid = waitpid(-1, &status, WNOHANG)) > 0)
 	{
-		exec_test(cmd, data);
-	}
-	else
-	{
-		signal(SIGINT, SIG_IGN);
-		waitpid(pid, &status, 0);
 		if (WEXITSTATUS(status) != 0)
 			g_sig.prompt_erreur = true;
-		signal(SIGINT, sig_handler);
 	}
+	signal(SIGINT, sig_handler);
+}
+
+void	end(t_cmd *cmd, t_data *data, int fd[2])
+{
+	set_redir_parent(fd, cmd);
+	exec_one(cmd, data);
 }
 
 int	execute_pipe(t_cmd *cmd, t_data *data)
 {
-	t_cmd	*last;
+	int	fd[2];
 
-	last = cmdlast(cmd);
 	while (cmd->next)
 	{
-		child(cmd, data);
+		if (pipe(fd) == -1)
+		{
+			perror("pipe failed ");
+			g_sig.prompt_erreur = true;
+			return (-1);
+		}
+		child(cmd, data, fd);
 		cmd = cmd->next;
 	}
-	if (last->file_out.type != R_NONE)
-	{
-		dup2(last->file_out.fd, STDOUT_FILENO);
-		close(last->file_out.fd);
-	}
-	end(cmd, data);
+	end(cmd, data, fd);
+	wait_for_children();
 	return (1);
 }
