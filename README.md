@@ -47,12 +47,11 @@ To run the shell, use the following command:
    🟢 cdurdetrouver@minishell: ../minishell$
    ```
 4. **Command not found:**
-  ```bash
-  🟢 cdurdetrouver@minishell: ../minishell$ blabla
-  command not found : blabla
-  💥 cdurdetrouver@minishell: ../minishell$
-  ```
-5.
+   ```bash
+   🟢 cdurdetrouver@minishell: ../minishell$ blabla
+   command not found : blabla
+   💥 cdurdetrouver@minishell: ../minishell$
+   ```
 
 ## Authors
 * cdurdetrouver
