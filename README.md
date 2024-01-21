@@ -46,7 +46,7 @@ To run the shell, use the following command:
    pattern 2: test2
    🟢 cdurdetrouver@minishell: ../minishell$
    ```
-4. **Command not found:**
+4. **Command not found:** <br>
    ![image](https://github.com/cdurdetrouver/minishell/assets/76235778/722d0f6f-ab04-4890-b4e4-d0f3ffe88460)
 
 5. **Prompt is interactive**
