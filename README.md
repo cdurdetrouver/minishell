@@ -30,7 +30,7 @@ To run the shell, use the following command:
    🟢 cdurdetrouver@minishell: ../minishell$ cat file.txt > new_file.txt
    ```
 3. **Using Pipes:**
-&esnp;<pre>
+   <pre>
 <span>🟢 </span><span style="color: red;">cdurdetrouver</span><span>@minishell</span><span>: </span><span>../minishell</span><span>$</span>
 </pre>
 ## Authors
