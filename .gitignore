@@ -2,3 +2,4 @@
 *.a
 minishell
 .vscode
+valgrind-out.txt
