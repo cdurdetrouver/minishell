@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:50:02 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/19 14:25:29 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/21 14:48:20 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	minishell(t_data *data)
 		add_history(data->line);
 		if (!parsing_exe(data))
 		{
-			print_cmd_argv(data->cmd);
+			// print_cmd_argv(data->cmd);
 			execute(data);
 		}
 		free_start(data);
