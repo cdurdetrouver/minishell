@@ -15,3 +15,24 @@ To compile the project, use the `make` command:
 ```bash
 make
 ```
+To run the shell, use the following command:
+```bash
+./minishell
+```
+## Usage Examples
+1. **Execution of Built-in Commands:**
+   ```bash
+   minishell$ echo "Hello, Minishell!"
+   Hello, Minishell!
+   ```
+2. **Using Redirections:**
+   ```bash
+   🟢 cdurdetrouver@minishell: ../minishell$ cat file.txt > new_file.txt
+   ```
+3. **Using Pipes:**
+   ```bash
+   🟢 cdurdetrouver@minishell: ../minishell$ cat file.txt > new_file.txt
+   ```
+## Authors
+* cdurdetrouver
+* hlamnaou
