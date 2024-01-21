@@ -54,5 +54,5 @@ To run the shell, use the following command:
    ```
 
 ## Authors
-* cdurdetrouver
+* [gbazart](https://github.com/cdurdetrouver)
 * hlamnaou
