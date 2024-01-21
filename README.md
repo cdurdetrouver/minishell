@@ -47,11 +47,8 @@ To run the shell, use the following command:
    🟢 cdurdetrouver@minishell: ../minishell$
    ```
 4. **Command not found:**
-   ```bash
-   🟢 cdurdetrouver@minishell: ../minishell$ blabla
-   command not found : blabla
-   💥 cdurdetrouver@minishell: ../minishell$
-   ```
+   ![image](https://github.com/cdurdetrouver/minishell/assets/76235778/722d0f6f-ab04-4890-b4e4-d0f3ffe88460)
+
 5. **Prompt is interactive**
    ```bash
    🟢 cdurdetrouver@minishell: ../minishell$ cd src
