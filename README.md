@@ -12,7 +12,7 @@ Minishell is a project carried out as part of the curriculum at Ecole 42. The go
   ```
    you can execute like any of the function that have a program in your computer located in your environment path.
 - **Error Handling:** Minishell handles user errors informatively.
-- **Redirections:** The shell supports standard input/output redirection (`>`, `<`, `>>`).
+- **Redirections:** The shell supports standard input/output redirection (`>`, `<`, `>>`, `<<`).
 - **Pipes:** Minishell allows the use of pipes for command chaining.
 - **History of Command:** Minishell maintains a command history, allowing users to navigate and rerun previous commands.
 - **Environment Variable:** The shell supports environment variables, allowing users to set and use variables in their commands.
