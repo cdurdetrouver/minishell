@@ -30,9 +30,11 @@ To run the shell, use the following command:
    🟢 cdurdetrouver@minishell: ../minishell$ cat file.txt > new_file.txt
    ```
 3. **Using Pipes:**
-   ```bash
-   🟢 cdurdetrouver@minishell: ../minishell$ cat file.txt > new_file.txt
-   ```
+<pre>
+```html
+<span style="color: red;">This text is red.</span>
+```
+</pre>
 ## Authors
 * cdurdetrouver
 * hlamnaou
