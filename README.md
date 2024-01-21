@@ -14,6 +14,9 @@ Minishell is a project carried out as part of the curriculum at Ecole 42. The go
 - **Error Handling:** Minishell handles user errors informatively.
 - **Redirections:** The shell supports standard input/output redirection (`>`, `<`, `>>`).
 - **Pipes:** Minishell allows the use of pipes for command chaining.
+- **History of Command:** Minishell maintains a command history, allowing users to navigate and rerun previous commands.
+- **Environment Variable:** The shell supports environment variables, allowing users to set and use variables in their commands.
+- **Signal Handling:** Minishell implements signal handling to manage signals like Ctrl+C gracefully.
 
 ## Compilation and Execution
 To compile the project, use the `make` command:
@@ -35,9 +38,9 @@ To run the shell, use the following command:
    🟢 cdurdetrouver@minishell: ../minishell$ cat file.txt > new_file.txt
    ```
 3. **Using Pipes:**
-   <pre>
-   <span>🟢 </span><span style="color: red;">cdurdetrouver</span><span>@minishell</span><span>: </span><span>../minishell</span><span>$</span>
-   </pre>
+   ```bash
+   🟢 cdurdetrouver@minishell: ../minishell$ cat file.txt | grep "pattern"
+   ```
 ## Authors
 * cdurdetrouver
 * hlamnaou
