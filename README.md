@@ -3,7 +3,7 @@
 ![minishell](./gif/minishell.gif)
 
 ## Description
-Minishell is a project carried out as part of the curriculum at Ecole 42. The goal is to create a command-line interpreter (shell) in the C language capable of understanding and executing certain basic commands.
+Minishell is a project carried out as part of the curriculum at Ecole 42. The goal is to create a command-line interpreter (shell) in the C language capable of understanding and executing certain basic commands.  
 subject here : [subject](./en.subject.pdf)
 
 ## Features
