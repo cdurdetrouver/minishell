@@ -31,9 +31,7 @@ To run the shell, use the following command:
    ```
 3. **Using Pipes:**
 <pre>
-```html
 <span style="color: red;">This text is red.</span>
-```
 </pre>
 ## Authors
 * cdurdetrouver
