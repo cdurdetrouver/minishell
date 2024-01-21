@@ -46,12 +46,13 @@ To run the shell, use the following command:
    pattern 2: test2
    🟢 cdurdetrouver@minishell: ../minishell$
    ```
-4. **Function not found**
+4. **Command not found:**
   ```bash
   🟢 cdurdetrouver@minishell: ../minishell$ blabla
   command not found : blabla
   💥 cdurdetrouver@minishell: ../minishell$
   ```
+
 ## Authors
 * cdurdetrouver
 * hlamnaou
