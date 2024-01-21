@@ -28,32 +28,21 @@ To run the shell, use the following command:
 ./minishell
 ```
 ## Usage Examples
-1. **Execution of Built-in Commands:**
-   ```bash
-   🟢 cdurdetrouver@minishell: ../minishell$ echo "Hello, Minishell!"
-   Hello, Minishell!
-   🟢 cdurdetrouver@minishell: ../minishell$
-   ```
-2. **Using Redirections:**
-   ```bash
-   🟢 cdurdetrouver@minishell: ../minishell$ cat file.txt > new_file.txt
-   🟢 cdurdetrouver@minishell: ../minishell$
-   ```
-3. **Using Pipes:**
-   ```bash
-   🟢 cdurdetrouver@minishell: ../minishell$ cat file.txt | grep "pattern"
-   pattern 1: test
-   pattern 2: test2
-   🟢 cdurdetrouver@minishell: ../minishell$
-   ```
+1. **Execution of Built-in Commands:** <br>
+   ![image](https://github.com/cdurdetrouver/minishell/assets/76235778/3edab181-e196-459a-b8b9-fd8f78118340)
+
+2. **Using Redirections:** <br>
+   ![image](https://github.com/cdurdetrouver/minishell/assets/76235778/58f8d3a6-303b-4cdd-b73a-a720efc8e854)
+
+3. **Using Pipes:** <br>
+   ![image](https://github.com/cdurdetrouver/minishell/assets/76235778/7f46fbdb-f02d-4129-be54-50bc0b9d34de)
+
 4. **Command not found:** <br>
    ![image](https://github.com/cdurdetrouver/minishell/assets/76235778/722d0f6f-ab04-4890-b4e4-d0f3ffe88460)
 
-5. **Prompt is interactive**
-   ```bash
-   🟢 cdurdetrouver@minishell: ../minishell$ cd src
-   🟢 cdurdetrouver@minishell: ../src$
-   ```
+5. **Prompt is interactive** <br>
+   ![image](https://github.com/cdurdetrouver/minishell/assets/76235778/23fd3c3a-dd94-40b1-b963-0de3cfafc75d)
+
 
 ## Authors
 <table align="center">
