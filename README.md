@@ -31,8 +31,8 @@ To run the shell, use the following command:
    ```
 3. **Using Pipes:**
    <pre>
-<span>🟢 </span><span style="color: red;">cdurdetrouver</span><span>@minishell</span><span>: </span><span>../minishell</span><span>$</span>
-</pre>
+      <span>🟢 </span><span style="color: red;">cdurdetrouver</span><span>@minishell</span><span>: </span><span>../minishell</span><span>$</span>
+   </pre>
 ## Authors
 * cdurdetrouver
 * hlamnaou
