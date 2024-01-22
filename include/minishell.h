@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:47:53 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/22 12:40:43 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/23 00:12:55 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,18 @@ typedef struct s_exp
 	struct s_exp		*next;
 }						t_exp;
 
+typedef struct s_env
+{
+	char				*key;
+	char				*value;
+	struct s_env		*next;
+}						t_env;
+
 typedef struct s_data
 {
 	t_token				*t;
 	t_cmd				*cmd;
+	t_env				*env;
 	int					save_fd[2];
 	char				**env_cpy;
 	char				*line;
@@ -202,13 +210,13 @@ int						ft_open(t_cmd *cmd, t_redir *file);
 // BUILTIN
 bool					is_builtin(char *s);
 int						builtin(t_cmd *cmd, t_data *data);
-int						cd(char **args);
+int						cd(char **args, t_env *env);
 int						echo(char **args);
-int						env(char **env);
-int						exit_builtin(char **args, t_data *data);
-int						export_builtin(char **args, char **env);
+int						env(t_env *env);
+void					exit_builtin(char **args, t_data *data);
+int						export_builtin(char **args, t_env *env);
 int						pwd(void);
-int						unset(char **args);
+int						unset(char **args, t_env *env);
 
 // SIGNAL
 void					sig_handler(int signum);
@@ -219,11 +227,16 @@ void					free_end(t_data *data);
 void					free_tab(void **tab);
 void					free_cmd(t_cmd *lst);
 void					ft_free(void **ptr);
+t_env					*create_env_list(char **envp);
 
 // UTILS
 char					**ft_ssdup(char **ss);
 char					*ft_strjoin2(char *s1, char *s2);
 char					*getprompt(void);
+char					*ft_getenv(t_env *env, char *key);
+void					ft_setenv(t_env *env, char *key, char *value);
+char					**env_to_tab(t_env *env);
+int						ft_removeenv(t_env **env, char *key);
 
 // DEBUG
 void					print_tab(char **tab);

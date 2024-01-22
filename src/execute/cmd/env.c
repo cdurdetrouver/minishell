@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 23:19:50 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/14 17:17:15 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/22 18:28:07 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,18 @@
  * @param fd (int)
  * @return (int) 1 if it works, 0 if don't.
  */
-int	env(char **env)
+int	env(t_env *env)
 {
-	while (*env)
+	t_env	*tmp;
+
+	tmp = env;
+	while (tmp)
 	{
-		ft_putstr_fd(*env, 1);
-		ft_putchar_fd('\n', 1);
-		env++;
+		ft_putstr_fd(tmp->key, 1);
+		ft_putstr_fd("=", 1);
+		ft_putstr_fd(tmp->value, 1);
+		ft_putstr_fd("\n", 1);
+		tmp = tmp->next;
 	}
 	return (1);
 }

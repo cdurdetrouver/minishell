@@ -6,13 +6,13 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 23:19:20 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/22 12:41:58 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/22 18:26:48 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	change_dir(char *path, int print_path)
+void	change_dir(char *path, int print_path, t_env *env)
 {
 	char	*cwd;
 	char	buff[4097];
@@ -22,7 +22,7 @@ void	change_dir(char *path, int print_path)
 	{
 		if (print_path)
 			printf("%s\n", path);
-		setenv("OLDPWD", cwd, 0);
+		ft_setenv(env, "OLDPWD", cwd);
 	}
 	else
 	{
@@ -34,6 +34,7 @@ void	change_dir(char *path, int print_path)
 		else
 			ft_putstr_fd("not a directory: ", 2);
 		ft_putendl_fd(path, 2);
+		g_sig.prompt_erreur = true;
 	}
 }
 
@@ -43,11 +44,11 @@ void	change_dir(char *path, int print_path)
  * @param (char **) args
  * @param (int) argc
  */
-int	cd(char **args)
+int	cd(char **args, t_env *env)
 {
 	if (!args[1])
 	{
-		change_dir(getenv("HOME"), 0);
+		change_dir(ft_getenv(env, "HOME"), 0, env);
 		return (1);
 	}
 	if (args[2])
@@ -59,11 +60,11 @@ int	cd(char **args)
 	else
 	{
 		if (ft_strcmp(args[1], "--") == 0)
-			change_dir(getenv("HOME"), 0);
+			change_dir(ft_getenv(env, "HOME"), 0, env);
 		else if (args[1][0] == '-' && !args[1][1])
-			change_dir(getenv("OLDPWD"), 1);
+			change_dir(ft_getenv(env, "OLDPWD"), 1, env);
 		else
-			change_dir(args[1], 0);
+			change_dir(args[1], 0, env);
 	}
 	return (0);
 }

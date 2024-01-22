@@ -6,11 +6,28 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:53:39 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/22 13:50:23 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/22 18:20:42 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_env(t_env *lst)
+{
+	t_env	*tmp;
+
+	if (!lst)
+		return ;
+	tmp = lst;
+	while (tmp)
+	{
+		tmp = lst->next;
+		free(lst->key);
+		free(lst->value);
+		free(lst);
+		lst = tmp;
+	}
+}
 
 void	free_cmd(t_cmd *lst)
 {
@@ -57,6 +74,7 @@ void	free_end(t_data *data)
 {
 	free_tab((void **)data->env_cpy);
 	rl_clear_history();
+	free_env(data->env);
 }
 
 /**

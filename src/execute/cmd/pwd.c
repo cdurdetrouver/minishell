@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:06:46 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/14 17:17:57 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/23 00:14:32 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ int	pwd(void)
 	path = getcwd(NULL, 0);
 	if (!path)
 	{
-		ft_putstr_fd("pwd: error retrieving current directory: ", 2);
-		ft_putstr_fd("getcwd: cannot access parent directories: ", 2);
-		ft_putstr_fd("No such file or directory\n", 2);
+		ft_putstr_fd("pwd: No such file or directory\n", 2);
 		g_sig.prompt_erreur = true;
 		return (0);
 	}

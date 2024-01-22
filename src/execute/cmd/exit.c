@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:17:26 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/21 15:09:19 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/22 18:37:27 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ bool	sup_to_llmax(char *num)
  * @param data (t_data *)
  * @return (int) 1 if it works, 0 if don't.
  */
-int	exit_builtin(char **args, t_data *data)
+void	exit_builtin(char **args, t_data *data)
 {
 	if (args[1] == NULL)
 	{
@@ -84,7 +84,6 @@ int	exit_builtin(char **args, t_data *data)
 			ft_putstr_fd(": numeric argument required\n", 2);
 			data->exit = true;
 			g_sig.exit_code = 2;
-			return (0);
 		}
 		else
 		{
@@ -97,7 +96,5 @@ int	exit_builtin(char **args, t_data *data)
 		ft_putstr_fd("exit: too many arguments\n", 2);
 		data->exit = true;
 		g_sig.exit_code = 2;
-		return (0);
 	}
-	return (1);
 }

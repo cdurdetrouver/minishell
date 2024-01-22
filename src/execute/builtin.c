@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:15:21 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/22 12:40:51 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/23 00:09:16 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@ int	builtin(t_cmd *cmd, t_data *data)
 	if (ft_strcmp(cmd->argv[0], "echo") == 0)
 		echo(cmd->argv);
 	else if (ft_strcmp(cmd->argv[0], "cd") == 0)
-		cd(cmd->argv);
+		cd(cmd->argv, data->env);
 	else if (ft_strcmp(cmd->argv[0], "pwd") == 0)
 		pwd();
 	else if (ft_strcmp(cmd->argv[0], "export") == 0)
-		export_builtin(cmd->argv, data->env_cpy);
+		export_builtin(cmd->argv, data->env);
 	else if (ft_strcmp(cmd->argv[0], "unset") == 0)
-		unset(cmd->argv);
+		unset(cmd->argv, data->env);
 	else if (ft_strcmp(cmd->argv[0], "env") == 0)
-		env(data->env_cpy);
+		env(data->env);
 	else if (ft_strcmp(cmd->argv[0], "exit") == 0)
 		exit_builtin(cmd->argv, data);
 	return (0);

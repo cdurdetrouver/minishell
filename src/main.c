@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:50:02 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/22 14:03:54 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/22 18:33:32 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	minishell(t_data *data)
 static void	init_data(t_data *data, char **envp)
 {
 	data->env_cpy = ft_ssdup(envp);
+	data->env = create_env_list(envp);
 	data->exit = false;
 	data->cmd = NULL;
 	data->line = NULL;
