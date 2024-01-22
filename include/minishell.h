@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:47:53 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/22 00:27:06 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/22 12:40:43 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ void					arr_func(t_cmd *cmd, int *i, char **arr);
 char					**char_arr(t_cmd *cmd);
 t_cmd					*create_cmd(t_token *token, int i);
 t_cmd					*create_all_cmd(t_token *t);
-void				print_cmd_argv(t_cmd *cmd); // a supprimer
+void	print_cmd_argv(t_cmd *cmd); // a supprimer
 void					ft_assign_redirection_types(t_cmd *cmd);
 
 // PARSING

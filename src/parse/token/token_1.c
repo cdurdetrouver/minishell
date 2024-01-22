@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 16:31:16 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/22 00:28:59 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/22 13:46:53 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,16 @@ t_token	*tokennew(char *content, t_type type)
 	list = malloc(sizeof(t_token));
 	if (!list)
 		return (NULL);
-	list->content = content ? ft_strdup(content) : NULL;
+	list->content = NULL;
+	if (content)
+	{
+		list->content = ft_strdup(content);
+		if (!list->content)
+		{
+			free(list);
+			return (NULL);
+		}
+	}
 	list->type = type;
 	list->next = NULL;
 	list->prev = NULL;
@@ -61,7 +70,7 @@ void	tokenclear(t_token *lst)
 	t_token	*tmp;
 
 	lst = tokenfirst(lst);
-	while (lst)
+	while (lst->next)
 	{
 		tmp = lst->next;
 		if (lst->content)
@@ -74,8 +83,8 @@ void	tokenclear(t_token *lst)
 int	type_is_sep(t_type type)
 {
 	if (type == PIPE || type == D_PIPE || type == D_GREAT || type == D_LESS
-		|| type == SEMICOLON || type == ESPER || type == BSLASH
-		|| type == GREAT || type == LESS)
+		|| type == SEMICOLON || type == ESPER || type == BSLASH || type == GREAT
+		|| type == LESS)
 		return (1);
 	return (0);
 }

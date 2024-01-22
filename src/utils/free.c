@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:53:39 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/19 14:14:08 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/22 13:50:23 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	free_end(t_data *data)
 void	free_start(t_data *data)
 {
 	free(data->line);
+	// tokenclear(data->t);
 	if (data->cmd)
 		free_cmd(data->cmd);
 	data->cmd = NULL;

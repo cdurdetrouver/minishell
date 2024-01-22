@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:02:42 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/21 15:46:53 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/22 12:19:20 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	exec_cmd(t_data *data, t_cmd *cmd)
 	cmd->cmd_path = get_cmd_path(cmd->argv[0]);
 	if (cmd->cmd_path == NULL)
 	{
-		perror("command not found ");
+		ft_putstr_fd(cmd->argv[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
 		exit(126);
 	}
 	if (execve(cmd->cmd_path, cmd->argv, data->env_cpy) == -1)
