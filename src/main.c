@@ -31,6 +31,8 @@ int	parsing_exe(t_data *data)
 	// print_token(data->t);
 	free(s);
 	data->cmd = create_all_cmd(data->t);
+	if (!parse(data->cmd))
+		return (1);
 	ft_assign_redirection_types(data->cmd);
 	tokenclear(data->t);
 	return (0);
