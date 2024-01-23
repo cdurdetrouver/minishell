@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 15:35:19 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/23 00:12:36 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/23 01:07:08 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,57 +39,62 @@ char	**ft_ssdup(char **ss)
 	return (new);
 }
 
-t_env	*envlast(t_env *lst)
+t_env	*env_new(char *en)
 {
-	t_env	*last;
+	t_env	*node;
+	char	**dptr;
 
-	last = lst;
-	while (last->next)
-		last = last->next;
-	return (last);
-}
-
-void	env_add_back(t_env **lst, char *key, char *value)
-{
-	t_env	*last;
-	t_env	*env;
-
-	env = malloc(sizeof(t_env));
-	if (!env)
-		return ;
-	env->key = ft_strdup(key);
-	env->value = ft_strdup(value);
-	env->next = NULL;
-	if (!env->key || !env->value)
+	dptr = ft_split(en, '=');
+	node = malloc(sizeof(t_env));
+	if (!node)
 	{
-		free(env);
-		return ;
+		free_tab((void **)dptr);
+		return (NULL);
 	}
-	if (*lst == NULL)
-		*lst = env;
+	node->key = ft_strdup(dptr[0]);
+	if (ft_strchr(en, '=') != NULL)
+		node->value = ft_strdup(ft_strchr(en, '='));
 	else
-	{
-		last = envlast(*lst);
-		last->next = env;
-	}
+		node->value = ft_strdup("");
+	free_tab((void **)dptr);
+	node->next = NULL;
+	return (node);
 }
 
-t_env	*create_env_list(char **envp)
+t_env	*envlast(t_env *head)
 {
-	t_env	*head;
-	char	**tmp;
+	while (head->next != NULL)
+		head = head->next;
+	return (head);
+}
+
+void	env_add_back(t_env **head, t_env *new_list)
+{
+	t_env	*node;
+
+	if (*head == NULL)
+	{
+		*head = new_list;
+		(*head)->next = NULL;
+		return ;
+	}
+	node = envlast(*head);
+	node->next = new_list;
+	new_list->next = NULL;
+}
+
+void	create_env_list(t_env **head, char **envp)
+{
 	int		i;
+	t_env	*new_list;
 
 	i = 0;
-	head = NULL;
 	while (envp[i])
 	{
-		tmp = ft_split(envp[i], '=');
-		env_add_back(&head, tmp[0], tmp[1]);
-		free_tab((void **)tmp);
+		new_list = env_new(envp[i]);
+		env_add_back(head, new_list);
 		i++;
 	}
-	return (head);
 }
 
 char	*ft_getenv(t_env *env, char *key)
@@ -109,6 +114,7 @@ char	*ft_getenv(t_env *env, char *key)
 void	ft_setenv(t_env *env, char *key, char *value)
 {
 	t_env	*tmp;
+	char	*tmp2;
 
 	tmp = env;
 	while (tmp)
@@ -121,7 +127,11 @@ void	ft_setenv(t_env *env, char *key, char *value)
 		}
 		tmp = tmp->next;
 	}
-	env_add_back(&env, key, value);
+	tmp2 = ft_strjoin(key, "=");
+	tmp2 = ft_strjoin2(tmp2, value);
+	tmp = env_new(tmp2);
+	free(tmp2);
+	env_add_back(&env, tmp);
 }
 
 int	ft_removeenv(t_env **env, char *key)

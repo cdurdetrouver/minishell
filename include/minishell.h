@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:47:53 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/23 00:12:55 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/23 00:54:38 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,7 +227,7 @@ void					free_end(t_data *data);
 void					free_tab(void **tab);
 void					free_cmd(t_cmd *lst);
 void					ft_free(void **ptr);
-t_env					*create_env_list(char **envp);
+void					create_env_list(t_env **head, char **envp);
 
 // UTILS
 char					**ft_ssdup(char **ss);
