@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:17:26 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/22 18:37:27 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/23 16:09:33 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	exit_builtin(char **args, t_data *data)
 			ft_putstr_fd(args[1], 1);
 			ft_putstr_fd(": numeric argument required\n", 2);
 			data->exit = true;
-			g_sig.exit_code = 2;
+			g_sig.exit_code = 1;
 		}
 		else
 		{
@@ -95,6 +95,6 @@ void	exit_builtin(char **args, t_data *data)
 	{
 		ft_putstr_fd("exit: too many arguments\n", 2);
 		data->exit = true;
-		g_sig.exit_code = 2;
+		g_sig.exit_code = 1;
 	}
 }

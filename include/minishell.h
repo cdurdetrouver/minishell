@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:47:53 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/23 02:51:28 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/23 16:12:59 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ typedef struct s_redir
 	char				*file;
 	int					fd;
 	t_type_redir		type;
+	struct s_redir		*next;
+	struct s_redir		*prev;
 }						t_redir;
 
 typedef struct s_cmd
@@ -94,8 +96,7 @@ typedef struct s_cmd
 	char				*cmd;
 	char				**argv;
 	char				*cmd_path;
-	t_redir				file_in;
-	t_redir				file_out;
+	t_redir				*file;
 	t_token				*token;
 	int					status;
 	struct s_cmd		*next;
@@ -130,6 +131,7 @@ typedef struct s_data
 // MAIN
 void					minishell(t_data *data);
 bool					is_builtin(char *s);
+int is_space_str(char *str);
 
 // EXPAND
 t_exp					*expnew(char *content, int index);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:06:36 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/23 01:27:31 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/23 15:36:21 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_export_plus(char *arg, t_env *env2)
 	{
 		if (ft_strcmp(tmp->key, key) == 0)
 		{
-			tmp->value = ft_strjoin(tmp->value, value);
+			tmp->value = ft_strjoin2(tmp->value, value);
 			free(key);
 			free(value);
 			return ;
@@ -90,9 +90,9 @@ bool	check_args(char *arg)
  */
 int	export_builtin(char **args, t_env *env2)
 {
-	if (!args[1] || args[2])
+	if (!args[1])
 		return (env(env2));
-	else
+	else if (args[1] && !args[2])
 	{
 		if (check_args(args[1]) == true)
 			run_export(args[1], env2);
@@ -102,6 +102,7 @@ int	export_builtin(char **args, t_env *env2)
 			ft_putstr_fd(args[1], 2);
 			ft_putstr_fd("': not a valid identifier\n", 2);
 			g_sig.prompt_erreur = true;
+			g_sig.exit_code = 1;
 			return (1);
 		}
 	}

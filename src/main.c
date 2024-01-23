@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:50:02 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/23 01:48:35 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/23 16:07:04 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	parsing_exe(t_data *data)
 {
 	char	*s;
 
+	if (!data->line || !*data->line || is_space_str(data->line))
+		return (1);
 	if (!closed_quotes(data->line))
 		return (ft_printf("Quote error\n"), 1);
 	s = new_str(data->line);
@@ -32,7 +34,10 @@ int	parsing_exe(t_data *data)
 	free(s);
 	data->cmd = create_all_cmd(data->t);
 	if (!parse(data->cmd))
+	{
+		tokenclear(data->t);
 		return (1);
+	}
 	ft_assign_redirection_types(data->cmd);
 	tokenclear(data->t);
 	return (0);
@@ -51,7 +56,8 @@ void	minishell(t_data *data)
 	signal(SIGTSTP, SIG_IGN);
 	while (data->exit == false)
 	{
-		data->line = readline(getprompt());
+		// data->line = readline(getprompt());
+		data->line = readline("minishell$ ");
 		g_sig.prompt_erreur = false;
 		if (data->line == NULL)
 		{

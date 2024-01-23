@@ -6,7 +6,7 @@
 /*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 16:31:16 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/23 02:30:27 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/23 15:20:04 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ t_token	*tokennew(char *content, t_type type)
 		list->content = ft_strdup(content);
 		if (!list->content)
 		{
-			free(list);
 			return (NULL);
 		}
 	}
@@ -63,21 +62,6 @@ t_token	*tokennew(char *content, t_type type)
 	list->next = NULL;
 	list->prev = NULL;
 	return (list);
-}
-
-void	tokenclear(t_token *lst)
-{
-	t_token	*tmp;
-
-	lst = tokenfirst(lst);
-	while (lst->next)
-	{
-		tmp = lst->next;
-		if (lst->content)
-			free(lst->content);
-		free(lst);
-		lst = tmp;
-	}
 }
 
 int	type_is_sep(t_type type)

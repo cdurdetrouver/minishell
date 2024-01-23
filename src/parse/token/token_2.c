@@ -6,7 +6,7 @@
 /*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 17:51:12 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/23 02:30:42 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/23 14:13:54 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,30 @@ t_type	get_type(char *s)
 	}
 	return (ARG);
 }
+
+// t_type get_type_2(char *s)
+// {
+// 	if (ft_strlen(s) == 1)
+// 	{
+// 		if (!ft_strncmp(s, ";", 1))
+// 			return (SEMICOLON);
+// 		if (!ft_strncmp(s, "&", 1))
+// 			return (ESPER);
+// 		if (!ft_strncmp(s, "\\", 1))
+// 			return (BSLASH);
+// 	}
+// 	else
+// 	if (ft_strlen(s) == 2)
+// 	{
+// 		if (!ft_strncmp(s, ";;", 2))
+// 			return (D_SEMICOLON);
+// 		if (!ft_strncmp(s, "\\\\", 2))
+// 			return (D_BSLASH);
+// 		if (!ft_strncmp(s, "&&", 2))
+// 			return (D_ESPER);
+// 	}
+// 	return (ARG);
+// }
 
 t_token	*init_tokens(char *s)
 {

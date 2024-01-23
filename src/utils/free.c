@@ -3,14 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:53:39 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/22 18:20:42 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/23 15:20:10 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	tokenclear(t_token *lst)
+{
+	t_token	*tmp;
+
+	lst = tokenfirst(lst);
+	tmp = lst;
+	while (tmp)
+	{
+		tmp = lst->next;
+		if (lst->content)
+		{
+			free(lst->content);
+		}
+		free(lst);
+		lst = tmp;
+	}
+}
 
 void	free_env(t_env *lst)
 {
@@ -40,6 +58,7 @@ void	free_cmd(t_cmd *lst)
 	while (tmp)
 	{
 		tmp = lst->next;
+		tokenclear(lst->token);
 		free(lst->cmd);
 		free_tab((void **)lst->argv);
 		// if (lst->cmd_path != NULL)
@@ -65,11 +84,6 @@ void	free_tab(void **tab)
 	free(tab);
 }
 
-/**
- * @brief free for the end of the program.
- *
- * @param data
- */
 void	free_end(t_data *data)
 {
 	free_tab((void **)data->env_cpy);
@@ -86,7 +100,6 @@ void	free_end(t_data *data)
 void	free_start(t_data *data)
 {
 	free(data->line);
-	// tokenclear(data->t);
 	if (data->cmd)
 		free_cmd(data->cmd);
 	data->cmd = NULL;
