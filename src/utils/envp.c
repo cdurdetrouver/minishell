@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 15:35:19 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/23 01:07:08 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/23 01:13:21 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_env	*env_new(char *en)
 	}
 	node->key = ft_strdup(dptr[0]);
 	if (ft_strchr(en, '=') != NULL)
-		node->value = ft_strdup(ft_strchr(en, '='));
+		node->value = ft_strdup(ft_strchr(en, '=') + 1);
 	else
 		node->value = ft_strdup("");
 	free_tab((void **)dptr);
