@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:49:46 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/23 02:28:06 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/23 03:00:27 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,20 @@ void	print_expand(t_exp *exp)
 	exp = ptr;
 }
 
-void expand_func_1(t_exp *exp, char *ret, int *j)
+void	expand_func_1(t_exp *exp, char *ret, int *j)
 {
-	char *to_copy;
-	int k;
+	char	*to_copy;
+	int		k;
+	char	*tmp;
 
-	k = 0;
 	if (ft_strcmp(exp->var, "?") == 0)
-		ret[(*j)++] = '0' + g_sig.exit_code;
+	{
+		tmp = ft_itoa(g_sig.exit_code);
+		k = 0;
+		while (tmp[k])
+			ret[(*j)++] = tmp[k++];
+		free(tmp);
+	}
 	else
 	{
 		to_copy = getenv(exp->var);

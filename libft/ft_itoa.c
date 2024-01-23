@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 13:42:39 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/11 16:54:59 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/23 03:00:03 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*ft_putina(char *dest, long int number, int len)
  * @brief convert a int to string.
  *
  * @param n (int) int to convert
- * @return (char *) string converted
+ * @return (char *) string converted don't forget to free it.
  */
 char	*ft_itoa(int n)
 {

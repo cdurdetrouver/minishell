@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:47:53 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/23 02:28:56 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/23 02:51:28 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,7 @@ int						parse(t_cmd *cmd);
 // EXECUTE
 void					execute(t_data *data);
 void					exec_one(t_cmd *cmd, t_data *data);
-void					ft_save_fd(t_cmd *cmd, t_data *data);
+void					ft_save_fd(t_data *data);
 void					ft_restore_fd(t_data *data);
 int						exec(t_data *data, t_cmd *cmd);
 int						execute_pipe(t_cmd *cmd, t_data *data);

@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:02:42 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/23 02:23:07 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/23 02:55:16 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,16 +92,16 @@ int	exec(t_data *data, t_cmd *cmd)
 		g_sig.prompt_erreur = true;
 	}
 	else if (pid == 0)
-	{
 		exec_cmd(data, cmd);
-	}
 	else
 	{
 		signal(SIGINT, SIG_IGN);
 		waitpid(pid, &status, 0);
 		if (WEXITSTATUS(status) != 0)
+		{
 			g_sig.prompt_erreur = true;
-		g_sig.exit_code = WEXITSTATUS(status);
+			g_sig.exit_code = WEXITSTATUS(status);
+		}
 		signal(SIGINT, sig_handler);
 	}
 	return (0);
