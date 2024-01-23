@@ -6,11 +6,20 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:02:42 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/22 18:32:59 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/23 02:23:07 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+bool	is_directory(const char *path)
+{
+	struct stat	statbuf;
+
+	if (stat(path, &statbuf) != 0)
+		return (false);
+	return (S_ISDIR(statbuf.st_mode));
+}
 
 char	*get_cmd_path(char *cmd)
 {
@@ -42,12 +51,18 @@ char	*get_cmd_path(char *cmd)
 
 void	exec_cmd(t_data *data, t_cmd *cmd)
 {
+	if (is_directory(cmd->argv[0]))
+	{
+		ft_putstr_fd(cmd->argv[0], 2);
+		ft_putstr_fd(": is a directory\n", 2);
+		exit(126);
+	}
 	cmd->cmd_path = get_cmd_path(cmd->argv[0]);
 	if (cmd->cmd_path == NULL)
 	{
 		ft_putstr_fd(cmd->argv[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
-		exit(126);
+		exit(127);
 	}
 	free_tab((void **)data->env_cpy);
 	data->env_cpy = env_to_tab(data->env);
@@ -86,6 +101,7 @@ int	exec(t_data *data, t_cmd *cmd)
 		waitpid(pid, &status, 0);
 		if (WEXITSTATUS(status) != 0)
 			g_sig.prompt_erreur = true;
+		g_sig.exit_code = WEXITSTATUS(status);
 		signal(SIGINT, sig_handler);
 	}
 	return (0);

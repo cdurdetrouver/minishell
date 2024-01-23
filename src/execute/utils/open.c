@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 20:21:52 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/19 00:43:19 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/23 02:06:09 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_create(char *file)
 
 	fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
-		perror("minishell");
+		perror(file);
 	return (fd);
 }
 
@@ -28,7 +28,7 @@ int	ft_append(char *file)
 
 	fd = open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fd < 0)
-		perror("minishell");
+		perror(file);
 	return (fd);
 }
 
@@ -38,7 +38,7 @@ int	ft_read(char *file)
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		perror("minishell");
+		perror(file);
 	return (fd);
 }
 
@@ -46,21 +46,32 @@ int	ft_heredoc(char *file)
 {
 	char	*line;
 	int		fd[2];
+	pid_t	reader;
 
-	if (pipe(fd) < 0)
-		perror("minishell");
-	close(fd[1]);
-	while (1)
+	if (pipe(fd) == -1)
+		perror(file);
+	reader = fork();
+	if (reader == 0)
 	{
-		line = readline("> ");
-		if (!ft_strcmp(line, file))
-			break ;
-		ft_putendl_fd(line, fd[0]);
-		free(line);
+		close(fd[0]);
+		while (1)
+		{
+			line = readline("> ");
+			if (!ft_strcmp(line, file))
+				break ;
+			ft_putendl_fd(line, fd[1]);
+			free(line);
+		}
+		if (line)
+			free(line);
 	}
-	if (line)
-		free(line);
-	return (fd[0]);
+	else
+	{
+		close(fd[1]);
+		wait(NULL);
+		return (fd[0]);
+	}
+	return (-1);
 }
 
 int	ft_open(t_cmd *cmd, t_redir *file)

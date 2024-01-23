@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:03:39 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/21 22:54:09 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/23 02:20:41 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	set_redir_parent(int fd[2], t_cmd *cmd)
 	{
 		close(fd[0]);
 		cmd->file_in.fd = ft_open(cmd, &cmd->file_in);
+		if (cmd->file_in.fd == -1)
+			cmd->file_in.fd = 0;
 		dup2(cmd->file_in.fd, STDIN_FILENO);
 		close(cmd->file_in.fd);
 	}
@@ -47,6 +49,8 @@ void	set_redir_child(int fd[2], t_cmd *cmd)
 	{
 		close(fd[1]);
 		cmd->file_out.fd = ft_open(cmd, &cmd->file_out);
+		if (cmd->file_out.fd == -1)
+			exit(1);
 		dup2(cmd->file_out.fd, STDOUT_FILENO);
 		close(cmd->file_out.fd);
 	}
@@ -67,13 +71,12 @@ void	child(t_cmd *cmd, t_data *data, int fd[2])
 		close(fd[0]);
 		set_redir_child(fd, cmd);
 		exec_test(cmd, data);
-		exit(0);
+		exit(167);
 	}
 	else
 	{
 		close(fd[1]);
 		set_redir_parent(fd, cmd);
-		signal(SIGINT, SIG_IGN);
 	}
 }
 
@@ -85,9 +88,11 @@ void	wait_for_children(void)
 	while ((pid = waitpid(-1, &status, WNOHANG)) > 0)
 	{
 		if (WEXITSTATUS(status) != 0)
+		{
 			g_sig.prompt_erreur = true;
+			g_sig.exit_code = WEXITSTATUS(status);
+		}
 	}
-	signal(SIGINT, sig_handler);
 }
 
 void	end(t_cmd *cmd, t_data *data, int fd[2])

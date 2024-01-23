@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:50:02 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/23 01:07:19 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/23 01:48:35 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	minishell(t_data *data)
 {
 	using_history();
 	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, sig_handler);
+	signal(SIGQUIT, SIG_IGN);
 	signal(SIGTSTP, SIG_IGN);
 	while (data->exit == false)
 	{
@@ -60,10 +60,7 @@ void	minishell(t_data *data)
 		}
 		add_history(data->line);
 		if (!parsing_exe(data))
-		{
-			// print_cmd_argv(data->cmd);
 			execute(data);
-		}
 		free_start(data);
 	}
 }
