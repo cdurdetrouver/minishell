@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:47:53 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/23 00:54:38 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/23 01:18:47 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,6 +217,7 @@ void					exit_builtin(char **args, t_data *data);
 int						export_builtin(char **args, t_env *env);
 int						pwd(void);
 int						unset(char **args, t_env *env);
+bool					check_args(char *arg);
 
 // SIGNAL
 void					sig_handler(int signum);
