@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:47:53 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/23 01:18:47 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/23 02:28:56 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ typedef enum e_type
 	END,
 	SEMICOLON,
 	ESPER,
-	BSLASH
+	BSLASH,
+	D_BADCHAR
 }						t_type;
 
 typedef enum e_type_redir

@@ -6,7 +6,7 @@
 /*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:49:46 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/18 19:37:28 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/23 02:28:06 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,25 @@ void	print_expand(t_exp *exp)
 	exp = ptr;
 }
 
-void	expand_func_1(t_exp *exp, char *ret, int *j)
+void expand_func_1(t_exp *exp, char *ret, int *j)
 {
-	char	*to_copy;
-	int		k;
+	char *to_copy;
+	int k;
 
 	k = 0;
-	to_copy = getenv(exp->var);
-	if (to_copy)
+	if (ft_strcmp(exp->var, "?") == 0)
+		ret[(*j)++] = '0' + g_sig.exit_code;
+	else
 	{
-		k = 0;
-		while (to_copy[k])
-			ret[(*j)++] = to_copy[k++];
+		to_copy = getenv(exp->var);
+		if (to_copy)
+		{
+			k = 0;
+			while (to_copy[k])
+				ret[(*j)++] = to_copy[k++];
+		}
+		else
+			ret[(*j)++] = '$';
 	}
 }
 

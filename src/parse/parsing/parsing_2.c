@@ -6,7 +6,7 @@
 /*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 14:17:26 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/22 00:28:24 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/23 02:28:47 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	print_error(char *err)
 {
 	ft_putstr_fd("Syntax error near unexpected token ", 2);
 	ft_putendl_fd(err, 2);
+	g_sig.exit_code = 2;
 	g_sig.prompt_erreur = true;
 }
 
@@ -31,6 +32,8 @@ int	parse_pipes(t_cmd *cmd)
 				return (print_error("&"), 0);
 			if (cmd->token->type == BSLASH || cmd->token->type == END)
 				return (print_error("\\"), 0);
+			if (cmd->token->type == D_BADCHAR || cmd->token->type == END)
+				return (print_error(""), 0);
 			if (cmd->token->type == PIPE || cmd->token->type == D_PIPE
 				|| cmd->token->type == END)
 				return (print_error("|"), 0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 16:31:16 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/22 13:46:53 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/23 02:30:27 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	type_is_sep(t_type type)
 {
 	if (type == PIPE || type == D_PIPE || type == D_GREAT || type == D_LESS
 		|| type == SEMICOLON || type == ESPER || type == BSLASH || type == GREAT
-		|| type == LESS)
+		|| type == LESS || type == D_BADCHAR)
 		return (1);
 	return (0);
 }
