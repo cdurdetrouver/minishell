@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:49:46 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/23 03:00:27 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/24 14:58:24 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,31 +26,19 @@ void	print_expand(t_exp *exp)
 	exp = ptr;
 }
 
-void	expand_func_1(t_exp *exp, char *ret, int *j)
+void	expand_func_1(t_exp *exp, t_env *env, char *ret, int *j)
 {
 	char	*to_copy;
 	int		k;
-	char	*tmp;
 
-	if (ft_strcmp(exp->var, "?") == 0)
+	k = 0;
+	to_copy = get_var(exp->var, env);
+	if (to_copy)
 	{
-		tmp = ft_itoa(g_sig.exit_code);
 		k = 0;
-		while (tmp[k])
-			ret[(*j)++] = tmp[k++];
-		free(tmp);
-	}
-	else
-	{
-		to_copy = getenv(exp->var);
-		if (to_copy)
-		{
-			k = 0;
-			while (to_copy[k])
-				ret[(*j)++] = to_copy[k++];
-		}
-		else
-			ret[(*j)++] = '$';
+		while (to_copy[k])
+			ret[(*j)++] = to_copy[k++];
+		free(to_copy);
 	}
 }
 
@@ -78,7 +66,7 @@ void	expand_func_3(char *s, int *i)
 	(*i)++;
 }
 
-char	*expand(char *s)
+char	*expand(char *s, t_env *env)
 {
 	int		i;
 	int		j;
@@ -90,7 +78,7 @@ char	*expand(char *s)
 	if (!exp)
 		return (ft_strdup(s));
 	ptr = exp;
-	ret = malloc(memory_needed(s, exp));
+	ret = malloc(memory_needed(s, env, exp));
 	if (!ret)
 		return (NULL);
 	i = 0;
@@ -99,7 +87,7 @@ char	*expand(char *s)
 	{
 		while (s[i] && i < exp->index)
 			ret[j++] = s[i++];
-		expand_func_1(exp, ret, &j);
+		expand_func_1(exp, env, ret, &j);
 		i += ft_strlen(exp->var) + 1;
 		exp = exp->next;
 	}
