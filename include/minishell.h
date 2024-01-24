@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:47:53 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/24 16:52:01 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/24 17:57:03 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,6 @@ typedef struct s_data
 // MAIN
 void					minishell(t_data *data);
 bool					is_builtin(char *s);
-int						is_space_str(char *str);
 
 // EXPAND
 t_exp					*expnew(char *content, int index);
@@ -188,8 +187,10 @@ void					arr_func(t_cmd *cmd, int *i, char **arr);
 char					**char_arr(t_cmd *cmd);
 t_cmd					*create_cmd(t_token *token, int i);
 t_cmd					*create_all_cmd(t_token *t);
-void	print_cmd_argv(t_cmd *cmd); // a supprimer
+void					print_cmd_argv(t_cmd *cmd); // a supprimer
+void					ft_append_redirection(t_cmd *cmd, t_redir *redir);
 void					ft_assign_redirection_types(t_cmd *cmd);
+t_redir					*ft_newredirection(char *file, t_type_redir type);
 
 // PARSING
 int						skip_quotes(char const *s, int *i);
@@ -212,6 +213,7 @@ int						exec(t_data *data, t_cmd *cmd);
 int						execute_pipe(t_cmd *cmd, t_data *data);
 void					exec_cmd(t_data *data, t_cmd *cmd);
 int						ft_open(t_cmd *cmd, t_redir *file);
+int	redirect(t_cmd *cmd); // ddd
 
 // BUILTIN
 bool					is_builtin(char *s);
