@@ -6,22 +6,25 @@
 /*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:41:25 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/16 12:34:47 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/24 15:22:34 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	get_var_len(char *str)
+int	get_var_len(char *str, t_env *env)
 {
 	char	*var;
 	int		len;
 
-	var = getenv(str);
-	if (!var)
-		return (0);
-	len = ft_strlen(var);
-	return (len);
+	var = get_var(str, env);
+	if (var != NULL && var[0] != '\0')
+	{
+		len = ft_strlen(var);
+		free(var);
+		return len;
+	}
+	return 0;
 }
 
 int	env_char(char c)
@@ -31,7 +34,7 @@ int	env_char(char c)
 	return (0);
 }
 
-int	memory_needed(char *str, t_exp *exp)
+int	memory_needed(char *str, t_env *env, t_exp *exp)
 {
 	int		count;
 	t_exp	*ptr;
@@ -42,7 +45,7 @@ int	memory_needed(char *str, t_exp *exp)
 		exp = exp->next;
 	while (exp)
 	{
-		count += max(ft_strlen(exp->var) + 1, get_var_len(exp->var));
+		count += max(ft_strlen(exp->var) + 1, get_var_len(exp->var, env));
 		exp = exp->next;
 	}
 	exp = ptr;

@@ -6,7 +6,7 @@
 /*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:47:53 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/23 16:12:59 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/24 15:31:20 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,19 +131,19 @@ typedef struct s_data
 // MAIN
 void					minishell(t_data *data);
 bool					is_builtin(char *s);
-int is_space_str(char *str);
 
 // EXPAND
 t_exp					*expnew(char *content, int index);
 t_exp					*explast(t_exp *exp);
 void					expclear(t_exp *exp);
 void					expadd_back(t_exp **lst, t_exp *new);
-int						get_var_len(char *str);
+char					*get_var(char *str, t_env *env);
+int						get_var_len(char *str, t_env *env);
 int						env_char(char c);
-int						memory_needed(char *str, t_exp *exp);
+int						memory_needed(char *str, t_env *env, t_exp *exp);
 t_exp					*init_expand(char *s);
 void					print_expand(t_exp *exp);
-char					*expand(char *s);
+char					*expand(char *s, t_env *env);
 void					expand_func_3(char *s, int *i);
 
 // STR
@@ -154,7 +154,7 @@ char					*remove_spaces(char *s);
 int						spaces_to_add(char *s);
 int						space_func(char *s, char *ret, int *i, int *j);
 char					*add_space(char *s);
-char					*new_str(char *str);
+char					*new_str(char *str, t_env *env);
 int						is_space(char c);
 
 // TOKEN

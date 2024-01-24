@@ -6,7 +6,7 @@
 /*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:50:02 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/23 16:07:04 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/24 15:31:34 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	parsing_exe(t_data *data)
 		return (1);
 	if (!closed_quotes(data->line))
 		return (ft_printf("Quote error\n"), 1);
-	s = new_str(data->line);
+	s = new_str(data->line, data->env);
 	data->t = init_tokens(s);
 	// print_token(data->t);
 	free(s);

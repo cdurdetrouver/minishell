@@ -6,7 +6,7 @@
 /*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/01 10:19:41 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/16 12:34:38 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/24 15:26:10 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,31 @@ void	expadd_back(t_exp **lst, t_exp *new)
 		if (l)
 			l->next = new;
 	}
+}
+
+char	*get_var(char *str, t_env *env)
+{
+	char	*s;
+	int		i;
+	char	*r;
+
+	if (!str || !env)
+		return (NULL);
+	if (!ft_strncmp(str, "?", ft_strlen(str) + 2))
+		return (ft_itoa(g_sig.exit_code));
+	i = -1;
+	s = malloc(ft_strlen(str) + 1);
+	while (str[++i])
+		s[i] = str[i];
+	s[i] = 0;
+	while (env)
+	{
+		if (!ft_strncmp(s, env->key, ft_strlen(s) + 1))
+		{
+			r = ft_substr(env->value, 0, ft_strlen(env->value));
+			return (free(s), r);
+		}
+		env = env->next;
+	}
+	return (free(s), NULL);
 }
