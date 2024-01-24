@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 11:28:21 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/16 15:39:52 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/24 16:37:35 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 t_list				*ft_lstnew(void *content);
 int					ft_lstsize(t_list *lst);
 int					ft_isspace(char c);
+int					ft_is_space_str(char *s);
 int					ft_isnumeric(char *str);
 long				ft_atol(const char *str);
 int					count_words(const char *str, char c);

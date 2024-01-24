@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+         #
+#    By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 12:21:53 by gbazart           #+#    #+#              #
-#    Updated: 2024/01/22 14:20:42 by gbazart          ###   ########.fr        #
+#    Updated: 2024/01/24 16:37:09 by hlamnaou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,8 @@ SRC = ft_isdigit.c \
     ft_memcmp.c \
     ft_printf.c \
     ft_substr.c \
-    ft_tolower.c
+    ft_tolower.c \
+    ft_is_space_str.c 
 
 OBJ = $(SRC:.c=.o)
 
