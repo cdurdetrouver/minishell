@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:03:39 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/23 03:03:37 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/24 02:07:31 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,139 +22,106 @@ void	exec_test(t_cmd *cmd, t_data *data)
 		exec_cmd(data, cmd);
 }
 
-void	set_redir_parent(int fd[2], t_cmd *cmd)
-{
-	close(fd[1]);
-	if (cmd->file_in.type != R_NONE)
-	{
-		close(fd[0]);
-		dup2(cmd->file_in.fd, STDIN_FILENO);
-		close(cmd->file_in.fd);
-	}
-	else
-	{
-		dup2(fd[0], STDIN_FILENO);
-		close(fd[0]);
-	}
-}
-
-void	set_redir_child(int fd[2], t_cmd *cmd)
-{
-	close(fd[0]);
-	if (cmd->file_out.type != R_NONE)
-	{
-		close(fd[1]);
-		dup2(cmd->file_out.fd, STDOUT_FILENO);
-		close(cmd->file_out.fd);
-	}
-	else
-	{
-		dup2(fd[1], STDOUT_FILENO);
-		close(fd[1]);
-	}
-}
-
-int	open_file(t_cmd *cmd)
-{
-	if (cmd->file_out.type != R_NONE)
-		cmd->file_out.fd = ft_open(cmd, &cmd->file_out);
-	else
-		cmd->file_out.fd = -2;
-	if (cmd->file_in.type != R_NONE)
-		cmd->file_in.fd = ft_open(cmd, &cmd->file_in);
-	else
-		cmd->file_in.fd = -2;
-	if (cmd->file_out.fd == -1 || cmd->file_in.fd == -1)
-	{
-		if (cmd->file_out.fd != -2)
-			close(cmd->file_out.fd);
-		if (cmd->file_in.fd != -2)
-			close(cmd->file_in.fd);
-		g_sig.prompt_erreur = true;
-		g_sig.exit_code = 1;
-		return (-1);
-	}
-	return (1);
-}
-
-void	child(t_cmd *cmd, t_data *data, int fd[2])
-{
-	pid_t	pid;
-
-	if (open_file(cmd) == -1)
-		return ;
-	pid = fork();
-	if (pid == -1)
-	{
-		perror("fork failed ");
-		g_sig.prompt_erreur = true;
-		return ;
-	}
-	else if (pid == 0)
-	{
-		close(fd[0]);
-		set_redir_child(fd, cmd);
-		exec_test(cmd, data);
-		exit(167);
-	}
-	else
-	{
-		close(fd[1]);
-		set_redir_parent(fd, cmd);
-	}
-}
-
-void	wait_for_children(void)
+void	wait_for_children(t_cmd *cmd)
 {
 	pid_t	pid;
 	int		status;
 
-	while ((pid = waitpid(-1, &status, WNOHANG)) > 0)
+	while (cmd)
 	{
+		waitpid(cmd->pid, &status, 0);
 		if (WEXITSTATUS(status) != 0)
 		{
 			g_sig.prompt_erreur = true;
 			g_sig.exit_code = WEXITSTATUS(status);
 		}
+		cmd = cmd->next;
+	}
+	signal(SIGINT, sig_handler);
+}
+
+void	ft_close_all_pipes(t_cmd *cmd)
+{
+	cmd = cmd_first(cmd);
+	while (cmd->next)
+	{
+		if (cmd->fd[0] > 0)
+			close(cmd->fd[0]);
+		if (cmd->fd[1] > 1)
+			close(cmd->fd[1]);
+		cmd = cmd->next;
 	}
 }
 
-void	end(t_cmd *cmd, t_data *data, int fd[2])
+int	init_cmd(t_cmd *cmd)
 {
-	set_redir_parent(fd, cmd);
-	exec_one(cmd, data);
+	cmd = cmd_first(cmd);
+	while (cmd->next)
+	{
+		if (pipe(cmd->fd) == -1)
+		{
+			perror("pipe failed ");
+			g_sig.prompt_erreur = true;
+			g_sig.exit_code = 3;
+			return (-1);
+		}
+		cmd = cmd->next;
+	}
+}
+
+void	child(t_cmd *cmd, t_data *data)
+{
+	if (cmd_open(cmd) == -1)
+		return ;
+	else if (redirect(cmd) == -1)
+		return ;
+	cmd->pid = fork();
+	if (cmd->pid < 0)
+	{
+		perror("fork failed ");
+		g_sig.prompt_erreur = true;
+	}
+	else if (cmd->pid == 0)
+		exec_test(cmd, data);
+	else
+	{
+		signal(SIGINT, SIG_IGN);
+		close(cmd->fd[1]);
+	}
+}
+
+void	end(t_cmd *cmd, t_data *data)
+{
+	if (cmd_open(cmd) == -1)
+		return ;
+	else if (redirect(cmd) == -1)
+		return ;
+	cmd->pid = fork();
+	if (cmd->pid < 0)
+	{
+		perror("fork failed ");
+		g_sig.prompt_erreur = true;
+	}
+	else if (cmd->pid == 0)
+		exec_test(cmd, data);
+	else
+	{
+		signal(SIGINT, SIG_IGN);
+		close(cmd->fd[0]);
+	}
 }
 
 int	execute_pipe(t_cmd *cmd, t_data *data)
 {
-	int	fd[2];
-
-	if (cmd->file_in.type != R_NONE)
-	{
-		cmd->file_in.fd = ft_open(cmd, &cmd->file_in);
-		if (cmd->file_in.fd == -1)
-		{
-			g_sig.exit_code = 1;
-			cmd = cmd->next;
-		}
-		else
-		{
-			dup2(cmd->file_in.fd, STDIN_FILENO);
-			close(cmd->file_in.fd);
-		}
-	}
+	if (init_cmd(cmd) == -1)
+		return (-1);
 	while (cmd->next)
 	{
-		if (pipe(fd) == -1)
-		{
-			perror("pipe failed ");
-			g_sig.prompt_erreur = true;
-			return (-1);
-		}
-		child(cmd, data, fd);
+		child(cmd, data);
 		cmd = cmd->next;
 	}
-	end(cmd, data, fd);
-	wait_for_children();
+	end(cmd, data);
+	ft_close_all_pipes(cmd);
+	wait_for_children(cmd);
 	return (1);
 }

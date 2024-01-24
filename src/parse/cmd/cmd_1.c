@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:13:23 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/23 12:24:21 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/24 00:14:18 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ t_cmd	*cmdnew(char *content, t_token *token)
 	list->cmd = ft_strdup(content);
 	list->next = NULL;
 	list->prev = NULL;
+	list->fd[0] = 0;
+	list->fd[1] = 1;
 	list->token = token;
 	list->file_in.type = R_NONE;
 	list->file_in.file = NULL;

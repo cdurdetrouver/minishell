@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:02:42 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/23 15:32:22 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/24 01:53:25 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,27 @@ char	*get_cmd_path(char *cmd)
 	return (NULL);
 }
 
+void	free_and_close(t_data *data, t_cmd *cmd)
+{
+	free_start(data);
+	free_end(data);
+	if (cmd->cmd_path)
+		free(cmd->cmd_path);
+	if (cmd->fd[0] > 0)
+		close(cmd->fd[0]);
+	if (cmd->fd[1] > 1)
+		close(cmd->fd[1]);
+	close(data->save_fd[0]);
+	close(data->save_fd[1]);
+}
+
 void	exec_cmd(t_data *data, t_cmd *cmd)
 {
 	if (is_directory(cmd->argv[0]))
 	{
 		ft_putstr_fd(cmd->argv[0], 2);
 		ft_putstr_fd(": Is a directory\n", 2);
-		free_start(data);
-		free_end(data);
+		free_and_close(data, cmd);
 		exit(126);
 	}
 	cmd->cmd_path = get_cmd_path(cmd->argv[0]);
@@ -64,8 +77,7 @@ void	exec_cmd(t_data *data, t_cmd *cmd)
 	{
 		ft_putstr_fd(cmd->argv[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
-		free_start(data);
-		free_end(data);
+		free_and_close(data, cmd);
 		exit(127);
 	}
 	free_tab((void **)data->env_cpy);
@@ -73,10 +85,11 @@ void	exec_cmd(t_data *data, t_cmd *cmd)
 	if (execve(cmd->cmd_path, cmd->argv, data->env_cpy) == -1)
 	{
 		perror("execve failed ");
-		free_start(data);
-		free_end(data);
+		free_and_close(data, cmd);
 		exit(127);
 	}
+	free_and_close(data, cmd);
+	exit(0);
 }
 
 /**

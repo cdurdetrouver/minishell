@@ -6,40 +6,45 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:10:21 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/23 02:52:26 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/24 00:58:22 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	redirect(t_cmd *cmd)
+{
+	if (cmd->fd[0] > 0)
+	{
+		if (dup2(cmd->fd[0], STDIN_FILENO) == -1)
+		{
+			ft_putstr_fd("dup2 failled\n", 2);
+			return (-1);
+		}
+	}
+	if (cmd->fd[1] > 1)
+	{
+		if (dup2(cmd->fd[1], STDOUT_FILENO))
+		{
+			ft_putstr_fd("dup2 failled\n", 2);
+			return (-1);
+		}
+	}
+	return (0);
+}
+
 void	exec_one(t_cmd *cmd, t_data *data)
 {
-	if (cmd->file_in.type != R_NONE)
-	{
-		cmd->file_in.fd = ft_open(cmd, &cmd->file_in);
-		if (cmd->file_in.fd == -1)
-		{
-			g_sig.exit_code = 1;
-			return ;
-		}
-		dup2(cmd->file_in.fd, STDIN_FILENO);
-		close(cmd->file_in.fd);
-	}
-	if (cmd->file_out.type != R_NONE)
-	{
-		cmd->file_out.fd = ft_open(cmd, &cmd->file_out);
-		if (cmd->file_out.fd == -1)
-		{
-			g_sig.exit_code = 1;
-			return ;
-		}
-		dup2(cmd->file_out.fd, STDOUT_FILENO);
-		close(cmd->file_out.fd);
-	}
+	if (cmd_open(cmd) == -1)
+		return ;
+	else if (redirect(cmd) == -1)
+		return ;
 	if (is_builtin(cmd->argv[0]) == true)
 		builtin(cmd, data);
 	else
 		exec(data, cmd);
+	close(cmd->fd[0]);
+	close(cmd->fd[1]);
 }
 
 void	execute(t_data *data)

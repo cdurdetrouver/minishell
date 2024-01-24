@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 20:21:52 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/23 02:06:09 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/24 00:39:32 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,34 @@ int	ft_open(t_cmd *cmd, t_redir *file)
 		return (ft_create(file->file));
 	else if (file->type == R_LESS)
 		return (ft_read(file->file));
-	return (-1);
+	return (-2);
+}
+
+int	cmd_open(t_cmd *cmd)
+{
+	t_redir	*file;
+	int		fd;
+
+	file = cmd->file;
+	fd = 0;
+	while (file)
+	{
+		fd = ft_open(cmd, file);
+		if (fd == -1)
+			return (-1);
+		if (file->type == R_LESS || file->type == RD_LESS)
+		{
+			if (cmd->fd[0] > 0)
+				close(cmd->fd[0]);
+			cmd->fd[0] = fd;
+		}
+		else if (file->type == R_GREAT || file->type == RD_GREAT)
+		{
+			if (cmd->fd[1] > 1)
+				close(cmd->fd[1]);
+			cmd->fd[1] = fd;
+		}
+		file = file->next;
+	}
+	return (1);
 }

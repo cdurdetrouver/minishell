@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:47:53 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/23 16:12:59 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/24 01:36:45 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ typedef struct s_cmd
 	char				**argv;
 	char				*cmd_path;
 	t_redir				*file;
+	int					fd[2];
+	pid_t				pid;
 	t_token				*token;
 	int					status;
 	struct s_cmd		*next;
@@ -131,7 +133,7 @@ typedef struct s_data
 // MAIN
 void					minishell(t_data *data);
 bool					is_builtin(char *s);
-int is_space_str(char *str);
+int						is_space_str(char *str);
 
 // EXPAND
 t_exp					*expnew(char *content, int index);
@@ -221,6 +223,7 @@ int						export_builtin(char **args, t_env *env);
 int						pwd(void);
 int						unset(char **args, t_env *env);
 bool					check_args(char *arg);
+int						cmd_open(t_cmd *cmd);
 
 // SIGNAL
 void					sig_handler(int signum);

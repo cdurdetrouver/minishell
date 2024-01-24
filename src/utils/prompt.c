@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 02:02:48 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/23 16:05:52 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/24 02:17:38 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*getprompt(void)
 	if (getenv("USER"))
 		ft_strlcat(prompt, getenv("USER"), 4096);
 	else
-		ft_strlcat(prompt, "UNKNOW", 4096);
+		ft_strlcat(prompt, "guest", 4096);
 	ft_strlcat(prompt, "\001\033[0m\002@\001\033[1;33m\002", 4096);
 	ft_strlcat(prompt, "minishell", 4096);
 	ft_strlcat(prompt, "\001\033[0m\002: \001\033[1;34m\002", 4096);
@@ -47,7 +47,7 @@ char	*getprompt(void)
 		}
 	}
 	else
-		ft_strlcat(prompt, "UNKNOW", 4096);
+		ft_strlcat(prompt, "unknow", 4096);
 	free(cwd);
 	ft_strlcat(prompt, "\001\033[0m\002$ ", 4096);
 	return (prompt);
