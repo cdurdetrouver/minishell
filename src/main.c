@@ -6,7 +6,7 @@
 /*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:50:02 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/24 15:31:34 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/24 16:36:17 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	parsing_exe(t_data *data)
 {
 	char	*s;
 
-	if (!data->line || !*data->line || is_space_str(data->line))
+	if (!data->line || !*data->line || ft_is_space_str(data->line))
 		return (1);
 	if (!closed_quotes(data->line))
 		return (ft_printf("Quote error\n"), 1);
