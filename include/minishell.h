@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:47:53 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/26 01:14:57 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/26 17:59:59 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef struct s_cmd
 	char				**argv;
 	char				*cmd_path;
 	t_redir				*file;
-	int					fd[2];
+	int					fd[2][2];
 	pid_t				pid;
 	t_token				*token;
 	int					status;
@@ -208,10 +208,11 @@ int						execute_pipe(t_cmd *cmd, t_data *data);
 void					exec_cmd(t_data *data, t_cmd *cmd);
 int						ft_open(t_redir *file);
 int						redirect(t_cmd *cmd);
-void					free_and_close(t_data *data, t_cmd *cmd);
+void					free_and_close(t_data *data);
 int						ft_create(char *file);
 int						ft_append(char *file);
 int						ft_read(char *file);
+void					close_all_pipe(t_cmd *cmd);
 
 // BUILTIN
 bool					is_builtin(char *s);
