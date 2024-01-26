@@ -3,23 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:02:42 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/25 19:16:22 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/26 18:04:04 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-bool	is_directory(const char *path)
-{
-	struct stat	statbuf;
-
-	if (stat(path, &statbuf) != 0)
-		return (false);
-	return (S_ISDIR(statbuf.st_mode));
-}
 
 char	*get_cmd_path(t_data *data, char *cmd)
 {
@@ -45,21 +36,8 @@ char	*get_cmd_path(t_data *data, char *cmd)
 	return (free_tab((void **)path), NULL);
 }
 
-void	free_and_close(t_data *data, t_cmd *cmd)
+void	free_and_close(t_data *data)
 {
-	t_cmd	*tmp;
-
-	tmp = cmdfirst(cmd);
-	while (tmp)
-	{
-		if (tmp->fd[0] > 0)
-			close(tmp->fd[0]);
-		if (tmp->fd[1] > 1)
-			close(tmp->fd[1]);
-		if (tmp->cmd_path)
-			free(tmp->cmd_path);
-		tmp = tmp->next;
-	}
 	free_start(data);
 	free_end(data);
 	close(data->save_fd[0]);
@@ -68,19 +46,12 @@ void	free_and_close(t_data *data, t_cmd *cmd)
 
 void	exec_cmd(t_data *data, t_cmd *cmd)
 {
-	if (is_directory(cmd->argv[0]))
-	{
-		ft_putstr_fd(cmd->argv[0], 2);
-		ft_putstr_fd(": Is a directory\n", 2);
-		free_and_close(data, cmd);
-		exit(126);
-	}
 	cmd->cmd_path = get_cmd_path(data, cmd->argv[0]);
 	if (cmd->cmd_path == NULL)
 	{
 		ft_putstr_fd(cmd->argv[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
-		free_and_close(data, cmd);
+		free_and_close(data);
 		exit(127);
 	}
 	free_tab((void **)data->env_cpy);
@@ -88,10 +59,10 @@ void	exec_cmd(t_data *data, t_cmd *cmd)
 	if (execve(cmd->cmd_path, cmd->argv, data->env_cpy) == -1)
 	{
 		perror("execve failed ");
-		free_and_close(data, cmd);
-		exit(127);
+		free_and_close(data);
+		exit(1);
 	}
-	free_and_close(data, cmd);
+	free_and_close(data);
 	exit(0);
 }
 

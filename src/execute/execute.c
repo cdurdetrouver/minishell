@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:10:21 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/25 18:54:51 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/26 18:03:43 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 int	redirect(t_cmd *cmd)
 {
-	if (cmd->fd[0] > 0)
+	if (cmd->fd[0][0] > 0)
 	{
-		if (dup2(cmd->fd[0], STDIN_FILENO) == -1)
+		if (dup2(cmd->fd[0][0], STDIN_FILENO) == -1)
 		{
 			ft_putstr_fd("dup2 failled\n", 2);
-			close(cmd->fd[0]);
+			close(cmd->fd[0][0]);
 			return (-1);
 		}
 	}
-	if (cmd->fd[1] > 1)
+	if (cmd->fd[0][1] > 1)
 	{
-		if (dup2(cmd->fd[1], STDOUT_FILENO) == -1)
+		if (dup2(cmd->fd[0][1], STDOUT_FILENO) == -1)
 		{
 			ft_putstr_fd("dup2 failled\n", 2);
-			close(cmd->fd[1]);
+			close(cmd->fd[0][1]);
 			return (-1);
 		}
 	}
@@ -45,10 +45,10 @@ void	exec_one(t_cmd *cmd, t_data *data)
 		builtin(cmd, data);
 	else
 		exec(data, cmd);
-	if (cmd->fd[0] > 0)
-		close(cmd->fd[0]);
-	if (cmd->fd[1] > 1)
-		close(cmd->fd[1]);
+	if (cmd->fd[0][0] > 0)
+		close(cmd->fd[0][0]);
+	if (cmd->fd[0][1] > 1)
+		close(cmd->fd[0][1]);
 }
 
 void	execute(t_data *data)
