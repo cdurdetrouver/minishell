@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:13:23 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/25 10:51:49 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/26 18:00:19 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,10 @@ t_cmd	*cmdnew(char *content, t_token *token)
 	list->pid = 0;
 	list->next = NULL;
 	list->prev = NULL;
-	list->fd[0] = 0;
-	list->fd[1] = 1;
+	list->fd[0][0] = 0;
+	list->fd[0][1] = 1;
+	list->fd[1][0] = 0;
+	list->fd[1][1] = 1;
 	list->token = token;
 	list->file = NULL;
 	return (list);
