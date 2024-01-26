@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 02:02:48 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/26 00:44:58 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/26 19:08:09 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	pormpt_setpath(t_data *data, char *prompt)
 		}
 	}
 	else
-		ft_strlcat(prompt, "unknow", 4096);
+		ft_strlcat(prompt, "unknown", 4096);
 	free(cwd);
 	ft_strlcat(prompt, "\001\033[0m\002", 4096);
 }

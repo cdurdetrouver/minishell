@@ -3,14 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 23:18:48 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/14 17:17:06 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/26 20:01:06 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	check_args_echo(char **args, int *i)
+{
+	int	n;
+	int	j;
+
+	n = 0;
+	while (args[*i])
+	{
+		if (args[*i][0] == '-')
+		{
+			j = 1;
+			while (args[*i][j] && args[*i][j] == 'n')
+				j++;
+			if (args[*i][j])
+				return (n);
+			n = 1;
+			(*i)++;
+		}
+		else
+			return (n);
+	}
+	return (n);
+}
 
 /**
  * print the args given.
@@ -26,11 +50,10 @@ int	echo(char **args)
 
 	i = 1;
 	n = 0;
-	if (args[1] && ft_strcmp(args[1], "-n") == 0)
-	{
-		n = 1;
-		i++;
-	}
+	if (!args[1])
+		return (1);
+	n = check_args_echo(args, &i);
+	printf("i = %d\n", i);
 	while (args[i])
 	{
 		ft_putstr_fd(args[i], 1);

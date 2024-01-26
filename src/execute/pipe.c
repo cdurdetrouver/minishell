@@ -6,7 +6,7 @@
 /*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:03:39 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/26 18:40:13 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/26 19:57:53 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	exec_test(t_cmd *cmd, t_data *data)
 {
 	int	code;
 
+	if (!cmd->argv[0])
+		return ;
 	if (is_builtin(cmd->argv[0]) == true)
 	{
 		code = builtin(cmd, data);
@@ -99,29 +101,22 @@ void	end_pipe(t_cmd *cmd, t_data *data)
 	}
 }
 
-int	init_cmd(t_data *data)
+int	execute_pipe(t_cmd *cmd, t_data *data)
 {
-	t_cmd	*cmd;
+	t_cmd	*cmd2;
 
-	cmd = data->cmd;
-	while (cmd)
+	cmd2 = data->cmd;
+	while (cmd2)
 	{
-		if (pipe(cmd->fd[1]) == -1)
+		if (pipe(cmd2->fd[1]) == -1)
 		{
 			perror("pipe failed");
 			ft_close_fd(data->cmd);
 			g_exit_code = 1;
 			return (-1);
 		}
-		cmd = cmd->next;
+		cmd2 = cmd2->next;
 	}
-	return (0);
-}
-
-int	execute_pipe(t_cmd *cmd, t_data *data)
-{
-	if (init_cmd(data) == -1)
-		return (-1);
 	while (cmd->next)
 	{
 		child(cmd, data);

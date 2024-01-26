@@ -6,7 +6,7 @@
 /*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:47:53 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/26 18:35:42 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/26 18:44:58 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,6 @@ int						get_var_len(char *str, t_env *env);
 int						env_char(char c);
 int						memory_needed(char *str, t_env *env, t_exp *exp);
 t_exp					*init_expand(char *s);
-void		print_expand(t_exp *exp); // a supprimer
 char					*expand(char *s, t_env *env);
 void					expand_func_3(char *s, int *i);
 
@@ -158,7 +157,6 @@ t_token					*tokennew(char *content, t_type type);
 void					tokenclear(t_token *lst);
 t_token					*tokenlast(t_token *lst);
 t_token					*tokenfirst(t_token *lst);
-void		print_token(t_token *token); // a supprimer
 t_type					get_type(char *s);
 t_token					*init_tokens(char *s);
 void					give_types(t_token *t);
@@ -173,13 +171,11 @@ t_cmd					*cmdlast(t_cmd *lst);
 t_cmd					*cmdfirst(t_cmd *lst);
 char					*get_cmd_str(t_token *token);
 t_token					*sub_token(t_token *token, int start, int size);
-void		print_cmd(t_cmd *cmd); //a supprimer
 t_token					*create_token_cmd(t_token *token, int i);
 void					arr_func(t_cmd *cmd, int *i, char **arr);
 char					**char_arr(t_cmd *cmd);
 t_cmd					*create_cmd(t_token *token, int i);
 t_cmd					*create_all_cmd(t_token *t);
-void		print_cmd_argv(t_cmd *cmd); // a supprimer
 void					ft_append_redirection(t_cmd *cmd, t_redir *redir);
 void					ft_assign_redirection_types(t_cmd *cmd);
 t_redir					*ft_newredirection(char *file, t_type_redir type);

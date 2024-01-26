@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:50:02 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/26 00:46:11 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/26 19:54:58 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	parsing_exe(t_data *data)
 	if (!closed_quotes(data->line))
 		return (ft_printf("Quote error\n"), 1);
 	s = new_str(data->line, data->env);
+	if (!s)
+		return (1);
 	data->t = init_tokens(s);
 	free(s);
 	data->cmd = create_all_cmd(data->t);
@@ -58,6 +60,7 @@ void	minishell(t_data *data)
 		data->line = readline(getprompt(data));
 		if (data->line == NULL)
 		{
+			ft_putendl_fd("exit", 2);
 			g_exit_code = 0;
 			break ;
 		}
@@ -102,5 +105,5 @@ int	main(int argc, char **argv, char **envp)
 	init_data(&data, envp);
 	minishell(&data);
 	free_end(&data);
-	return (printf("exit\n"), g_exit_code);
+	return (g_exit_code);
 }

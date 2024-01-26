@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 08:32:58 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/26 00:30:28 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/26 18:44:36 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,43 +72,4 @@ t_token	*sub_token(t_token *token, int start, int size)
 	}
 	ret->next = NULL;
 	return (tokenfirst(ret));
-}
-
-void	print_cmd(t_cmd *cmd)
-{
-	int	i;
-
-	i = 1;
-	while (cmd)
-	{
-		printf("Command %d :\n\t Content %s\n\tToken size : %d\n\n", i++,
-			cmd->cmd, tokensize(cmd->token));
-		cmd = cmd->next;
-	}
-}
-
-void	print_cmd_argv(t_cmd *cmd)
-{
-	int		i;
-	t_redir	*redir;
-
-	while (cmd)
-	{
-		i = 0;
-		printf("Command: %s\n", cmd->cmd);
-		printf("Arguments:\n");
-		while (cmd->argv[i])
-			printf("  %s\n", cmd->argv[i++]);
-		printf("Redirections:\n");
-		redir = cmd->file;
-		while (redir)
-		{
-			printf("  Type: %s, File: %s\n",
-				(redir->type == R_GREAT) ? "R_GREAT" : ((redir->type == RD_GREAT) ? "RD_GREAT" : ((redir->type == R_LESS) ? "R_LESS" : "RD_LESS")),
-				redir->file);
-			redir = redir->next;
-		}
-		printf("\n");
-		cmd = cmd->next;
-	}
 }

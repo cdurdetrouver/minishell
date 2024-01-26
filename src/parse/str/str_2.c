@@ -6,7 +6,7 @@
 /*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:04:53 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/24 14:20:57 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/26 19:03:52 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ char	*new_str(char *str, t_env *env)
 	char	*tmp;
 
 	ret = expand(str, env);
+	if (!ret || !*ret)
+		return (free(ret), NULL);
 	tmp = remove_spaces(ret);
 	free(ret);
 	ret = add_space(tmp);

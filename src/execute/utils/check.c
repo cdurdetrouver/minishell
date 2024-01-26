@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 16:40:53 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/16 15:57:12 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/26 19:00:42 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
  */
 bool	is_builtin(char *str)
 {
+	if (!str)
+		return (false);
 	if (ft_strcmp(str, "echo") == 0)
 		return (true);
 	else if (ft_strcmp(str, "cd") == 0)

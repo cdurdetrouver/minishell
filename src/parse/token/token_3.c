@@ -6,7 +6,7 @@
 /*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 19:12:37 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/26 18:38:46 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/26 18:44:44 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,4 @@ void	quote(t_token *t)
 		t = t->next;
 	}
 	t = tokenfirst(t);
-}
-
-void	print_token(t_token *token)
-{
-	int	i;
-
-	i = 1;
-	while (token)
-	{
-		printf("Token %d :\n\tContent : %s \n\tType : %u\n\n", i++,
-			token->content, token->type);
-		token = token->next;
-	}
 }

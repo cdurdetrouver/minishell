@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:02:42 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/26 18:04:04 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/26 19:15:40 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ char	*get_cmd_path(t_data *data, char *cmd)
 	char	**path;
 	int		i;
 
+	if (!cmd)
+		return (NULL);
 	if (access(cmd, F_OK | X_OK) == 0)
-		return (cmd);
+		return (ft_strdup(cmd));
 	i = 0;
 	if (!ft_getenv(data->env, "PATH"))
 		return (NULL);
@@ -58,6 +60,8 @@ void	exec_cmd(t_data *data, t_cmd *cmd)
 	data->env_cpy = env_to_tab(data->env);
 	if (execve(cmd->cmd_path, cmd->argv, data->env_cpy) == -1)
 	{
+		free(cmd->cmd_path);
+		cmd->cmd_path = NULL;
 		perror("execve failed ");
 		free_and_close(data);
 		exit(1);

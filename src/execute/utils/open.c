@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 20:21:52 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/26 18:28:25 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/26 20:05:21 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,28 @@
 
 int	ft_heredoc(char *limiter)
 {
-	char	*line;
-	char	filename[] = "/tmp/heredoc_file";
-	int		fd;
+	char		*line;
+	static char	filename[20] = {"/tmp/heredoc_file"};
+	int			fd;
 
 	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
+		return (perror("open failed"), -1);
+	line = readline("> ");
+	while (line != NULL)
 	{
-		perror("open failed");
-		return (-1);
-	}
-	while ((line = readline("> ")) != NULL)
-	{
-		if (ft_strcmp(line, limiter) == 0)
+		if (!line || ft_strcmp(line, limiter) == 0)
 		{
 			free(line);
+			// ctrl + c
+			// ft_putstr_fd("warning: here-document at line 5 delimited by end-of-file (wanted `", 2);
+			// ft_putstr_fd(limiter, 2);
+			// ft_putendl_fd("')", 2);
 			break ;
 		}
 		ft_putendl_fd(line, fd);
 		free(line);
+		line = readline("> ");
 	}
 	close(fd);
 	fd = open(filename, O_RDWR);
