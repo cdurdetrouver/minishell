@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:10:21 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/26 18:03:43 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/26 18:39:21 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ int	redirect(t_cmd *cmd)
 void	exec_one(t_cmd *cmd, t_data *data)
 {
 	if (cmd_open(cmd) == -1)
+	{
+		g_exit_code = 1;
 		return ;
+	}
 	if (redirect(cmd) == -1)
 		return ;
 	if (is_builtin(cmd->argv[0]) == true)

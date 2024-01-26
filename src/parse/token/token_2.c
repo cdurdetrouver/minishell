@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 17:51:12 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/26 00:30:12 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/26 18:38:30 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,6 @@ t_token	*tokenfirst(t_token *lst)
 	return (tokenfirst(lst));
 }
 
-void	print_token(t_token *token)
-{
-	int	i;
-
-	i = 1;
-	while (token)
-	{
-		printf("Token %d :\n\tContent : %s \n\tType : %u\n\n", i++,
-			token->content, token->type);
-		token = token->next;
-	}
-}
-
 t_type	get_type(char *s)
 {
 	if (ft_strlen(s) == 1)
@@ -51,12 +38,9 @@ t_type	get_type(char *s)
 			return (LESS);
 		if (!ft_strncmp(s, "|", 1))
 			return (PIPE);
-		if (!ft_strncmp(s, ";", 1))
-			return (SEMICOLON);
-		if (!ft_strncmp(s, "&", 1))
-			return (ESPER);
-		if (!ft_strncmp(s, "\\", 1))
-			return (BSLASH);
+		if (!ft_strncmp(s, ";", 1) || (!ft_strncmp(s, "\\", 1))
+			|| (!ft_strncmp(s, "&", 1)))
+			return (BADCHAR);
 	}
 	else if (ft_strlen(s) == 2)
 	{
@@ -66,36 +50,12 @@ t_type	get_type(char *s)
 			return (D_LESS);
 		if (!ft_strncmp(s, "||", 2))
 			return (D_PIPE);
-		if (!ft_strncmp(s, ";;", 2) || !ft_strncmp(s, "\\\\", 2)
-			|| !ft_strncmp(s, "&&", 2))
+		if (!ft_strncmp(s, ";;", 2) || (!ft_strncmp(s, "\\\\", 2))
+			|| (!ft_strncmp(s, "&&", 2)))
 			return (D_BADCHAR);
 	}
 	return (ARG);
 }
-
-// t_type get_type_2(char *s)
-// {
-// 	if (ft_strlen(s) == 1)
-// 	{
-// 		if (!ft_strncmp(s, ";", 1))
-// 			return (SEMICOLON);
-// 		if (!ft_strncmp(s, "&", 1))
-// 			return (ESPER);
-// 		if (!ft_strncmp(s, "\\", 1))
-// 			return (BSLASH);
-// 	}
-// 	else
-// 	if (ft_strlen(s) == 2)
-// 	{
-// 		if (!ft_strncmp(s, ";;", 2))
-// 			return (D_SEMICOLON);
-// 		if (!ft_strncmp(s, "\\\\", 2))
-// 			return (D_BSLASH);
-// 		if (!ft_strncmp(s, "&&", 2))
-// 			return (D_ESPER);
-// 	}
-// 	return (ARG);
-// }
 
 t_token	*init_tokens(char *s)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 14:17:26 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/24 20:19:36 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/26 18:37:31 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,8 @@ int	parse_pipes(t_cmd *cmd)
 	{
 		while (cmd->token)
 		{
-			if (cmd->token->type == SEMICOLON || cmd->token->type == END)
-				return (print_error(";"), 0);
-			if (cmd->token->type == ESPER || cmd->token->type == END)
-				return (print_error("&"), 0);
-			if (cmd->token->type == BSLASH || cmd->token->type == END)
-				return (print_error("\\"), 0);
+			if (cmd->token->type == BADCHAR || cmd->token->type == END)
+				return (print_error(""), 0);
 			if (cmd->token->type == D_BADCHAR || cmd->token->type == END)
 				return (print_error(""), 0);
 			if (cmd->token->type == PIPE || cmd->token->type == D_PIPE
@@ -58,7 +54,7 @@ int	parse_redirections(t_cmd *cmd)
 				if (!cmd->token->next)
 				{
 					if (!cmd->next)
-						return (print_error("Newline"), 0);
+						return (print_error("$"), 0);
 					else
 						return (print_error("|"), 0);
 				}

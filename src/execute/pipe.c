@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:03:39 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/26 18:22:29 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/26 18:40:13 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ void	wait_for_children(t_cmd *cmd)
 void	child(t_cmd *cmd, t_data *data)
 {
 	if (cmd_open(cmd) == -1)
+	{
+		g_exit_code = 1;
 		return ;
+	}
 	cmd->pid = fork();
 	if (cmd->pid < 0)
 	{
@@ -72,7 +75,10 @@ void	child(t_cmd *cmd, t_data *data)
 void	end_pipe(t_cmd *cmd, t_data *data)
 {
 	if (cmd_open(cmd) == -1)
+	{
+		g_exit_code = 1;
 		return ;
+	}
 	cmd->pid = fork();
 	if (cmd->pid < 0)
 	{

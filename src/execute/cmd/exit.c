@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:17:26 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/26 00:27:46 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/26 18:41:38 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	exit_builtin(char **args, t_data *data)
 			ft_putstr_fd("exit: ", 2);
 			ft_putstr_fd(args[1], 2);
 			ft_putstr_fd(": numeric argument required\n", 2);
-			exit_setcode(data, 255);
+			exit_setcode(data, 2);
 		}
 		else
 			exit_setcode(data, ft_atoll(args[1]));

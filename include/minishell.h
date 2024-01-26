@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:47:53 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/26 17:59:59 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/26 18:35:42 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,7 @@ typedef enum e_type
 	D_PIPE,
 	START,
 	END,
-	SEMICOLON,
-	ESPER,
-	BSLASH,
+	BADCHAR,
 	D_BADCHAR
 }						t_type;
 
@@ -138,7 +136,7 @@ int						get_var_len(char *str, t_env *env);
 int						env_char(char c);
 int						memory_needed(char *str, t_env *env, t_exp *exp);
 t_exp					*init_expand(char *s);
-void					print_expand(t_exp *exp);
+void		print_expand(t_exp *exp); // a supprimer
 char					*expand(char *s, t_env *env);
 void					expand_func_3(char *s, int *i);
 
@@ -160,7 +158,7 @@ t_token					*tokennew(char *content, t_type type);
 void					tokenclear(t_token *lst);
 t_token					*tokenlast(t_token *lst);
 t_token					*tokenfirst(t_token *lst);
-void					print_token(t_token *token);
+void		print_token(t_token *token); // a supprimer
 t_type					get_type(char *s);
 t_token					*init_tokens(char *s);
 void					give_types(t_token *t);
@@ -175,20 +173,20 @@ t_cmd					*cmdlast(t_cmd *lst);
 t_cmd					*cmdfirst(t_cmd *lst);
 char					*get_cmd_str(t_token *token);
 t_token					*sub_token(t_token *token, int start, int size);
-void					print_cmd(t_cmd *cmd);
+void		print_cmd(t_cmd *cmd); //a supprimer
 t_token					*create_token_cmd(t_token *token, int i);
 void					arr_func(t_cmd *cmd, int *i, char **arr);
 char					**char_arr(t_cmd *cmd);
 t_cmd					*create_cmd(t_token *token, int i);
 t_cmd					*create_all_cmd(t_token *t);
-void	print_cmd_argv(t_cmd *cmd); // a supprimer
+void		print_cmd_argv(t_cmd *cmd); // a supprimer
 void					ft_append_redirection(t_cmd *cmd, t_redir *redir);
 void					ft_assign_redirection_types(t_cmd *cmd);
 t_redir					*ft_newredirection(char *file, t_type_redir type);
+void					ft_redirect(t_token *t, t_cmd *cmd);
 
 // PARSING
 int						skip_quotes(char const *s, int *i);
-int						is_cmd(char *cmd);
 int						closed_quotes(char *s);
 int						max(int a, int b);
 void					print_error(char *err);

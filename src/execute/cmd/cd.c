@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 23:19:20 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/26 15:28:32 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/26 18:41:06 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	change_dir(char *path, int print_path, t_env *env)
 		if (print_path)
 			printf("%s\n", path);
 		ft_setenv(env, "OLDPWD", cwd);
-		g_exit_code = 1;
 	}
 	else
 	{

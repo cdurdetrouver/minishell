@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 16:49:46 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/22 13:49:08 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/26 18:36:57 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,6 @@ int	skip_quotes(char const *s, int *i)
 		return (1);
 	}
 	return (0);
-}
-
-int	is_cmd(char *cmd)
-{
-	char	**env;
-	char	*tmp;
-	int		i;
-	char	*n_cmd;
-
-	if (!ft_strlen(cmd))
-		return (1);
-	env = ft_split(getenv("PATH"), ':');
-	i = -1;
-	tmp = ft_strjoin("/", cmd);
-	while (env[++i])
-	{
-		n_cmd = ft_strjoin(env[i], tmp);
-		free(n_cmd);
-	}
-	return (free(tmp), free_tab((void **)env), 1);
 }
 
 int	closed_quotes(char *s)
