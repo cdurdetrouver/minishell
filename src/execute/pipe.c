@@ -17,7 +17,10 @@ void	exec_test(t_cmd *cmd, t_data *data)
 	int	code;
 
 	if (!cmd->argv[0])
+	{
+		free_and_close(data);
 		return ;
+	}
 	if (is_builtin(cmd->argv[0]) == true)
 	{
 		code = builtin(cmd, data);
