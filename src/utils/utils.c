@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 00:23:34 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/11 22:49:56 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/26 00:37:38 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,31 @@ char	*ft_strjoin2(char *s1, char *s2)
 	str[i + j] = 0;
 	free(s1);
 	return (str);
+}
+
+/**
+ * @brief duplicate a string array.
+ *
+ * @param ss (char **) string array to duplicate.
+ * @return (char **) don't forget to free it.
+ */
+char	**ft_ssdup(char **ss)
+{
+	char	**new;
+	int		i;
+
+	i = 0;
+	while (ss[i])
+		i++;
+	new = malloc(sizeof(char *) * (i + 1));
+	if (!new)
+		return (NULL);
+	i = 0;
+	while (ss[i])
+	{
+		new[i] = ft_strdup(ss[i]);
+		i++;
+	}
+	new[i] = NULL;
+	return (new);
 }

@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:15:21 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/24 01:43:20 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/24 20:14:30 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,5 @@ int	builtin(t_cmd *cmd, t_data *data)
 		env(data->env);
 	else if (ft_strcmp(cmd->argv[0], "exit") == 0)
 		exit_builtin(cmd->argv, data);
-	return (g_sig.exit_code);
+	return (g_exit_code);
 }

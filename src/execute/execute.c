@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:10:21 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/24 00:58:22 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/25 18:54:51 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,16 @@ int	redirect(t_cmd *cmd)
 		if (dup2(cmd->fd[0], STDIN_FILENO) == -1)
 		{
 			ft_putstr_fd("dup2 failled\n", 2);
+			close(cmd->fd[0]);
 			return (-1);
 		}
 	}
 	if (cmd->fd[1] > 1)
 	{
-		if (dup2(cmd->fd[1], STDOUT_FILENO))
+		if (dup2(cmd->fd[1], STDOUT_FILENO) == -1)
 		{
 			ft_putstr_fd("dup2 failled\n", 2);
+			close(cmd->fd[1]);
 			return (-1);
 		}
 	}
@@ -37,19 +39,21 @@ void	exec_one(t_cmd *cmd, t_data *data)
 {
 	if (cmd_open(cmd) == -1)
 		return ;
-	else if (redirect(cmd) == -1)
+	if (redirect(cmd) == -1)
 		return ;
 	if (is_builtin(cmd->argv[0]) == true)
 		builtin(cmd, data);
 	else
 		exec(data, cmd);
-	close(cmd->fd[0]);
-	close(cmd->fd[1]);
+	if (cmd->fd[0] > 0)
+		close(cmd->fd[0]);
+	if (cmd->fd[1] > 1)
+		close(cmd->fd[1]);
 }
 
 void	execute(t_data *data)
 {
-	g_sig.exit_code = 0;
+	g_exit_code = 0;
 	ft_save_fd(data);
 	if (data->cmd->next)
 		execute_pipe(data->cmd, data);

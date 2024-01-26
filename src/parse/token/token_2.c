@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 17:51:12 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/23 14:13:54 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/26 00:30:12 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ t_type	get_type(char *s)
 			return (D_LESS);
 		if (!ft_strncmp(s, "||", 2))
 			return (D_PIPE);
-		if (!ft_strncmp(s, ";;", 2) || !ft_strncmp(s, "\\\\", 2) || !ft_strncmp(s, "&&", 2))
+		if (!ft_strncmp(s, ";;", 2) || !ft_strncmp(s, "\\\\", 2)
+			|| !ft_strncmp(s, "&&", 2))
 			return (D_BADCHAR);
 	}
 	return (ARG);

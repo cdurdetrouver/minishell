@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:02:42 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/24 01:53:25 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/25 19:16:22 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,44 +21,47 @@ bool	is_directory(const char *path)
 	return (S_ISDIR(statbuf.st_mode));
 }
 
-char	*get_cmd_path(char *cmd)
+char	*get_cmd_path(t_data *data, char *cmd)
 {
 	char	*cmd_path;
-	char	*tmp;
 	char	**path;
 	int		i;
 
 	if (access(cmd, F_OK | X_OK) == 0)
 		return (cmd);
 	i = 0;
-	path = ft_split(getenv("PATH"), ':');
+	if (!ft_getenv(data->env, "PATH"))
+		return (NULL);
+	path = ft_split(ft_getenv(data->env, "PATH"), ':');
 	while (path[i])
 	{
-		tmp = ft_strjoin(path[i], "/");
-		cmd_path = ft_strjoin(tmp, cmd);
-		free(tmp);
+		cmd_path = ft_strjoin(path[i], "/");
+		cmd_path = ft_strjoin2(cmd_path, cmd);
 		if (access(cmd_path, F_OK) == 0)
-		{
-			free_tab((void **)path);
-			return (cmd_path);
-		}
+			return (free_tab((void **)path), cmd_path);
 		free(cmd_path);
 		i++;
 	}
-	free_tab((void **)path);
-	return (NULL);
+	return (free_tab((void **)path), NULL);
 }
 
 void	free_and_close(t_data *data, t_cmd *cmd)
 {
+	t_cmd	*tmp;
+
+	tmp = cmdfirst(cmd);
+	while (tmp)
+	{
+		if (tmp->fd[0] > 0)
+			close(tmp->fd[0]);
+		if (tmp->fd[1] > 1)
+			close(tmp->fd[1]);
+		if (tmp->cmd_path)
+			free(tmp->cmd_path);
+		tmp = tmp->next;
+	}
 	free_start(data);
 	free_end(data);
-	if (cmd->cmd_path)
-		free(cmd->cmd_path);
-	if (cmd->fd[0] > 0)
-		close(cmd->fd[0]);
-	if (cmd->fd[1] > 1)
-		close(cmd->fd[1]);
 	close(data->save_fd[0]);
 	close(data->save_fd[1]);
 }
@@ -72,7 +75,7 @@ void	exec_cmd(t_data *data, t_cmd *cmd)
 		free_and_close(data, cmd);
 		exit(126);
 	}
-	cmd->cmd_path = get_cmd_path(cmd->argv[0]);
+	cmd->cmd_path = get_cmd_path(data, cmd->argv[0]);
 	if (cmd->cmd_path == NULL)
 	{
 		ft_putstr_fd(cmd->argv[0], 2);
@@ -101,26 +104,25 @@ void	exec_cmd(t_data *data, t_cmd *cmd)
  */
 int	exec(t_data *data, t_cmd *cmd)
 {
-	pid_t	pid;
-	int		status;
+	int	status;
 
-	pid = fork();
-	if (pid < 0)
+	cmd->pid = fork();
+	if (cmd->pid < 0)
 	{
 		perror("fork failed ");
-		g_sig.prompt_erreur = true;
+		g_exit_code = 1;
 	}
-	else if (pid == 0)
+	else if (cmd->pid == 0)
+	{
 		exec_cmd(data, cmd);
+		exit(0);
+	}
 	else
 	{
 		signal(SIGINT, SIG_IGN);
-		waitpid(pid, &status, 0);
+		waitpid(cmd->pid, &status, 0);
 		if (WEXITSTATUS(status) != 0)
-		{
-			g_sig.prompt_erreur = true;
-			g_sig.exit_code = WEXITSTATUS(status);
-		}
+			g_exit_code = WEXITSTATUS(status);
 		signal(SIGINT, sig_handler);
 	}
 	return (0);

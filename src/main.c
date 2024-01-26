@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:50:02 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/24 16:36:17 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/26 00:46:11 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_sig		g_sig;
+int			g_exit_code;
 
 /**
  * @brief parse the line to put it in t_cmd.
@@ -30,7 +30,6 @@ int	parsing_exe(t_data *data)
 		return (ft_printf("Quote error\n"), 1);
 	s = new_str(data->line, data->env);
 	data->t = init_tokens(s);
-	// print_token(data->t);
 	free(s);
 	data->cmd = create_all_cmd(data->t);
 	if (!parse(data->cmd))
@@ -56,12 +55,10 @@ void	minishell(t_data *data)
 	signal(SIGTSTP, SIG_IGN);
 	while (data->exit == false)
 	{
-		// data->line = readline(getprompt());
-		data->line = readline("minishell$ ");
-		g_sig.prompt_erreur = false;
+		data->line = readline(getprompt(data));
 		if (data->line == NULL)
 		{
-			g_sig.exit_code = 0;
+			g_exit_code = 0;
 			break ;
 		}
 		add_history(data->line);
@@ -85,8 +82,7 @@ static void	init_data(t_data *data, char **envp)
 	data->exit = false;
 	data->cmd = NULL;
 	data->line = NULL;
-	g_sig.exit_code = 0;
-	g_sig.prompt_erreur = false;
+	g_exit_code = 0;
 }
 
 /**
@@ -106,5 +102,5 @@ int	main(int argc, char **argv, char **envp)
 	init_data(&data, envp);
 	minishell(&data);
 	free_end(&data);
-	return (printf("exit\n"), g_sig.exit_code);
+	return (printf("exit\n"), g_exit_code);
 }

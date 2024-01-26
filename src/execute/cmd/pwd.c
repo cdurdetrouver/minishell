@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:06:46 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/23 00:14:32 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/24 20:16:45 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	pwd(void)
 	if (!path)
 	{
 		ft_putstr_fd("pwd: No such file or directory\n", 2);
-		g_sig.prompt_erreur = true;
+		g_exit_code = 1;
 		return (0);
 	}
 	ft_putstr_fd(path, 1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_4.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 16:49:46 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/24 17:52:49 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/26 00:29:14 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,11 @@ void	ft_append_redirection(t_cmd *cmd, t_redir *redir)
 	if (!cmd->file)
 	{
 		cmd->file = redir;
-		return;
+		return ;
 	}
-
 	current = cmd->file;
 	while (current->next)
 		current = current->next;
-
 	current->next = redir;
 	redir->prev = current;
 }
@@ -34,7 +32,7 @@ void	ft_assign_redirection_types(t_cmd *cmd)
 {
 	t_token	*t;
 	t_type	type;
-	t_redir *new_redir;
+	t_redir	*new_redir;
 
 	while (cmd)
 	{

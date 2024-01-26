@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 14:17:26 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/23 02:28:47 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/24 20:19:36 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ void	print_error(char *err)
 {
 	ft_putstr_fd("Syntax error near unexpected token ", 2);
 	ft_putendl_fd(err, 2);
-	g_sig.exit_code = 2;
-	g_sig.prompt_erreur = true;
+	g_exit_code = 2;
 }
 
 int	parse_pipes(t_cmd *cmd)

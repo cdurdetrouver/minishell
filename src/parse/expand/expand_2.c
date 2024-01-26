@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:41:25 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/24 15:22:34 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/26 00:29:45 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int	get_var_len(char *str, t_env *env)
 	{
 		len = ft_strlen(var);
 		free(var);
-		return len;
+		return (len);
 	}
-	return 0;
+	return (0);
 }
 
 int	env_char(char c)

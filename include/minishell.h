@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:47:53 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/24 17:57:03 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/26 01:14:57 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,7 @@
 # include <unistd.h>
 
 typedef struct s_sig	t_sig;
-extern t_sig			g_sig;
-
-struct					s_sig
-{
-	int					exit_code;
-	bool				prompt_erreur;
-};
+extern int				g_exit_code;
 
 typedef enum e_type
 {
@@ -187,7 +181,7 @@ void					arr_func(t_cmd *cmd, int *i, char **arr);
 char					**char_arr(t_cmd *cmd);
 t_cmd					*create_cmd(t_token *token, int i);
 t_cmd					*create_all_cmd(t_token *t);
-void					print_cmd_argv(t_cmd *cmd); // a supprimer
+void	print_cmd_argv(t_cmd *cmd); // a supprimer
 void					ft_append_redirection(t_cmd *cmd, t_redir *redir);
 void					ft_assign_redirection_types(t_cmd *cmd);
 t_redir					*ft_newredirection(char *file, t_type_redir type);
@@ -212,8 +206,12 @@ void					ft_restore_fd(t_data *data);
 int						exec(t_data *data, t_cmd *cmd);
 int						execute_pipe(t_cmd *cmd, t_data *data);
 void					exec_cmd(t_data *data, t_cmd *cmd);
-int						ft_open(t_cmd *cmd, t_redir *file);
-int	redirect(t_cmd *cmd); // ddd
+int						ft_open(t_redir *file);
+int						redirect(t_cmd *cmd);
+void					free_and_close(t_data *data, t_cmd *cmd);
+int						ft_create(char *file);
+int						ft_append(char *file);
+int						ft_read(char *file);
 
 // BUILTIN
 bool					is_builtin(char *s);
@@ -227,6 +225,7 @@ int						pwd(void);
 int						unset(char **args, t_env *env);
 bool					check_args(char *arg);
 int						cmd_open(t_cmd *cmd);
+void					ft_close_fd(t_cmd *cmd);
 
 // SIGNAL
 void					sig_handler(int signum);
@@ -234,19 +233,25 @@ void					sig_handler(int signum);
 // FREE
 void					free_start(t_data *data);
 void					free_end(t_data *data);
+void					free_env(t_env *lst);
 void					free_tab(void **tab);
 void					free_cmd(t_cmd *lst);
 void					ft_free(void **ptr);
-void					create_env_list(t_env **head, char **envp);
 
-// UTILS
-char					**ft_ssdup(char **ss);
-char					*ft_strjoin2(char *s1, char *s2);
-char					*getprompt(void);
+// ENV
+void					create_env_list(t_env **head, char **envp);
+t_env					*env_new(char *en);
+t_env					*envlast(t_env *head);
+void					env_add_back(t_env **head, t_env *new_list);
 char					*ft_getenv(t_env *env, char *key);
 void					ft_setenv(t_env *env, char *key, char *value);
 char					**env_to_tab(t_env *env);
 int						ft_removeenv(t_env **env, char *key);
+
+// UTILS
+char					**ft_ssdup(char **ss);
+char					*ft_strjoin2(char *s1, char *s2);
+char					*getprompt(t_data *data);
 
 // DEBUG
 void					print_tab(char **tab);

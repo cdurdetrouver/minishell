@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 08:32:58 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/24 17:56:11 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/26 00:30:28 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,17 +99,16 @@ void	print_cmd_argv(t_cmd *cmd)
 		printf("Arguments:\n");
 		while (cmd->argv[i])
 			printf("  %s\n", cmd->argv[i++]);
-
 		printf("Redirections:\n");
 		redir = cmd->file;
 		while (redir)
 		{
-			printf("  Type: %s, File: %s\n", (redir->type == R_GREAT) ? "R_GREAT" : ((redir->type == RD_GREAT) ? "RD_GREAT" : ((redir->type == R_LESS) ? "R_LESS" : "RD_LESS")), redir->file);
+			printf("  Type: %s, File: %s\n",
+				(redir->type == R_GREAT) ? "R_GREAT" : ((redir->type == RD_GREAT) ? "RD_GREAT" : ((redir->type == R_LESS) ? "R_LESS" : "RD_LESS")),
+				redir->file);
 			redir = redir->next;
 		}
 		printf("\n");
 		cmd = cmd->next;
 	}
 }
-
-

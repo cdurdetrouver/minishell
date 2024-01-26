@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:06:36 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/23 15:36:21 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/24 20:16:26 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,7 @@ int	export_builtin(char **args, t_env *env2)
 			ft_putstr_fd("export: `", 2);
 			ft_putstr_fd(args[1], 2);
 			ft_putstr_fd("': not a valid identifier\n", 2);
-			g_sig.prompt_erreur = true;
-			g_sig.exit_code = 1;
+			g_exit_code = 1;
 			return (1);
 		}
 	}

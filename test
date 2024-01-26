@@ -1,0 +1,12 @@
+Makefile
+README.md
+en.subject.pdf
+gif
+include
+libft
+minishell
+src
+test
+test2
+test3
+valgrind_readline_leaks_ignore.txt
