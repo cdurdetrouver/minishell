@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:41:25 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/26 00:29:45 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/27 14:42:12 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,19 +79,22 @@ t_exp	*init_expand(char *s)
 	int		i;
 	t_exp	*exp;
 	t_exp	*ptr;
+	int		len;
 
 	exp = expnew(NULL, -1);
 	if (!s || !exp)
 		return (NULL);
 	i = 0;
-	while (s[i])
+	len = strlen(s);
+	while (i < len)
 	{
 		if (s[i] && s[i] == 39)
 			skip_quotes(s, &i);
-		while (s[i] && s[i] != '$')
+		while (i < len && s[i] != '$')
 			expand_func_3(s, &i);
-		if (s[i] && s[i] == '$')
+		if (i < len && s[i] == '$')
 			init_func(s, &i, exp);
+		i++;
 	}
 	ptr = exp->next;
 	free(exp);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:15:21 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/27 01:04:19 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/27 15:16:35 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
  *
  * @return int 1 if builtin, 0 if not
  */
-int	builtin(t_cmd *cmd, t_data *data)
+int	builtin(t_cmd *cmd, t_data *data, int print)
 {
 	if (ft_strcmp(cmd->argv[0], "echo") == 0)
 		echo(cmd->argv);
@@ -35,7 +35,7 @@ int	builtin(t_cmd *cmd, t_data *data)
 	else if (ft_strcmp(cmd->argv[0], "env") == 0)
 		env(data->env);
 	else if (ft_strcmp(cmd->argv[0], "exit") == 0)
-		exit_builtin(cmd->argv, data);
+		exit_builtin(cmd->argv, data, print);
 	return (g_exit_code);
 }
 

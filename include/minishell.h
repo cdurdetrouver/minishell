@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:47:53 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/27 01:04:09 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/27 18:31:50 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,13 +211,13 @@ int						ft_heredoc(char *limiter);
 
 // BUILTIN
 bool					is_builtin(char *s);
-int						builtin(t_cmd *cmd, t_data *data);
+int						builtin(t_cmd *cmd, t_data *data, int print);
 int						cd(char **args, t_env *env);
 int						echo(char **args);
 int						env(t_env *env);
-void					exit_builtin(char **args, t_data *data);
+void					exit_builtin(char **args, t_data *data, int print);
 int						export_builtin(char **args, t_data *data);
-int						pwd(void);
+int						pwd(t_data *data);
 int						unset(char **args, t_data *data);
 
 // SIGNAL

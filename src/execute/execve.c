@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:02:42 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/27 00:00:56 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/27 15:30:42 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	exec_cmd(t_data *data, t_cmd *cmd)
 		cmd->cmd_path = NULL;
 		perror("execve failed ");
 		free_and_close(data);
-		exit(1);
+		exit(126);
 	}
 	free_and_close(data);
 	exit(0);

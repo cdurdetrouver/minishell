@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:03:39 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/27 00:02:23 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/27 18:21:43 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	exec_pipe(t_cmd *cmd, t_data *data)
 	}
 	if (is_builtin(cmd->argv[0]) == true)
 	{
-		code = builtin(cmd, data);
+		code = builtin(cmd, data, 0);
 		free_and_close(data);
 		exit(code);
 	}
@@ -49,10 +49,7 @@ static void	wait_for_children(t_cmd *cmd)
 	while (cmd)
 	{
 		waitpid(cmd->pid, &status, 0);
-		if (WEXITSTATUS(status) != 0)
-		{
-			g_exit_code = WEXITSTATUS(status);
-		}
+		g_exit_code = WEXITSTATUS(status);
 		cmd = cmd->next;
 	}
 	signal(SIGINT, sig_handler);

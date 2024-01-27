@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 04:59:06 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/27 01:03:57 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/27 15:35:23 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ int	unset(char **args, t_data *data)
 	i = 0;
 	while (args[++i])
 		ft_removeenv(&data->env, args[i]);
+	g_exit_code = 0;
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:17:26 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/26 23:56:28 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/27 15:41:11 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,36 +71,48 @@ static bool	sup_to_llmax(char *num)
 }
 
 /**
- * exit the program
+ * @brief print exit. (norme !!!!)
+ *
+ * @param print (int) 1 if it works, 0 if don't.
+ */
+void	print_exit(int print, int code)
+{
+	if (print)
+		ft_putendl_fd("exit", 2);
+	g_exit_code = code;
+}
+
+/**
+ * @brief exit the program
  *
  * @param args (char **)
  * @param data (t_data *)
  * @return (int) 1 if it works, 0 if don't.
  */
-void	exit_builtin(char **args, t_data *data)
+void	exit_builtin(char **args, t_data *data, int print)
 {
 	if (args[1] == NULL)
 	{
-		ft_putendl_fd("exit", 2);
+		print_exit(print, 0);
 		data->exit = true;
-		g_exit_code = 0;
 	}
 	else if (!ft_isnumeric(args[1]) || sup_to_llmax(args[1]) == true
 		|| inf_to_llmin(args[1]) == true)
 	{
-		ft_putendl_fd("exit", 2);
+		print_exit(print, 2);
 		ft_putstr_fd("exit: ", 2);
 		ft_putstr_fd(args[1], 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
 		data->exit = true;
-		g_exit_code = 2;
 	}
 	else if (args[2])
+	{
+		g_exit_code = 1;
 		ft_putstr_fd("exit: too many arguments\n", 2);
+	}
 	else
 	{
-		ft_putendl_fd("exit", 2);
+		print_exit(print, ft_atoll(args[1]) % 256);
 		data->exit = true;
-		g_exit_code = ft_atoll(args[1]) % 256;
 	}
 }
