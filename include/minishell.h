@@ -6,7 +6,7 @@
 /*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:47:53 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/27 15:20:51 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/27 18:31:50 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,7 @@ int						echo(char **args);
 int						env(t_env *env);
 void					exit_builtin(char **args, t_data *data, int print);
 int						export_builtin(char **args, t_data *data);
-int						pwd(void);
+int						pwd(t_data *data);
 int						unset(char **args, t_data *data);
 
 // SIGNAL
