@@ -6,7 +6,7 @@
 /*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:06:36 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/27 18:30:34 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/27 18:38:49 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,30 +86,30 @@ static void	run_export(char *arg, t_env **env2)
  */
 static bool	check_args(char *arg)
 {
-    int	i;
+	int	i;
 
-    i = 0;
-    if (!arg || !ft_isalpha(arg[i]))
-        return (false);
-    while (arg[i] && arg[i] != '=' && arg[i] != '+')
-    {
-        if (!ft_isalnum(arg[i]) && arg[i] != '_')
-            return (false);
-        i++;
-    }
-    if (((i != 0 && ft_strchr(arg, '=') && !(arg[i] == '+'
-                    && arg[i + 1] == '\0'))
-            && !(arg[0] == '+' || arg[0] == '=')
-            && !(arg[i] == '+' && arg[i + 1] == '='))
-        || !ft_strchr(arg, '='))
-        return (true);
-    if (arg[i] == '+' && arg[i + 1] == '=' && arg[i + 2] == '\0') // check for "test+="
-        return (false);
-    if (arg[0] == '+' && arg[1] == '=' && ft_isalpha(arg[2])) // check for "+=bonjour"
-        return (false);
-    if (arg[i] == '+' && arg[i + 1] == '=' && ft_isalpha(arg[i + 2])) // check for "test+=bonjour"
-        return (true);
-    return (false);
+	i = 0;
+	if (!arg || !ft_isalpha(arg[i]))
+		return (false);
+	while (arg[i] && arg[i] != '=' && arg[i] != '+')
+	{
+		if (!ft_isalnum(arg[i]) && arg[i] != '_')
+			return (false);
+		i++;
+	}
+	if (((i != 0 && ft_strchr(arg, '=') && !(arg[i] == '+'
+					&& arg[i + 1] == '\0'))
+			&& !(arg[0] == '+' || arg[0] == '=')
+			&& !(arg[i] == '+' && arg[i + 1] == '='))
+		|| !ft_strchr(arg, '='))
+		return (true);
+	if (arg[i] == '+' && arg[i + 1] == '=' && arg[i + 2] == '\0')
+		return (false);
+	if (arg[0] == '+' && arg[1] == '=' && ft_isalpha(arg[2]))
+		return (false);
+	if (arg[i] == '+' && arg[i + 1] == '=' && ft_isalpha(arg[i + 2]))
+		return (true);
+	return (false);
 }
 
 /**
