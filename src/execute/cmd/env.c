@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 23:19:50 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/26 23:56:15 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/27 15:35:32 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ int	env(t_env *env)
 		ft_putstr_fd("\n", 1);
 		tmp = tmp->next;
 	}
+	g_exit_code = 0;
 	return (1);
 }

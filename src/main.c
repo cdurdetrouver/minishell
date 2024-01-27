@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:50:02 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/27 00:52:55 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/27 16:03:44 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,12 @@ static int	parsing_exe(t_data *data)
 	char	*s;
 
 	if (!data->line || !*data->line || ft_is_space_str(data->line))
-		return (1);
+		return (g_exit_code = 0, 1);
 	if (!closed_quotes(data->line))
+	{
+		g_exit_code = 2;
 		return (ft_printf("Quote error\n"), 1);
+	}
 	s = new_str(data->line, data->env);
 	if (!s)
 		return (1);

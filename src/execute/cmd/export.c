@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:06:36 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/27 00:57:56 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/27 16:03:01 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	ft_export_plus(char *arg, t_env **env2)
 	}
 	free(key);
 	free(value);
+	g_exit_code = 0;
 }
 
 /**
@@ -74,6 +75,7 @@ static void	run_export(char *arg, t_env **env2)
 	ft_setenv(env2, key, value);
 	free(value);
 	free(key);
+	g_exit_code = 0;
 }
 
 /**
@@ -95,9 +97,11 @@ static bool	check_args(char *arg)
 			return (false);
 		i++;
 	}
-	if (i != 0 && ft_strchr(arg, '=') && ((ft_strchr(arg, '+') && arg[i] == '+'
-				&& arg[i + 1] == '=' && arg[i + 2] != '\0') || (arg[i] == '='
-				&& arg[i + 1] != '\0')))
+	if (((i != 0 && ft_strchr(arg, '=') && !(arg[i] == '+'
+					&& arg[i + 1] == '\0'))
+			&& !(arg[0] == '+' || arg[0] == '=')
+			&& !(arg[i] == '+' && arg[i + 1] == '='))
+		|| !ft_strchr(arg, '='))
 		return (true);
 	return (false);
 }
@@ -119,7 +123,10 @@ int	export_builtin(char **args, t_data *data)
 	while (args[i])
 	{
 		if (check_args(args[i]) == true)
-			run_export(args[i], &data->env);
+		{
+			if (strchr(args[i], '='))
+				run_export(args[i], &data->env);
+		}
 		else
 		{
 			ft_putstr_fd("export: `", 2);

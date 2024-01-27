@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 23:18:48 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/26 23:51:58 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/27 15:36:35 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	echo(char **args)
 	if (!args[1])
 		return (1);
 	n = check_args_echo(args, &i);
-	printf("i = %d\n", i);
 	while (args[i])
 	{
 		ft_putstr_fd(args[i], 1);
@@ -70,5 +69,6 @@ int	echo(char **args)
 	}
 	if (!n)
 		ft_putstr_fd("\n", 1);
+	g_exit_code = 0;
 	return (1);
 }
