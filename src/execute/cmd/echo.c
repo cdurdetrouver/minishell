@@ -3,16 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 23:18:48 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/26 20:01:06 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/26 23:51:58 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_args_echo(char **args, int *i)
+/**
+ * itereate on the args to check if there is a -n.
+ *
+ * @param args (char **) args
+ * @param i (int *) index
+ * @return (int) 1 if it works, 0 if don't.
+ */
+static int	check_args_echo(char **args, int *i)
 {
 	int	n;
 	int	j;

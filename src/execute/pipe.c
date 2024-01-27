@@ -3,16 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:03:39 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/26 19:57:53 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/27 00:02:23 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exec_test(t_cmd *cmd, t_data *data)
+/**
+ * @brief exec for pipe.
+ *
+ * @param data (t_data *) data
+ */
+static void	exec_pipe(t_cmd *cmd, t_data *data)
 {
 	int	code;
 
@@ -31,7 +36,12 @@ void	exec_test(t_cmd *cmd, t_data *data)
 		exec_cmd(data, cmd);
 }
 
-void	wait_for_children(t_cmd *cmd)
+/**
+ * @brief wait for all children.
+ *
+ * @param cmd (t_cmd *)
+ */
+static void	wait_for_children(t_cmd *cmd)
 {
 	int	status;
 
@@ -48,7 +58,14 @@ void	wait_for_children(t_cmd *cmd)
 	signal(SIGINT, sig_handler);
 }
 
-void	child(t_cmd *cmd, t_data *data)
+/**
+ * @brief funciton that execute the child of the pipe.
+ *
+ * @param cmd (t_cmd *)
+ * @param data (t_data *)
+ * @return (int) 1 if it works, 0 if don't.
+ */
+static void	child(t_cmd *cmd, t_data *data)
 {
 	if (cmd_open(cmd) == -1)
 	{
@@ -72,12 +89,19 @@ void	child(t_cmd *cmd, t_data *data)
 		else
 			dup2(cmd->fd[1][1], STDOUT_FILENO);
 		ft_close_fd(data->cmd);
-		exec_test(cmd, data);
+		exec_pipe(cmd, data);
 		exit(0);
 	}
 }
 
-void	end_pipe(t_cmd *cmd, t_data *data)
+/**
+ * @brief funciton the last command of the pipe.
+ *
+ * @param cmd (t_cmd *)
+ * @param data (t_data *)
+ * @return (int) 1 if it works, 0 if don't.
+ */
+static void	end_pipe(t_cmd *cmd, t_data *data)
 {
 	if (cmd_open(cmd) == -1)
 	{
@@ -99,11 +123,18 @@ void	end_pipe(t_cmd *cmd, t_data *data)
 		if (cmd->fd[0][1] > 1)
 			dup2(cmd->fd[0][1], STDOUT_FILENO);
 		ft_close_fd(data->cmd);
-		exec_test(cmd, data);
+		exec_pipe(cmd, data);
 		exit(0);
 	}
 }
 
+/**
+ * @brief funciton that execute the pipe.
+ *
+ * @param cmd (t_cmd *)
+ * @param data (t_data *)
+ * @return (int) 1 if it works, 0 if don't.
+ */
 int	execute_pipe(t_cmd *cmd, t_data *data)
 {
 	t_cmd	*cmd2;

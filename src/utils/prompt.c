@@ -3,16 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 02:02:48 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/26 19:08:09 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/27 00:50:21 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	pormpt_setuser(t_data *data, char *prompt)
+/**
+ * @brief set the user in the prompt.
+ *
+ * @param data (t_data *) data
+ * @param prompt (char *) prompt
+ */
+static void	pormpt_setuser(t_data *data, char *prompt)
 {
 	ft_strlcat(prompt, "\001\033[1;32m\002", 4096);
 	if (ft_getenv(data->env, "USER"))
@@ -22,7 +28,13 @@ void	pormpt_setuser(t_data *data, char *prompt)
 	ft_strlcat(prompt, "\001\033[0m\002", 4096);
 }
 
-void	pormpt_setpath(t_data *data, char *prompt)
+/**
+ * @brief set the path in the prompt.
+ *
+ * @param data (t_data *) data
+ * @param prompt (char *) prompt
+ */
+static void	pormpt_setpath(t_data *data, char *prompt)
 {
 	char	*cwd;
 

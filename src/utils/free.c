@@ -6,12 +6,17 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:53:39 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/26 00:34:08 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/27 00:18:05 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief free a env list.
+ *
+ * @param lst (t_env *) env list to free.
+ */
 void	free_env(t_env *lst)
 {
 	t_env	*tmp;
@@ -29,6 +34,11 @@ void	free_env(t_env *lst)
 	}
 }
 
+/**
+ * @brief free a file list.
+ *
+ * @param lst (t_redir *) file list to free.
+ */
 void	free_file(t_redir *lst)
 {
 	t_redir	*tmp;
@@ -45,6 +55,11 @@ void	free_file(t_redir *lst)
 	}
 }
 
+/**
+ * @brief free a cmd list.
+ *
+ * @param lst (t_cmd *) cmd list to free.
+ */
 void	free_cmd(t_cmd *lst)
 {
 	t_cmd	*tmp;
@@ -67,6 +82,11 @@ void	free_cmd(t_cmd *lst)
 	}
 }
 
+/**
+ * @brief free a tab alloc with malloc.
+ *
+ *@param ptr
+ */
 void	ft_free(void **ptr)
 {
 	if (*ptr)

@@ -3,16 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:02:42 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/26 19:15:40 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/27 00:00:56 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_cmd_path(t_data *data, char *cmd)
+/**
+ * @brief get the path of the command.
+ *
+ * @param data (t_data *) data
+ * @param cmd (char *) cmd
+ * @return (char *) path of the command
+ */
+static char	*get_cmd_path(t_data *data, char *cmd)
 {
 	char	*cmd_path;
 	char	**path;
@@ -38,6 +45,11 @@ char	*get_cmd_path(t_data *data, char *cmd)
 	return (free_tab((void **)path), NULL);
 }
 
+/**
+ * @brief free all and close for child process.
+ *
+ * @param data (t_data *) data
+ */
 void	free_and_close(t_data *data)
 {
 	free_start(data);
@@ -46,6 +58,12 @@ void	free_and_close(t_data *data)
 	close(data->save_fd[1]);
 }
 
+/**
+ * @brief execute the command with execve.
+ *
+ * @param data (t_data *) data
+ * @param cmd (t_cmd *) cmd
+ */
 void	exec_cmd(t_data *data, t_cmd *cmd)
 {
 	cmd->cmd_path = get_cmd_path(data, cmd->argv[0]);

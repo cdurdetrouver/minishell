@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:50:02 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/26 19:54:58 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/27 00:52:55 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int			g_exit_code;
  * @param data (t_data *) data of the program.
  * @return (int) should i execute the command, 0 if no, 1 if yes.
  */
-int	parsing_exe(t_data *data)
+static int	parsing_exe(t_data *data)
 {
 	char	*s;
 
@@ -49,7 +49,7 @@ int	parsing_exe(t_data *data)
  *
  * @param data (t_data *) data of the program.
  */
-void	minishell(t_data *data)
+static void	minishell(t_data *data)
 {
 	using_history();
 	signal(SIGINT, sig_handler);

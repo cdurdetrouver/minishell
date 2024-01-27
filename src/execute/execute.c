@@ -3,16 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:10:21 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/26 19:25:28 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/27 00:56:20 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	redirect(t_cmd *cmd)
+/**
+ * @brief redirect the fd.
+ *
+ * @param cmd (t_cmd *)
+ */
+static int	redirect(t_cmd *cmd)
 {
 	if (cmd->fd[0][0] > 0)
 	{
@@ -33,7 +38,12 @@ int	redirect(t_cmd *cmd)
 	return (0);
 }
 
-void	close_all(t_cmd *cmd)
+/**
+ * @brief close all fd.
+ *
+ * @param cmd (t_cmd *)
+ */
+static void	close_all(t_cmd *cmd)
 {
 	if (cmd->fd[0][0] > 0)
 		close(cmd->fd[0][0]);
@@ -41,7 +51,13 @@ void	close_all(t_cmd *cmd)
 		close(cmd->fd[0][1]);
 }
 
-void	exec_one(t_cmd *cmd, t_data *data)
+/**
+ * @brief execute one command.
+ *
+ * @param cmd (t_cmd *)
+ * @param data (t_data *)
+ */
+static void	exec_one(t_cmd *cmd, t_data *data)
 {
 	if (cmd_open(cmd) == -1)
 	{

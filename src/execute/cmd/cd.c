@@ -3,16 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 23:19:20 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/26 18:41:06 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/27 00:34:46 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	change_dir(char *path, int print_path, t_env *env)
+/**
+ * change the current directory to the path given.
+ *
+ * @param (char *) path
+ * @param (int) print_path
+ */
+static void	change_dir(char *path, int print_path, t_env *env)
 {
 	char	*cwd;
 	char	buff[4097];
@@ -24,7 +30,7 @@ void	change_dir(char *path, int print_path, t_env *env)
 		cwd = getcwd(buff, 4096);
 		if (print_path)
 			printf("%s\n", path);
-		ft_setenv(env, "OLDPWD", cwd);
+		ft_setenv(&env, "OLDPWD", cwd);
 	}
 	else
 	{
@@ -41,10 +47,11 @@ void	change_dir(char *path, int print_path, t_env *env)
 }
 
 /**
- * use cd on the path given.
+ * change the current directory to the path given.
  *
  * @param (char **) args
- * @param (int) argc
+ * @param (t_env *) env
+ * @return (int) 1
  */
 int	cd(char **args, t_env *env)
 {

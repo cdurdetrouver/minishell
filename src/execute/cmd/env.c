@@ -6,7 +6,7 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 23:19:50 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/22 18:28:07 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/26 23:56:15 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
  * @brief print the env.
  *
  * @param env (char **) env
- * @param fd (int)
  * @return (int) 1 if it works, 0 if don't.
  */
 int	env(t_env *env)

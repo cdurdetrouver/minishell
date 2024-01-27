@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:47:53 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/26 18:44:58 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/27 01:04:09 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
+
+# define MIN_LL "-9223372036854775808"
+# define MAX_LL "9223372036854775807"
 
 typedef struct s_sig	t_sig;
 extern int				g_exit_code;
@@ -122,10 +125,6 @@ typedef struct s_data
 	bool				exit;
 }						t_data;
 
-// MAIN
-void					minishell(t_data *data);
-bool					is_builtin(char *s);
-
 // EXPAND
 t_exp					*expnew(char *content, int index);
 t_exp					*explast(t_exp *exp);
@@ -194,19 +193,21 @@ int						parse(t_cmd *cmd);
 
 // EXECUTE
 void					execute(t_data *data);
-void					exec_one(t_cmd *cmd, t_data *data);
-void					ft_save_fd(t_data *data);
-void					ft_restore_fd(t_data *data);
 int						exec(t_data *data, t_cmd *cmd);
 int						execute_pipe(t_cmd *cmd, t_data *data);
 void					exec_cmd(t_data *data, t_cmd *cmd);
 int						ft_open(t_redir *file);
-int						redirect(t_cmd *cmd);
 void					free_and_close(t_data *data);
+
+// FD
+void					ft_save_fd(t_data *data);
+void					ft_restore_fd(t_data *data);
+int						cmd_open(t_cmd *cmd);
+void					ft_close_fd(t_cmd *cmd);
 int						ft_create(char *file);
 int						ft_append(char *file);
 int						ft_read(char *file);
-void					close_all_pipe(t_cmd *cmd);
+int						ft_heredoc(char *limiter);
 
 // BUILTIN
 bool					is_builtin(char *s);
@@ -215,12 +216,9 @@ int						cd(char **args, t_env *env);
 int						echo(char **args);
 int						env(t_env *env);
 void					exit_builtin(char **args, t_data *data);
-int						export_builtin(char **args, t_env *env);
+int						export_builtin(char **args, t_data *data);
 int						pwd(void);
-int						unset(char **args, t_env *env);
-bool					check_args(char *arg);
-int						cmd_open(t_cmd *cmd);
-void					ft_close_fd(t_cmd *cmd);
+int						unset(char **args, t_data *data);
 
 // SIGNAL
 void					sig_handler(int signum);
@@ -239,7 +237,7 @@ t_env					*env_new(char *en);
 t_env					*envlast(t_env *head);
 void					env_add_back(t_env **head, t_env *new_list);
 char					*ft_getenv(t_env *env, char *key);
-void					ft_setenv(t_env *env, char *key, char *value);
+void					ft_setenv(t_env **env, char *key, char *value);
 char					**env_to_tab(t_env *env);
 int						ft_removeenv(t_env **env, char *key);
 
@@ -247,8 +245,5 @@ int						ft_removeenv(t_env **env, char *key);
 char					**ft_ssdup(char **ss);
 char					*ft_strjoin2(char *s1, char *s2);
 char					*getprompt(t_data *data);
-
-// DEBUG
-void					print_tab(char **tab);
 
 #endif

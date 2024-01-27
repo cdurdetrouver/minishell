@@ -6,12 +6,17 @@
 /*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 00:33:22 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/26 00:34:11 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/27 00:16:32 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief free a token list.
+ *
+ * @param lst (t_token *) token list to free.
+ */
 void	tokenclear(t_token *lst)
 {
 	t_token	*tmp;
@@ -45,6 +50,11 @@ void	free_tab(void **tab)
 	free(tab);
 }
 
+/**
+ * @brief free for the end of the program.
+ *
+ * @param data (t_data *) free data struct
+ */
 void	free_end(t_data *data)
 {
 	free_tab((void **)data->env_cpy);
@@ -56,7 +66,6 @@ void	free_end(t_data *data)
  * @brief free for each loop of the program.
  *
  * @param data (t_data *) free data struct
- * @param prompt (char *) free the prompt
  */
 void	free_start(t_data *data)
 {

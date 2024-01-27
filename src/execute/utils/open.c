@@ -3,45 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   open.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 20:21:52 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/26 20:05:21 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/27 00:00:21 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_heredoc(char *limiter)
-{
-	char		*line;
-	static char	filename[20] = {"/tmp/heredoc_file"};
-	int			fd;
-
-	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fd == -1)
-		return (perror("open failed"), -1);
-	line = readline("> ");
-	while (line != NULL)
-	{
-		if (!line || ft_strcmp(line, limiter) == 0)
-		{
-			free(line);
-			// ctrl + c
-			// ft_putstr_fd("warning: here-document at line 5 delimited by end-of-file (wanted `", 2);
-			// ft_putstr_fd(limiter, 2);
-			// ft_putendl_fd("')", 2);
-			break ;
-		}
-		ft_putendl_fd(line, fd);
-		free(line);
-		line = readline("> ");
-	}
-	close(fd);
-	fd = open(filename, O_RDWR);
-	return (fd);
-}
-
+/**
+ * @brief create a file for >.
+ *
+ * @param file	(char *)
+ * @return (int) fd
+ */
 int	ft_open(t_redir *file)
 {
 	if (file->type == RD_GREAT)
@@ -55,6 +31,12 @@ int	ft_open(t_redir *file)
 	return (-2);
 }
 
+/**
+ * @brief open the file for one command.
+ *
+ * @param cmd (t_cmd *)
+ * @return (int) 1 if it works, 0 if don't.
+ */
 int	cmd_open(t_cmd *cmd)
 {
 	t_redir	*file;
@@ -83,6 +65,11 @@ int	cmd_open(t_cmd *cmd)
 	return (1);
 }
 
+/**
+ * @brief close all fd.
+ *
+ * @param cmd (t_cmd *)
+ */
 void	ft_close_fd(t_cmd *cmd)
 {
 	t_cmd	*tmp;
