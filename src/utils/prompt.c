@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gbazart@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 02:02:48 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/27 12:22:36 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/28 00:19:48 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,13 @@ static void	pormpt_setpath(t_data *data, char *prompt)
 {
 	char	*cwd;
 
-	cwd = getcwd(NULL, 0);
-	if (ft_getenv(data->env, "HOME") && cwd)
+	cwd = ft_getenv(data->env, "PWD");
+	if (cwd)
 	{
 		if (ft_getenv(data->env, "LS_COLORS"))
 			ft_strlcat(prompt, "\001\033[1;34m\002", 4096);
-		if (ft_strcmp(cwd, ft_getenv(data->env, "HOME")) == 0)
+		if (ft_getenv(data->env, "HOME") && ft_strcmp(cwd, ft_getenv(data->env,
+					"HOME")) == 0)
 			ft_strlcat(prompt, "~", 4096);
 		else
 		{
@@ -59,7 +60,6 @@ static void	pormpt_setpath(t_data *data, char *prompt)
 	}
 	else
 		ft_strlcat(prompt, "unknown", 4096);
-	free(cwd);
 }
 
 /**

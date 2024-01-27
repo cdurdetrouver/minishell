@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:15:21 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/27 15:16:35 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/27 23:22:14 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	builtin(t_cmd *cmd, t_data *data, int print)
 	else if (ft_strcmp(cmd->argv[0], "cd") == 0)
 		cd(cmd->argv, data->env);
 	else if (ft_strcmp(cmd->argv[0], "pwd") == 0)
-		pwd();
+		pwd(data);
 	else if (ft_strcmp(cmd->argv[0], "export") == 0)
 		export_builtin(cmd->argv, data);
 	else if (ft_strcmp(cmd->argv[0], "unset") == 0)

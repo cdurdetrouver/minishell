@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 23:19:20 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/27 15:33:58 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/28 00:24:26 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	set_pwd(t_env *env, char *old_pwd)
+{
+	char	*cwd;
+	char	buff[4097];
+
+	if (!old_pwd)
+		ft_setenv(&env, "OLDPWD", ft_getenv(env, "PWD"));
+	else
+		ft_setenv(&env, "OLDPWD", old_pwd);
+	cwd = getcwd(buff, 4096);
+	ft_setenv(&env, "PWD", cwd);
+}
 
 /**
  * change the current directory to the path given.
@@ -26,23 +39,23 @@ static void	change_dir(char *path, int print_path, t_env *env)
 	if (!path)
 		return ;
 	cwd = getcwd(buff, 4096);
-	if (!chdir(path) && cwd)
+	if (!chdir(path))
 	{
 		if (print_path)
 			printf("%s\n", path);
-		ft_setenv(&env, "OLDPWD", cwd);
+		set_pwd(env, cwd);
 		g_exit_code = 0;
 	}
 	else
 	{
 		ft_putstr_fd("cd: ", 2);
+		ft_putstr_fd(path, 2);
 		if (access(path, F_OK) == -1)
-			ft_putstr_fd("no such file or directory: ", 2);
+			ft_putendl_fd(": No such file or directory", 2);
 		else if (access(path, R_OK) == -1)
-			ft_putstr_fd("permission denied: ", 2);
+			ft_putendl_fd(": Permission denied", 2);
 		else
-			ft_putstr_fd("not a directory: ", 2);
-		ft_putendl_fd(path, 2);
+			ft_putendl_fd(": Not a directory", 2);
 		g_exit_code = 1;
 	}
 }
