@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 23:44:58 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/27 17:52:14 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/28 01:00:35 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  */
 void	print_heredoc_error(char *limiter)
 {
-	ft_putstr_fd("minishell: warning: here-document delimited ", 2);
+	ft_putstr_fd("warning: here-document delimited ", 2);
 	ft_putstr_fd("by end-of-file (wanted `", 2);
 	ft_putstr_fd(limiter, 2);
 	ft_putendl_fd("')", 2);
@@ -92,7 +92,8 @@ int	ft_heredoc(char *limiter)
 	close(fd);
 	if (g_exit_code == 1)
 	{
-		g_exit_code = old_exit_code;
+		if (unlink(filename) == -1)
+			perror("unlink failed");
 		return (-1);
 	}
 	g_exit_code = old_exit_code;

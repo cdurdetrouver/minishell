@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:02:42 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/27 15:30:42 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/28 01:12:12 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/**
+ * @brief sigquit heandler for child
+ *
+ * @param sig
+ */
+void	sigquit_handler(int sig)
+{
+	(void)sig;
+	write(1, "Quit (core dumped)\n", 19);
+	exit(1);
+}
 
 /**
  * @brief get the path of the command.
@@ -107,6 +119,7 @@ int	exec(t_data *data, t_cmd *cmd)
 	}
 	else if (cmd->pid == 0)
 	{
+		signal(SIGQUIT, sigquit_handler);
 		exec_cmd(data, cmd);
 		exit(0);
 	}
@@ -114,8 +127,7 @@ int	exec(t_data *data, t_cmd *cmd)
 	{
 		signal(SIGINT, SIG_IGN);
 		waitpid(cmd->pid, &status, 0);
-		if (WEXITSTATUS(status) != 0)
-			g_exit_code = WEXITSTATUS(status);
+		g_exit_code = WEXITSTATUS(status);
 		signal(SIGINT, sig_handler);
 	}
 	return (0);

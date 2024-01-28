@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:03:39 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/27 18:21:43 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/28 01:12:58 by gbazart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void	exec_pipe(t_cmd *cmd, t_data *data)
 	}
 	else
 		exec_cmd(data, cmd);
+	exit(0);
 }
 
 /**
@@ -77,6 +78,7 @@ static void	child(t_cmd *cmd, t_data *data)
 	}
 	else if (cmd->pid == 0)
 	{
+		signal(SIGQUIT, sigquit_handler);
 		if (cmd->fd[0][0] > 0)
 			dup2(cmd->fd[0][0], STDIN_FILENO);
 		else if (cmd->prev)
@@ -87,7 +89,6 @@ static void	child(t_cmd *cmd, t_data *data)
 			dup2(cmd->fd[1][1], STDOUT_FILENO);
 		ft_close_fd(data->cmd);
 		exec_pipe(cmd, data);
-		exit(0);
 	}
 }
 
@@ -113,6 +114,7 @@ static void	end_pipe(t_cmd *cmd, t_data *data)
 	}
 	else if (cmd->pid == 0)
 	{
+		signal(SIGQUIT, sigquit_handler);
 		if (cmd->fd[0][0] > 0)
 			dup2(cmd->fd[0][0], STDIN_FILENO);
 		else
