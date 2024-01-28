@@ -80,6 +80,7 @@ t_exp	*init_expand(char *s)
 	t_exp	*exp;
 	t_exp	*ptr;
 	int		len;
+	int		in = 0;
 
 	exp = expnew(NULL, -1);
 	if (!s || !exp)
@@ -90,8 +91,20 @@ t_exp	*init_expand(char *s)
 	{
 		if (s[i] && s[i] == 39)
 			skip_quotes(s, &i);
-		while (i < len && s[i] != '$')
-			expand_func_3(s, &i);
+		while (i < len && s[i] && s[i] != '$')
+		{
+			if (s[i] && s[i] == 34)
+			{
+				if (!in)
+					in = 1;
+				else
+					in = 0;
+			}
+			if (s[i] && s[i] == 39 && !in)
+				skip_quotes(s, &i);
+			i++;
+			//expand_func_3(s, &i);
+		}
 		if (i < len && s[i] == '$')
 			init_func(s, &i, exp);
 		i++;
