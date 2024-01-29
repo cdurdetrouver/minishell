@@ -6,7 +6,7 @@
 /*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:49:46 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/26 19:03:01 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/29 13:07:10 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,16 @@ char	*expand_func_2(int *i, int *j, char *s, char *ret)
 	return (ret);
 }
 
-void	expand_func_3(char *s, int *i)
+void	expand_func_3(char *s, int *i, int *in)
 {
-	static int	in = 0;
-
 	if (s[*i] && s[*i] == 34)
-		in = !in;
-	if (s[*i] && s[*i] == 39 && !in)
+	{
+		if (!*in)
+			*in = 1;
+		else
+			*in = 0;
+	}
+	if (s[*i] && s[*i] == 39 && !*in)
 		skip_quotes(s, i);
 	(*i)++;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:47:53 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/28 01:11:56 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/29 13:03:53 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ int						env_char(char c);
 int						memory_needed(char *str, t_env *env, t_exp *exp);
 t_exp					*init_expand(char *s);
 char					*expand(char *s, t_env *env);
-void					expand_func_3(char *s, int *i);
+void					expand_func_3(char *s, int *i, int *in);
 
 // STR
 char					*remove_quotes(char *str);

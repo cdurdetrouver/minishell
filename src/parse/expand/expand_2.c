@@ -6,7 +6,7 @@
 /*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:41:25 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/27 14:42:12 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/29 13:06:43 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,37 +80,24 @@ t_exp	*init_expand(char *s)
 	t_exp	*exp;
 	t_exp	*ptr;
 	int		len;
-	int		in = 0;
+	int		in;
 
 	exp = expnew(NULL, -1);
 	if (!s || !exp)
 		return (NULL);
 	i = 0;
+	in = 0;
 	len = strlen(s);
 	while (i < len)
 	{
 		if (s[i] && s[i] == 39)
 			skip_quotes(s, &i);
 		while (i < len && s[i] && s[i] != '$')
-		{
-			if (s[i] && s[i] == 34)
-			{
-				if (!in)
-					in = 1;
-				else
-					in = 0;
-			}
-			if (s[i] && s[i] == 39 && !in)
-				skip_quotes(s, &i);
-			i++;
-			//expand_func_3(s, &i);
-		}
+			expand_func_3(s, &i, &in);
 		if (i < len && s[i] == '$')
 			init_func(s, &i, exp);
 		i++;
 	}
 	ptr = exp->next;
-	free(exp);
-	exp = ptr;
-	return (exp);
+	return (free(exp), exp = ptr);
 }
