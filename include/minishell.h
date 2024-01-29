@@ -6,7 +6,7 @@
 /*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:47:53 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/29 18:30:03 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:31:17 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,7 +227,8 @@ int						unset(char **args, t_data *data);
 
 // SIGNAL
 void					sig_handler(int signum);
-void					sigquit_handler(int sig);
+void					handle_sigquit(int sig);
+void					handle_sigint(int sig);
 
 // FREE
 void					free_start(t_data *data);
