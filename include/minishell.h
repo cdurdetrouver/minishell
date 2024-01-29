@@ -6,7 +6,7 @@
 /*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:47:53 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/29 13:03:53 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:20:00 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@
 # define MIN_LL "-9223372036854775808"
 # define MAX_LL "9223372036854775807"
 
-typedef struct s_sig	t_sig;
 extern int				g_exit_code;
 
 typedef enum e_type
@@ -55,8 +54,12 @@ typedef enum e_type
 	D_PIPE,
 	START,
 	END,
-	BADCHAR,
-	D_BADCHAR
+	ESPER,
+	BSLASH,
+	SCOLON,
+	DESPER,
+	DBSLASH,
+	DSCOLON
 }						t_type;
 
 typedef enum e_type_redir
@@ -157,6 +160,8 @@ void					tokenclear(t_token *lst);
 t_token					*tokenlast(t_token *lst);
 t_token					*tokenfirst(t_token *lst);
 t_type					get_type(char *s);
+t_type					ft_badchar(char *s);
+t_type					ft_dbadchar(char *s);
 t_token					*init_tokens(char *s);
 void					give_types(t_token *t);
 int						type_is_sep(t_type type);
@@ -214,7 +219,7 @@ bool					is_builtin(char *s);
 int						builtin(t_cmd *cmd, t_data *data, int print);
 int						cd(char **args, t_env *env);
 int						echo(char **args);
-int						env(t_env *env);
+int						env(t_env *env, char **args);
 void					exit_builtin(char **args, t_data *data, int print);
 int						export_builtin(char **args, t_data *data);
 int						pwd(t_data *data);
@@ -222,7 +227,8 @@ int						unset(char **args, t_data *data);
 
 // SIGNAL
 void					sig_handler(int signum);
-void					sigquit_handler(int sig);
+void					handle_sigquit(int sig);
+void					handle_sigint(int sig);
 
 // FREE
 void					free_start(t_data *data);

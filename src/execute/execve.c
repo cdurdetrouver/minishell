@@ -3,25 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:02:42 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/28 01:12:12 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/29 18:23:59 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /**
- * @brief sigquit heandler for child
- *
- * @param sig
- */
-void	sigquit_handler(int sig)
+ * @brief check if the command is a directory.
+ * 
+ * @param cmd (char *) cmd
+ * @return (bool) true if it is, false if not.
+*/
+bool	is_directory(char *cmd)
 {
-	(void)sig;
-	write(1, "Quit (core dumped)\n", 19);
-	exit(1);
+	struct stat	buf;
+
+	if (!cmd)
+		return (false);
+	if (!ft_strrchr(cmd, '/'))
+		return (false);
+	if (stat(cmd, &buf) == -1)
+		return (false);
+	if (S_ISDIR(buf.st_mode))
+		return (true);
+	if (S_ISREG(buf.st_mode))
+		return (false);
+	return (false);
 }
 
 /**
@@ -78,6 +89,13 @@ void	free_and_close(t_data *data)
  */
 void	exec_cmd(t_data *data, t_cmd *cmd)
 {
+	if (is_directory(cmd->argv[0]))
+	{
+		ft_putstr_fd(cmd->argv[0], 2);
+		ft_putstr_fd(": Is a directory\n", 2);
+		free_and_close(data);
+		exit(126);
+	}
 	cmd->cmd_path = get_cmd_path(data, cmd->argv[0]);
 	if (cmd->cmd_path == NULL)
 	{
@@ -96,8 +114,6 @@ void	exec_cmd(t_data *data, t_cmd *cmd)
 		free_and_close(data);
 		exit(126);
 	}
-	free_and_close(data);
-	exit(0);
 }
 
 /**
@@ -119,16 +135,18 @@ int	exec(t_data *data, t_cmd *cmd)
 	}
 	else if (cmd->pid == 0)
 	{
-		signal(SIGQUIT, sigquit_handler);
+		signal(SIGQUIT, SIG_DFL);
 		exec_cmd(data, cmd);
-		exit(0);
 	}
 	else
 	{
-		signal(SIGINT, SIG_IGN);
+		signal(SIGINT, handle_sigint);
+		signal(SIGQUIT, handle_sigquit);
 		waitpid(cmd->pid, &status, 0);
-		g_exit_code = WEXITSTATUS(status);
+		if (g_exit_code != 130 && g_exit_code != 131)
+			g_exit_code = WEXITSTATUS(status);
 		signal(SIGINT, sig_handler);
+		signal(SIGQUIT, SIG_IGN);
 	}
 	return (0);
 }

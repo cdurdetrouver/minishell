@@ -6,7 +6,7 @@
 /*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 23:19:50 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/27 15:35:32 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:20:19 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@
  * @param env (char **) env
  * @return (int) 1 if it works, 0 if don't.
  */
-int	env(t_env *env)
+int	env(t_env *env, char **args)
 {
 	t_env	*tmp;
 
+	if (args[1])
+		return (g_exit_code = 1);
 	tmp = env;
 	while (tmp)
 	{

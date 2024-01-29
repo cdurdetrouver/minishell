@@ -6,7 +6,7 @@
 /*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 17:51:12 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/26 18:38:30 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/29 13:46:48 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_type	get_type(char *s)
 			return (PIPE);
 		if (!ft_strncmp(s, ";", 1) || (!ft_strncmp(s, "\\", 1))
 			|| (!ft_strncmp(s, "&", 1)))
-			return (BADCHAR);
+			return (ft_badchar(s));
 	}
 	else if (ft_strlen(s) == 2)
 	{
@@ -52,7 +52,7 @@ t_type	get_type(char *s)
 			return (D_PIPE);
 		if (!ft_strncmp(s, ";;", 2) || (!ft_strncmp(s, "\\\\", 2))
 			|| (!ft_strncmp(s, "&&", 2)))
-			return (D_BADCHAR);
+			return (ft_dbadchar(s));
 	}
 	return (ARG);
 }

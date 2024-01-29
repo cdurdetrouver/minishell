@@ -6,7 +6,7 @@
 /*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 16:31:16 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/26 18:44:08 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/29 13:47:52 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,9 @@ t_token	*tokennew(char *content, t_type type)
 int	type_is_sep(t_type type)
 {
 	if (type == PIPE || type == D_PIPE || type == D_GREAT || type == D_LESS
-		|| type == BADCHAR || type == D_BADCHAR || type == GREAT
-		|| type == LESS)
+		|| type == SCOLON || type == ESPER || type == BSLASH
+		|| type == DESPER || type == DBSLASH || type == DSCOLON
+		|| type == GREAT || type == LESS)
 		return (1);
 	return (0);
 }

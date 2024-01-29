@@ -6,7 +6,7 @@
 /*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 14:17:26 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/26 18:37:31 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:15:26 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	print_error(char *err)
 {
-	ft_putstr_fd("Syntax error near unexpected token ", 2);
-	ft_putendl_fd(err, 2);
 	g_exit_code = 2;
+	ft_putstr_fd("syntax error near unexpected token ", 2);
+	ft_putendl_fd(err, 2);
 }
 
 int	parse_pipes(t_cmd *cmd)
@@ -25,13 +25,18 @@ int	parse_pipes(t_cmd *cmd)
 	{
 		while (cmd->token)
 		{
-			if (cmd->token->type == BADCHAR || cmd->token->type == END)
-				return (print_error(""), 0);
-			if (cmd->token->type == D_BADCHAR || cmd->token->type == END)
-				return (print_error(""), 0);
+			if (cmd->token->type == SCOLON || cmd->token->type == DSCOLON
+				|| cmd->token->type == END)
+				return (print_error("`;'"), 0);
+			if (cmd->token->type == BSLASH || cmd->token->type == DBSLASH
+				|| cmd->token->type == END)
+				return (print_error("`\\'"), 0);
+			if (cmd->token->type == ESPER || cmd->token->type == DESPER
+				|| cmd->token->type == END)
+				return (print_error("`&'"), 0);
 			if (cmd->token->type == PIPE || cmd->token->type == D_PIPE
 				|| cmd->token->type == END)
-				return (print_error("|"), 0);
+				return (print_error("`|'"), 0);
 			if (cmd->token->next)
 				cmd->token = cmd->token->next;
 			else
@@ -54,9 +59,9 @@ int	parse_redirections(t_cmd *cmd)
 				if (!cmd->token->next)
 				{
 					if (!cmd->next)
-						return (print_error("$"), 0);
+						return (print_error("`newline'"), 0);
 					else
-						return (print_error("|"), 0);
+						return (print_error("`|'"), 0);
 				}
 				else if (!err_redir(cmd->token->next))
 					return (print_error(cmd->token->content), 0);

@@ -6,7 +6,7 @@
 /*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:06:36 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/27 18:38:49 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:25:07 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int	export_builtin(char **args, t_data *data)
 
 	i = 1;
 	if (!args[1])
-		return (env(data->env));
+		return (env(data->env, args));
 	while (args[i])
 	{
 		if (check_args(args[i]) == true)

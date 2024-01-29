@@ -6,7 +6,7 @@
 /*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:10:21 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/27 15:32:32 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:12:04 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,17 @@ static int	redirect(t_cmd *cmd)
  *
  * @param cmd (t_cmd *)
  */
-static void	close_all(t_cmd *cmd)
-{
+static void	close_all(t_cmd *cmd, t_data *data)
+{	
+	int	i;
+
+	i = 0;
+	while (cmd->argv[i])
+		i++;
+	if (cmd->argv[0])
+		ft_setenv(&data->env, "_", cmd->argv[i - 1]);
+	else
+		ft_setenv(&data->env, "_", "");
 	if (cmd->fd[0][0] > 0)
 		close(cmd->fd[0][0]);
 	if (cmd->fd[0][1] > 1)
@@ -61,16 +70,15 @@ static void	exec_one(t_cmd *cmd, t_data *data)
 {
 	if (cmd_open(cmd) == -1)
 	{
-		close_all(cmd);
-		g_exit_code = 1;
+		close_all(cmd, data);
 		return ;
 	}
 	if (redirect(cmd) == -1)
 	{
-		close_all(cmd);
+		close_all(cmd, data);
 		return ;
 	}
-	close_all(cmd);
+	close_all(cmd, data);
 	if (!cmd->argv[0])
 		return ;
 	if (is_builtin(cmd->argv[0]) == true)

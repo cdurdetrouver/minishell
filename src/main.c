@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:50:02 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/28 00:32:00 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/29 18:26:54 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,7 @@ static void	minishell(t_data *data)
 		data->line = readline(getprompt(data));
 		if (data->line == NULL)
 		{
-			ft_putendl_fd("exit", 2);
-			g_exit_code = 0;
+			ft_putstr_fd("exit\n", 1);
 			break ;
 		}
 		add_history(data->line);
@@ -82,11 +81,22 @@ static void	minishell(t_data *data)
  */
 static void	init_data(t_data *data, char **envp)
 {
+	char	buff[4096];
+	char	*tmp;
+	char	*pwd;
+
 	data->env_cpy = ft_ssdup(envp);
 	data->env = NULL;
 	create_env_list(&data->env, envp);
 	if (!envp[0])
 	{
+		tmp = getcwd(buff, 4096);
+		if (tmp)
+		{
+			pwd = ft_strjoin("PWD=", tmp);
+			env_add_back(&data->env, env_new(pwd));
+			free(pwd);
+		}
 		env_add_back(&data->env, env_new("_=/usr/bin/env"));
 		env_add_back(&data->env, env_new("SHLVL=1"));
 	}

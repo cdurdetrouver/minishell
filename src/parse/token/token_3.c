@@ -6,7 +6,7 @@
 /*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 19:12:37 by hlamnaou          #+#    #+#             */
-/*   Updated: 2024/01/26 18:44:44 by hlamnaou         ###   ########.fr       */
+/*   Updated: 2024/01/29 13:47:42 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,26 @@ void	quote(t_token *t)
 		t = t->next;
 	}
 	t = tokenfirst(t);
+}
+
+t_type	ft_badchar(char *s)
+{
+	if (!ft_strncmp(s, ";", 1))
+		return (SCOLON);
+	if (!ft_strncmp(s, "\\", 1))
+		return (BSLASH);
+	if (!ft_strncmp(s, "&", 1))
+		return (ESPER);
+	return (ARG);
+}
+
+t_type	ft_dbadchar(char *s)
+{
+	if (!ft_strncmp(s, ";;", 2))
+		return (DSCOLON);
+	if (!ft_strncmp(s, "\\\\", 2))
+		return (DBSLASH);
+	if (!ft_strncmp(s, "&&", 2))
+		return (DESPER);
+	return (ARG);
 }

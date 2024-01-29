@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazart <gabriel.bazart@gmail.com>         +#+  +:+       +#+        */
+/*   By: hlamnaou <hlamnaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:03:39 by gbazart           #+#    #+#             */
-/*   Updated: 2024/01/28 01:12:58 by gbazart          ###   ########.fr       */
+/*   Updated: 2024/01/29 17:54:08 by hlamnaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,12 @@ static void	wait_for_children(t_cmd *cmd)
 	signal(SIGINT, SIG_IGN);
 	while (cmd)
 	{
-		waitpid(cmd->pid, &status, 0);
-		g_exit_code = WEXITSTATUS(status);
+		if (cmd->pid > 0)
+		{
+			waitpid(cmd->pid, &status, 0);
+			if (!(cmd->next))
+				g_exit_code = WEXITSTATUS(status);
+		}
 		cmd = cmd->next;
 	}
 	signal(SIGINT, sig_handler);
@@ -66,10 +70,7 @@ static void	wait_for_children(t_cmd *cmd)
 static void	child(t_cmd *cmd, t_data *data)
 {
 	if (cmd_open(cmd) == -1)
-	{
-		g_exit_code = 1;
 		return ;
-	}
 	cmd->pid = fork();
 	if (cmd->pid < 0)
 	{
@@ -78,7 +79,7 @@ static void	child(t_cmd *cmd, t_data *data)
 	}
 	else if (cmd->pid == 0)
 	{
-		signal(SIGQUIT, sigquit_handler);
+		signal(SIGQUIT, SIG_DFL);
 		if (cmd->fd[0][0] > 0)
 			dup2(cmd->fd[0][0], STDIN_FILENO);
 		else if (cmd->prev)
@@ -102,10 +103,7 @@ static void	child(t_cmd *cmd, t_data *data)
 static void	end_pipe(t_cmd *cmd, t_data *data)
 {
 	if (cmd_open(cmd) == -1)
-	{
-		g_exit_code = 1;
 		return ;
-	}
 	cmd->pid = fork();
 	if (cmd->pid < 0)
 	{
@@ -114,7 +112,7 @@ static void	end_pipe(t_cmd *cmd, t_data *data)
 	}
 	else if (cmd->pid == 0)
 	{
-		signal(SIGQUIT, sigquit_handler);
+		signal(SIGQUIT, SIG_DFL);
 		if (cmd->fd[0][0] > 0)
 			dup2(cmd->fd[0][0], STDIN_FILENO);
 		else
